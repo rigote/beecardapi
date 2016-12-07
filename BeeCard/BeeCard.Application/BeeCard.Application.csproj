@@ -46,6 +46,12 @@
     <Folder Include="Interfaces\" />
     <Folder Include="Services\" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\BeeCard.Domain\BeeCard.Domain.csproj">
+      <Project>{da7eb2e2-dcc8-4894-b80a-f27889f9b941}</Project>
+      <Name>BeeCard.Domain</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
