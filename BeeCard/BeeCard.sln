@@ -5,6 +5,24 @@ VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BeeCard.Infrastructure", "BeeCard.Infrastructure\BeeCard.Infrastructure.csproj", "{9D04562E-DD1D-4948-81F4-063FC4C14C05}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "0 - API", "0 - API", "{FD59FBE4-B6AE-4233-B1B1-71649741AFEA}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "1 - Domain", "1 - Domain", "{9DDD9AD1-D113-4B3D-B558-5F91E6BBB69C}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "2 - Application", "2 - Application", "{1EAD4627-8995-41EF-BBF1-88360C24DEE6}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "3 - Infrastructure", "3 - Infrastructure", "{4F2A1D49-DBBD-4BB0-98B9-8DE27F30E8D6}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "4 - Utils", "4 - Utils", "{34E722B8-F68F-481F-A37E-45111C964C43}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BeeCard.Utils.DependencyInjection", "BeeCard.Utils.DependencyInjection\BeeCard.Utils.DependencyInjection.csproj", "{767A9A4D-DE75-4CC8-A912-D038BC43AD5B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BeeCard.API", "BeeCard.API\BeeCard.API.csproj", "{B28D4D69-F6E0-4C4E-A0BC-CDA510A7608A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BeeCard.Application", "BeeCard.Application\BeeCard.Application.csproj", "{0C3C9016-DC94-46F2-B047-41A4FEDA9C61}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BeeCard.Domain", "BeeCard.Domain\BeeCard.Domain.csproj", "{DA7EB2E2-DCC8-4894-B80A-F27889F9B941}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,8 +33,31 @@ Global
 		{9D04562E-DD1D-4948-81F4-063FC4C14C05}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9D04562E-DD1D-4948-81F4-063FC4C14C05}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9D04562E-DD1D-4948-81F4-063FC4C14C05}.Release|Any CPU.Build.0 = Release|Any CPU
+		{767A9A4D-DE75-4CC8-A912-D038BC43AD5B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{767A9A4D-DE75-4CC8-A912-D038BC43AD5B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{767A9A4D-DE75-4CC8-A912-D038BC43AD5B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{767A9A4D-DE75-4CC8-A912-D038BC43AD5B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B28D4D69-F6E0-4C4E-A0BC-CDA510A7608A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B28D4D69-F6E0-4C4E-A0BC-CDA510A7608A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B28D4D69-F6E0-4C4E-A0BC-CDA510A7608A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B28D4D69-F6E0-4C4E-A0BC-CDA510A7608A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0C3C9016-DC94-46F2-B047-41A4FEDA9C61}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0C3C9016-DC94-46F2-B047-41A4FEDA9C61}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0C3C9016-DC94-46F2-B047-41A4FEDA9C61}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0C3C9016-DC94-46F2-B047-41A4FEDA9C61}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DA7EB2E2-DCC8-4894-B80A-F27889F9B941}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DA7EB2E2-DCC8-4894-B80A-F27889F9B941}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DA7EB2E2-DCC8-4894-B80A-F27889F9B941}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DA7EB2E2-DCC8-4894-B80A-F27889F9B941}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{9D04562E-DD1D-4948-81F4-063FC4C14C05} = {4F2A1D49-DBBD-4BB0-98B9-8DE27F30E8D6}
+		{767A9A4D-DE75-4CC8-A912-D038BC43AD5B} = {34E722B8-F68F-481F-A37E-45111C964C43}
+		{B28D4D69-F6E0-4C4E-A0BC-CDA510A7608A} = {FD59FBE4-B6AE-4233-B1B1-71649741AFEA}
+		{0C3C9016-DC94-46F2-B047-41A4FEDA9C61} = {1EAD4627-8995-41EF-BBF1-88360C24DEE6}
+		{DA7EB2E2-DCC8-4894-B80A-F27889F9B941} = {9DDD9AD1-D113-4B3D-B558-5F91E6BBB69C}
 	EndGlobalSection
 EndGlobal
