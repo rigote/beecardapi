@@ -40,13 +40,21 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Entities\BaseCardEntity.cs" />
     <Compile Include="Entities\BaseEntity.cs" />
     <Compile Include="Entities\Company.cs" />
+    <Compile Include="Entities\CompanyGroup.cs" />
+    <Compile Include="Entities\CompanyType.cs" />
+    <Compile Include="Entities\CorporateCard.cs" />
+    <Compile Include="Entities\Country.cs" />
     <Compile Include="Entities\Enum\EntityStatus.cs" />
+    <Compile Include="Entities\Enum\RequestStatus.cs" />
     <Compile Include="Entities\Enum\SubscriptionStatus.cs" />
     <Compile Include="Entities\Enum\SubscriptionType.cs" />
+    <Compile Include="Entities\Leads.cs" />
     <Compile Include="Entities\PersonalCard.cs" />
     <Compile Include="Entities\Plan.cs" />
+    <Compile Include="Entities\SubscriptionHistory.cs" />
     <Compile Include="Entities\User.cs" />
     <Compile Include="Entities\UserGroup.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
