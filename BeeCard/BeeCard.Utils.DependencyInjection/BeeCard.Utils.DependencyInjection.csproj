@@ -71,9 +71,6 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <WCFMetadata Include="Service References\" />
-  </ItemGroup>
-  <ItemGroup>
     <ProjectReference Include="..\BeeCard.Application\BeeCard.Application.csproj">
       <Project>{0c3c9016-dc94-46f2-b047-41a4feda9c61}</Project>
       <Name>BeeCard.Application</Name>

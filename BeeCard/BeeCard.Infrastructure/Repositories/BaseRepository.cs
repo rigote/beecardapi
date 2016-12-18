@@ -12,9 +12,9 @@ namespace BeeCard.Infrastructure.Repositories
     {
         private readonly Context _context;
 
-        public BaseRepository()
+        public BaseRepository(Context context)
         {
-            _context = new Context();
+            _context = context;
         }
 
         public void Add(T entity)

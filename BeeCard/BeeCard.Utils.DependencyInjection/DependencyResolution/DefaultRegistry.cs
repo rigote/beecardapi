@@ -1,6 +1,8 @@
-﻿using BeeCard.Application.Interfaces;
-using BeeCard.Application.Services;
-using StructureMap;
+﻿using BeeCard.Domain.Interfaces.Repositories;
+using BeeCard.Domain.Interfaces.Services;
+using BeeCard.Domain.Services;
+using BeeCard.Infrastructure;
+using BeeCard.Infrastructure.Repositories;
 using StructureMap.Configuration.DSL;
 
 namespace BeeCard.Utils.DependencyInjection.DependencyResolution
@@ -9,7 +11,13 @@ namespace BeeCard.Utils.DependencyInjection.DependencyResolution
     {
         public DefaultRegistry()
         {
-            For<ITestAppService>().Use<TestAppService>();
+            For<Context>().Use<Context>();
+
+            For(typeof(IBaseService<>)).Use(typeof(BaseService<>));
+            For(typeof(IBaseRepository<>)).Use(typeof(BaseRepository<>));
+
+            For<ICompanyService>().Use<CompanyService>();
+            For<ICompanyRepository>().Use<CompanyRepository>();
         }
     }
 }
