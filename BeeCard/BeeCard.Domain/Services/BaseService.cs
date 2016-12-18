@@ -15,9 +15,29 @@ namespace BeeCard.Domain.Services
             _repository = repository;
         }
 
-        public void Add(T entity)
+        public virtual void Add(T entity)
         {
             _repository.Add(entity);
+        }        
+
+        public virtual IEnumerable<T> Find(Expression<Func<T, bool>> predicate = null, params Expression<Func<T, object>>[] includeExpressions)
+        {
+            return _repository.Find(predicate, includeExpressions);
+        }
+
+        public virtual IEnumerable<T> GetAll(params Expression<Func<T, object>>[] includeExpressions)
+        {
+            return _repository.GetAll(includeExpressions);
+        }
+
+        public virtual void Remove(T entity)
+        {
+            _repository.Remove(entity);
+        }
+
+        public virtual void Update(T entity)
+        {
+            _repository.Update(entity);
         }
 
         public void Dispose()
@@ -25,27 +45,7 @@ namespace BeeCard.Domain.Services
             if (_repository != null)
             {
                 _repository.Dispose();
-            }            
-        }
-
-        public IEnumerable<T> Find(Expression<Func<T, bool>> predicate = null, params Expression<Func<T, object>>[] includeExpressions)
-        {
-            return _repository.Find(predicate, includeExpressions);
-        }
-
-        public IEnumerable<T> GetAll(params Expression<Func<T, object>>[] includeExpressions)
-        {
-            return _repository.GetAll(includeExpressions);
-        }
-
-        public void Remove(T entity)
-        {
-            _repository.Remove(entity);
-        }
-
-        public void Update(T entity)
-        {
-            _repository.Update(entity);
+            }
         }
     }
 }

@@ -17,13 +17,13 @@ namespace BeeCard.Infrastructure.Repositories
             _context = context;
         }
 
-        public void Add(T entity)
+        public virtual void Add(T entity)
         {
             _context.Set<T>().Add(entity);
             _context.SaveChanges();
         }        
 
-        public List<T> Find(Expression<Func<T, bool>> predicate = null, params Expression<Func<T, object>>[] includeExpressions)
+        public virtual List<T> Find(Expression<Func<T, bool>> predicate = null, params Expression<Func<T, object>>[] includeExpressions)
         {
             List<T> result = new List<T>();
             IQueryable<T> query = _context.Set<T>();
@@ -42,7 +42,7 @@ namespace BeeCard.Infrastructure.Repositories
             return result;
         }
 
-        public List<T> GetAll(params Expression<Func<T, object>>[] includeExpressions)
+        public virtual List<T> GetAll(params Expression<Func<T, object>>[] includeExpressions)
         {
             List<T> result = new List<T>();
             IQueryable<T> query = _context.Set<T>();
@@ -58,13 +58,13 @@ namespace BeeCard.Infrastructure.Repositories
             return result;
         }
 
-        public void Remove(T entity)
+        public virtual void Remove(T entity)
         {
             _context.Set<T>().Remove(entity);
             _context.SaveChanges();
         }
 
-        public void Update(T entity)
+        public virtual void Update(T entity)
         {
             _context.Entry<T>(entity).State = EntityState.Modified;
             _context.SaveChanges();

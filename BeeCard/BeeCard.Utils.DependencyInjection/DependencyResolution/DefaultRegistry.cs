@@ -18,6 +18,36 @@ namespace BeeCard.Utils.DependencyInjection.DependencyResolution
 
             For<ICompanyService>().Use<CompanyService>();
             For<ICompanyRepository>().Use<CompanyRepository>();
+
+            For<ICompanyGroupService>().Use<CompanyGroupService>();
+            For<ICompanyGroupRepository>().Use<CompanyGroupRepository>();
+
+            For<ICompanyTypeService>().Use<CompanyTypeService>();
+            For<ICompanyTypeRepository>().Use<CompanyTypeRepository>();
+
+            For<ICorporateCardService>().Use<CorporateCardService>();
+            For<ICorporateCardRepository>().Use<CorporateCardRepository>();
+
+            For<ICountryService>().Use<CountryService>();
+            For<ICountryRepository>().Use<CountryRepository>();
+
+            For<ILeadService>().Use<LeadService>();
+            For<ILeadRepository>().Use<LeadRepository>();
+
+            For<IPersonalCardService>().Use<PersonalCardService>();
+            For<IPersonalCardRepository>().Use<PersonalCardRepository>();
+
+            For<IPlanService>().Use<PlanService>();
+            For<IPlanRepository>().Use<PlanRepository>();
+
+            For<ISubscriptionHistoryService>().Use<SubscriptionHistoryService>();
+            For<ISubscriptionHistoryRepository>().Use<SubscriptionHistoryRepository>();
+
+            For<IUserService>().Use<UserService>();
+            For<IUserRepository>().Use<UserRepository>();
+
+            For<IUserGroupService>().Use<UserGroupService>();
+            For<IUserGroupRepository>().Use<UserGroupRepository>();
         }
     }
 }

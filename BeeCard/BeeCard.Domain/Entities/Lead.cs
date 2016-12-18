@@ -2,7 +2,7 @@
 
 namespace BeeCard.Domain.Entities
 {
-    public class Leads : BaseEntity
+    public class Lead : BaseEntity
     {
         public Guid? PersonalCardID { get; set; }
         public Guid? CorporateCardID { get; set; }
