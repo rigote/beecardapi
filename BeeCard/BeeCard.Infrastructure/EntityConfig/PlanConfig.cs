@@ -1,13 +1,14 @@
 ﻿using BeeCard.Domain.Entities;
-using System.Data.Entity.ModelConfiguration;
 
 namespace BeeCard.Infrastructure.EntityConfig
 {
-    class PlanConfig : EntityTypeConfiguration<Plan>
+    class PlanConfig : BaseEntityConfig<Plan>
     {
         public PlanConfig()
+            : base("Plan")
         {
-
+            Property(p => p.Name).HasMaxLength(100);
+            Property(p => p.Description).HasMaxLength(500);
         }
     }
 }

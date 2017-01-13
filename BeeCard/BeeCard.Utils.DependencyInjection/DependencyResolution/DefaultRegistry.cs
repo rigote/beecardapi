@@ -1,4 +1,6 @@
-﻿using BeeCard.Domain.Interfaces.Repositories;
+﻿using BeeCard.Application.Interfaces;
+using BeeCard.Application.Services;
+using BeeCard.Domain.Interfaces.Repositories;
 using BeeCard.Domain.Interfaces.Services;
 using BeeCard.Domain.Services;
 using BeeCard.Infrastructure;
@@ -43,6 +45,7 @@ namespace BeeCard.Utils.DependencyInjection.DependencyResolution
             For<ISubscriptionHistoryService>().Use<SubscriptionHistoryService>();
             For<ISubscriptionHistoryRepository>().Use<SubscriptionHistoryRepository>();
 
+            For<IUserAppService>().Use<UserAppService>();
             For<IUserService>().Use<UserService>();
             For<IUserRepository>().Use<UserRepository>();
 

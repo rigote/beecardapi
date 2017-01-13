@@ -1,13 +1,13 @@
 ﻿using BeeCard.Domain.Entities;
-using System.Data.Entity.ModelConfiguration;
 
 namespace BeeCard.Infrastructure.EntityConfig
 {
-    class CountryConfig : EntityTypeConfiguration<Country>
+    class CountryConfig : BaseEntityConfig<Country>
     {
         public CountryConfig()
+            : base("Country")
         {
-
+            Property(p => p.Name).HasMaxLength(200);
         }
     }
 }

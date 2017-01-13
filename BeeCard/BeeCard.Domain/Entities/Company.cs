@@ -27,14 +27,18 @@ namespace BeeCard.Domain.Entities
         public Guid CountryID { get; set; }
         public Guid CompanyTypeID { get; set; }
 
-        public virtual ICollection<SubscriptionHistory> SubscriptionsHistory { get; set; }
+        public virtual Plan Plan { get; set; }
+        public virtual Country Country { get; set; }
+        public virtual CompanyType CompanyType { get; set; }
+
         public virtual ICollection<CorporateCard> CorporateCards { get; set; }
+        public virtual ICollection<SubscriptionHistory> SubscriptionsHistory { get; set; }        
         public virtual ICollection<CompanyGroup> CompanyGroups { get; set; }
 
         public Company()
         {
             SubscriptionsHistory = new List<SubscriptionHistory>();
-            CorporateCards = new List<CorporateCard>();
+            CompanyGroups = new List<CompanyGroup>();
         }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace BeeCard.Domain.Entities
 {
@@ -11,5 +12,13 @@ namespace BeeCard.Domain.Entities
 
         public virtual Company Company { get; set; }
         public virtual User User { get; set; }
+        public virtual ICollection<Lead> Leads { get; set; }
+        public virtual ICollection<UserGroup> UserGroups { get; set; }
+
+        public CorporateCard()
+        {
+            UserGroups = new List<UserGroup>();
+            Leads = new List<Lead>();
+        }
     }
 }
