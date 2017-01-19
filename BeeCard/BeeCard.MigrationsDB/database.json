@@ -1,0 +1,15 @@
+﻿{
+  "dev": "postgres://postgres:123456@localhost/beecard",
+
+  "test": {
+    "driver": "sqlite3",
+    "filename": ":memory:"
+  },
+
+  "prod": {
+    "driver": "pg",
+    "user": "postgres",
+    "password": "123456",
+    "database": "beecard"
+  }
+}

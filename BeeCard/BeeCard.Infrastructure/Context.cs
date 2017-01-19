@@ -7,9 +7,9 @@ namespace BeeCard.Infrastructure
     public class Context : DbContext
     {
         public Context()
-            : base()
+            : base("BeeCard")
         {
-
+            Configuration.LazyLoadingEnabled = false;
         }
 
         public DbSet<Company> Companies { get; set; }
@@ -26,6 +26,8 @@ namespace BeeCard.Infrastructure
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
+            modelBuilder.HasDefaultSchema("public");
+
             modelBuilder.Configurations.Add(new CompanyConfig());
             modelBuilder.Configurations.Add(new CompanyGroupConfig());
             modelBuilder.Configurations.Add(new CompanyTypeConfig());

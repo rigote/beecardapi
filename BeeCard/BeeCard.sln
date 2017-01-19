@@ -27,6 +27,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "5 - Tests", "5 - Tests", "{
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BeeCard.Tests", "BeeCard.Tests\BeeCard.Tests.csproj", "{89ACA45E-21C3-4D48-BA2B-94DE66F16E8D}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "6 - Services", "6 - Services", "{8A7B5767-5C21-426A-87D2-6A98F100A332}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BeeCard.MigrationsDB", "BeeCard.MigrationsDB\BeeCard.MigrationsDB.csproj", "{C50866F9-0AE8-4C78-A611-D5C19919FD2E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -57,6 +61,10 @@ Global
 		{89ACA45E-21C3-4D48-BA2B-94DE66F16E8D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{89ACA45E-21C3-4D48-BA2B-94DE66F16E8D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{89ACA45E-21C3-4D48-BA2B-94DE66F16E8D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C50866F9-0AE8-4C78-A611-D5C19919FD2E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C50866F9-0AE8-4C78-A611-D5C19919FD2E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C50866F9-0AE8-4C78-A611-D5C19919FD2E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C50866F9-0AE8-4C78-A611-D5C19919FD2E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -68,5 +76,6 @@ Global
 		{0C3C9016-DC94-46F2-B047-41A4FEDA9C61} = {1EAD4627-8995-41EF-BBF1-88360C24DEE6}
 		{DA7EB2E2-DCC8-4894-B80A-F27889F9B941} = {9DDD9AD1-D113-4B3D-B558-5F91E6BBB69C}
 		{89ACA45E-21C3-4D48-BA2B-94DE66F16E8D} = {F9706C36-CB04-4C08-AB60-4E87ED82AF98}
+		{C50866F9-0AE8-4C78-A611-D5C19919FD2E} = {8A7B5767-5C21-426A-87D2-6A98F100A332}
 	EndGlobalSection
 EndGlobal
