@@ -3,7 +3,7 @@ using BeeCard.Domain.Interfaces.Repositories;
 
 namespace BeeCard.Infrastructure.Repositories
 {
-    public class LeadRepository : BaseRepository<Lead>, ILeadRepository
+    public class LeadRepository : BaseEntityRepository<Lead>, ILeadRepository
     {
         private readonly Context _context;
 

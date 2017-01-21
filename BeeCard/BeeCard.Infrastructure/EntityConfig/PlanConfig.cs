@@ -7,7 +7,7 @@ namespace BeeCard.Infrastructure.EntityConfig
         public PlanConfig()
             : base("Plan")
         {
-            Property(p => p.Name).HasMaxLength(100);
+            Property(p => p.Name).HasMaxLength(100).IsRequired();
             Property(p => p.Description).HasMaxLength(500);
         }
     }

@@ -14,8 +14,8 @@ namespace BeeCard.Infrastructure.EntityConfig
                 .WithMany(u => u.UserGroups)
                 .Map(m =>
                 {
-                    m.MapLeftKey("PersonalCard_ID");
-                    m.MapLeftKey("UserGroup_ID");
+                    m.MapLeftKey("PersonalCardID");
+                    m.MapLeftKey("UserGroupID");
                     m.ToTable("UserGroup_PersonalCard");
                 });
 
@@ -23,8 +23,8 @@ namespace BeeCard.Infrastructure.EntityConfig
                 .WithMany(u => u.UserGroups)
                 .Map(m =>
                 {
-                    m.MapLeftKey("CorporateCard_ID");
-                    m.MapLeftKey("UserGroup_ID");
+                    m.MapLeftKey("CorporateCardID");
+                    m.MapLeftKey("UserGroupID");
                     m.ToTable("UserGroup_CorporateCard");
                 });
         }

@@ -2,6 +2,7 @@
 using BeeCard.Domain.Entities;
 using Newtonsoft.Json;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
@@ -20,34 +21,34 @@ namespace BeeCard.API.Controllers
 
         [HttpGet]
         [Route("api/users/{id}")]
-        public IHttpActionResult Get(Guid id)
+        public User Get(Guid id)
         {
             try
             {
                 var user = _userService.GetUser(id);
 
-                if (user != null)
-                    return ResponseMessage(new HttpResponseMessage { StatusCode = HttpStatusCode.OK, Content = new StringContent(JsonConvert.SerializeObject(user)) });
+                if (user == null)
+                    throw new HttpResponseException(Request.CreateResponse(HttpStatusCode.NotFound));
                 else
-                    return ResponseMessage(new HttpResponseMessage { StatusCode = HttpStatusCode.NotFound });
+                    return user;
             }
             catch(Exception ex)
             {
-                return ResponseMessage(new HttpResponseMessage { StatusCode = HttpStatusCode.BadRequest, Content = new StringContent(JsonConvert.SerializeObject(ex)) });
+                throw new HttpResponseException(Request.CreateResponse(HttpStatusCode.BadRequest, new StringContent(JsonConvert.SerializeObject(ex))));
             }
         }
 
         [HttpGet]
         [Route("api/users/")]
-        public IHttpActionResult GetAll()
+        public IEnumerable<User> GetAll()
         {
             try
             {
-                return ResponseMessage(new HttpResponseMessage { StatusCode = HttpStatusCode.OK, Content = new StringContent(JsonConvert.SerializeObject(_userService.GetAll().ToList())) });
+                return _userService.GetAll();
             }
             catch (Exception ex)
             {
-                return ResponseMessage(new HttpResponseMessage { StatusCode = HttpStatusCode.BadRequest, Content = new StringContent(JsonConvert.SerializeObject(ex)) });
+                throw new HttpResponseException(Request.CreateResponse(HttpStatusCode.BadRequest, new StringContent(JsonConvert.SerializeObject(ex))));
             }
         }
 

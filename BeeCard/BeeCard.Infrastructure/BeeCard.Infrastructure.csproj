@@ -76,6 +76,7 @@
     <Compile Include="EntityConfig\UserConfig.cs" />
     <Compile Include="EntityConfig\UserGroupConfig.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Repositories\BaseEntityRepository.cs" />
     <Compile Include="Repositories\BaseRepository.cs" />
     <Compile Include="Repositories\CompanyGroupRepository.cs" />
     <Compile Include="Repositories\CompanyRepository.cs" />

@@ -3,7 +3,7 @@ using BeeCard.Domain.Interfaces.Repositories;
 
 namespace BeeCard.Infrastructure.Repositories
 {
-    public class SubscriptionHistoryRepository : BaseRepository<SubscriptionHistory>, ISubscriptionHistoryRepository
+    public class SubscriptionHistoryRepository : BaseEntityRepository<SubscriptionHistory>, ISubscriptionHistoryRepository
     {
         private readonly Context _context;
 

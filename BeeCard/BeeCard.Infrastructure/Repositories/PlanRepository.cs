@@ -3,7 +3,7 @@ using BeeCard.Domain.Interfaces.Repositories;
 
 namespace BeeCard.Infrastructure.Repositories
 {
-    public class PlanRepository : BaseRepository<Plan>, IPlanRepository
+    public class PlanRepository : BaseEntityRepository<Plan>, IPlanRepository
     {
         private readonly Context _context;
 

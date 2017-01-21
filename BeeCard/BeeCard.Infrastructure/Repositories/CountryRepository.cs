@@ -3,7 +3,7 @@ using BeeCard.Domain.Interfaces.Repositories;
 
 namespace BeeCard.Infrastructure.Repositories
 {
-    public class CountryRepository : BaseRepository<Country>, ICountryRepository
+    public class CountryRepository : BaseEntityRepository<Country>, ICountryRepository
     {
         private readonly Context _context;
 

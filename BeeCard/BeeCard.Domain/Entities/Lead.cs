@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BeeCard.Domain.Entities.Enum;
+using System;
 
 namespace BeeCard.Domain.Entities
 {
@@ -6,7 +7,7 @@ namespace BeeCard.Domain.Entities
     {
         public Guid? PersonalCardID { get; set; }
         public Guid? CorporateCardID { get; set; }
-        public int RequestStatus { get; set; }
+        public RequestStatus RequestStatus { get; set; }
 
         public virtual PersonalCard PersonalCard { get; set; }
         public virtual CorporateCard CorporateCard { get; set; }

@@ -3,7 +3,7 @@ using BeeCard.Domain.Interfaces.Repositories;
 
 namespace BeeCard.Infrastructure.Repositories
 {
-    public class CompanyGroupRepository : BaseRepository<CompanyGroup>, ICompanyGroupRepository
+    public class CompanyGroupRepository : BaseEntityRepository<CompanyGroup>, ICompanyGroupRepository
     {
         private readonly Context _context;
 
