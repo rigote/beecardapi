@@ -13,10 +13,13 @@ namespace BeeCard.API.Controllers
     public class UserController : ApiController
     {
         private readonly IUserAppService _userService;
+        private readonly IIdentityAppService _identityService;
 
-        public UserController(IUserAppService userService)
+        public UserController(IUserAppService userService, 
+                              IIdentityAppService identityService)
         {
             _userService = userService;
+            _identityService = identityService;
         }
 
         [HttpGet]

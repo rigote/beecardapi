@@ -1,15 +1,18 @@
 ﻿using BeeCard.Domain.Entities;
 using BeeCard.Infrastructure.EntityConfig;
+using Microsoft.AspNet.Identity.EntityFramework;
+using System;
 using System.Data.Entity;
 
 namespace BeeCard.Infrastructure
 {
-    public class Context : DbContext
+    public class Context : IdentityDbContext<User, Role, Guid, UserLogin, UserRole, UserClaim>    
     {
         public Context()
             : base("BeeCard")
         {
             Configuration.LazyLoadingEnabled = false;
+            Database.SetInitializer<Context>(null);
         }
 
         public DbSet<Company> Companies { get; set; }
@@ -21,7 +24,6 @@ namespace BeeCard.Infrastructure
         public DbSet<PersonalCard> PersonalCards { get; set; }
         public DbSet<Plan> Plans { get; set; }
         public DbSet<SubscriptionHistory> SubscritpionHistory { get; set; }
-        public DbSet<User> Users { get; set; }
         public DbSet<UserGroup> UserGroups { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
@@ -39,6 +41,10 @@ namespace BeeCard.Infrastructure
             modelBuilder.Configurations.Add(new SubscriptionHistoryConfig());
             modelBuilder.Configurations.Add(new UserConfig());
             modelBuilder.Configurations.Add(new UserGroupConfig());
+            modelBuilder.Configurations.Add(new RoleConfig());
+            modelBuilder.Configurations.Add(new UserRoleConfig());
+            modelBuilder.Configurations.Add(new UserClaimConfig());
+            modelBuilder.Configurations.Add(new UserLoginConfig());
         }
     }
 }

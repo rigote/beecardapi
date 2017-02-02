@@ -5,6 +5,7 @@ using BeeCard.Domain.Interfaces.Services;
 using BeeCard.Domain.Services;
 using BeeCard.Infrastructure;
 using BeeCard.Infrastructure.Repositories;
+using Microsoft.AspNet.Identity;
 using StructureMap.Configuration.DSL;
 
 namespace BeeCard.Utils.DependencyInjection.DependencyResolution
@@ -51,6 +52,10 @@ namespace BeeCard.Utils.DependencyInjection.DependencyResolution
 
             For<IUserGroupService>().Use<UserGroupService>();
             For<IUserGroupRepository>().Use<UserGroupRepository>();
+
+            For<IIdentityAppService>().Use<IdentityAppService>();
+            For<IIdentityService>().Use<IdentityService>();
+            For<IIdentityDataAccess>().Use<IdentityDataAccess>();
         }
     }
 }

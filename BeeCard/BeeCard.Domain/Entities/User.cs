@@ -1,17 +1,20 @@
-﻿using System;
+﻿using BeeCard.Domain.Entities.Enum;
+using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.EntityFramework;
+using System;
 using System.Collections.Generic;
 
 namespace BeeCard.Domain.Entities
 {
-    public class User : BaseEntity
+    public class User : IdentityUser<Guid, UserLogin, UserRole, UserClaim>, IUser<Guid>
     {
         public string Firstname { get; set; }
         public string Lastname { get; set; }
-        public string Email { get; set; }
-        public string Password { get; set; }
-        public string Cellphone { get; set; }
         public DateTime Birthdate { get; set; }
         public string Photo { get; set; }
+        public EntityStatus Status { get; set; }
+        public DateTime CreateDate { get; set; }
+        public DateTime ModifyDate { get; set; }
 
         public virtual ICollection<PersonalCard> PersonalCards { get; set; }
         public virtual ICollection<UserGroup> UserGroups { get; set; }

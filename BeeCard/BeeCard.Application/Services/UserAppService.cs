@@ -28,7 +28,7 @@ namespace BeeCard.Application.Services
 
         public User GetUser(Guid id)
         {
-            return _service.Find(u => u.ID == id).FirstOrDefault();
+            return _service.Find(u => u.Id == id).FirstOrDefault();
         }
 
         public void RemoveUser(User user)

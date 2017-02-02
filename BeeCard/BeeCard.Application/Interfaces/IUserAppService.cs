@@ -1,6 +1,5 @@
 ﻿using BeeCard.Domain.Entities;
 using System;
-using System.Collections;
 using System.Collections.Generic;
 
 namespace BeeCard.Application.Interfaces

@@ -21,10 +21,18 @@ exports.up = function (db, callback) {
         Firstname: { type: 'string', notNull: true, length: 100 },
         Lastname: { type: 'string', notNull: true, length: 150 },
         Email: { type: 'string', notNull: true, length: 100 },
-        Password: { type: 'string', notNull: true, length: 500 },
-        Cellphone: { type: 'string', notNull: true, length: 50 },
         Birthdate: { type: 'date', notNull: true },
         Photo: { type: 'string', notNull: false, length: 50 },
+        AccessFailedCount: { type: 'int', notNull: false },
+        EmailConfirmed: { type: 'boolean', notNull: false },
+        LockoutEnabled: { type: 'boolean', notNull: false },
+        LockoutEndDateUtc: { type: 'datetime', notNull: false },
+        PasswordHash: { type: 'string', notNull: true, length: 500 },
+        PhoneNumber: { type: 'string', notNull: true, length: 255 },
+        PhoneNumberConfirmed: { type: 'boolean', notNull: true },
+        SecurityStamp: { type: 'string', notNull: false, length: 500 },
+        TwoFactorEnabled: { type: 'boolean', notNull: false },
+        UserName: { type: 'string', notNull: true, length: 255 },
         Status: { type: 'int', notNull: true },
         CreateDate: { type: 'datetime', notNull: true },
         ModifyDate: { type: 'datetime', notNull: false }
@@ -160,6 +168,29 @@ exports.up = function (db, callback) {
     db.createTable('UserGroup_CorporateCard', {
         CorporateCardID: { type: 'uuid', primaryKey: true },
         UserGroupID: { type: 'uuid', primaryKey: true }
+    }, callback);
+
+    db.createTable('Role', {
+        ID: { type: 'uuid', primaryKey: true },
+        Name: { type: 'string', notNull: true, length: 255 }
+    }, callback);
+
+    db.createTable('UserRole', {
+        UserID: { type: 'uuid', primaryKey: true },
+        RoleID: { type: 'uuid', primaryKey: true }
+    }, callback);
+
+    db.createTable('UserClaim', {
+        ID: { type: 'uuid', primaryKey: true },
+        UserID: { type: 'uuid', notNull: true },
+        ClaimValue: { type: 'string', notNull: true, length: 255 },
+        ClaimType: { type: 'string', notNull: true, length: 255 }
+    }, callback);
+
+    db.createTable('UserLogin', {
+        LoginProvider: { type: 'string', primaryKey: true, length: 500 },
+        ProviderKey: { type: 'string', primaryKey: true, length: 500 },
+        UserID: { type: 'uuid', primaryKey: true }
     }, callback);
 
 };

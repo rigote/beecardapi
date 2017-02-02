@@ -101,6 +101,7 @@
   <ItemGroup>
     <Content Include="migrations\20170119000125-beecard.js" />
     <Content Include="migrations\20170120003551-fk-bee-card.js" />
+    <Content Include="migrations\20170201174856-bee-card-identity.js" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\BeeCard.Domain\BeeCard.Domain.csproj">
