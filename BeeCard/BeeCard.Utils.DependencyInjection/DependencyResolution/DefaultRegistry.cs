@@ -53,9 +53,10 @@ namespace BeeCard.Utils.DependencyInjection.DependencyResolution
             For<IUserGroupService>().Use<UserGroupService>();
             For<IUserGroupRepository>().Use<UserGroupRepository>();
 
-            For<IIdentityAppService>().Use<IdentityAppService>();
             For<IIdentityService>().Use<IdentityService>();
             For<IIdentityDataAccess>().Use<IdentityDataAccess>();
+
+            For<ICardAppService>().Use<CardAppService>();
         }
     }
 }

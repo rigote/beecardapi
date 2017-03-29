@@ -84,6 +84,8 @@
     <Compile Include="EntityConfig\SubscriptionHistoryConfig.cs" />
     <Compile Include="EntityConfig\UserClaimConfig.cs" />
     <Compile Include="EntityConfig\UserConfig.cs" />
+    <Compile Include="EntityConfig\UserGroupPersonalCardConfig.cs" />
+    <Compile Include="EntityConfig\UserGroupCorporateCardConfig.cs" />
     <Compile Include="EntityConfig\UserGroupConfig.cs" />
     <Compile Include="EntityConfig\UserLoginConfig.cs" />
     <Compile Include="EntityConfig\UserRoleConfig.cs" />

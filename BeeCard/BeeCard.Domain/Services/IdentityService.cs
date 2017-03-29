@@ -1,8 +1,9 @@
-﻿using System.Threading.Tasks;
-using BeeCard.Domain.Interfaces.Services;
+﻿using BeeCard.Domain.Interfaces.Services;
 using Microsoft.AspNet.Identity;
 using BeeCard.Domain.Entities;
 using BeeCard.Domain.Interfaces.Repositories;
+using System;
+using System.Threading.Tasks;
 
 namespace BeeCard.Domain.Services
 {
@@ -20,9 +21,10 @@ namespace BeeCard.Domain.Services
             return await _identityDataAccess.FindUser(userName, password);          
         }
 
-        public async Task<IdentityResult> RegisterUser(string userName, string password)
+        public IdentityResult ChangePassword(Guid userId, string currentPassword, string newPassword)
         {
-            return await _identityDataAccess.RegisterUser(userName, password);
+            return _identityDataAccess.ChangePassword(userId, currentPassword, newPassword);
         }
+        
     }
 }

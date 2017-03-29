@@ -12,7 +12,7 @@ namespace BeeCard.Infrastructure.EntityConfig
 
             HasKey(p => p.Id);
 
-            Property(p => p.Id).HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity).HasColumnName("ID");
+            Property(p => p.Id).HasDatabaseGeneratedOption(DatabaseGeneratedOption.None).HasColumnName("ID");
             Property(p => p.Birthdate).IsRequired();
             Property(p => p.Email).HasMaxLength(100).IsRequired();
             Property(p => p.Firstname).HasMaxLength(100).IsRequired();

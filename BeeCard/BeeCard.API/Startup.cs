@@ -34,7 +34,7 @@ namespace BeeCard.API
                 AllowInsecureHttp = true,
                 TokenEndpointPath = new PathString("/token"),
                 AccessTokenExpireTimeSpan = TimeSpan.FromDays(1),
-                Provider = new SimpleAuthorizationServerProvider(container.GetInstance<IIdentityAppService>())
+                Provider = new SimpleAuthorizationServerProvider(container.GetInstance<IUserAppService>())
             };
 
             // Token Generation

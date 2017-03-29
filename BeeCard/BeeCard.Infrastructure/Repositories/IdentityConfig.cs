@@ -1,9 +1,9 @@
 ﻿using System;
-using System.Threading.Tasks;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using BeeCard.Domain.Interfaces.Repositories;
 using BeeCard.Domain.Entities;
+using System.Threading.Tasks;
 
 namespace BeeCard.Infrastructure.Repositories
 {
@@ -22,14 +22,9 @@ namespace BeeCard.Infrastructure.Repositories
             return user;
         }
 
-        public async Task<IdentityResult> RegisterUser(string userName, string password)
+        public IdentityResult ChangePassword(Guid userId, string currentPassword, string newPassword)
         {
-            User user = new User
-            {
-                UserName = userName
-            };
-
-            var result = await _userManager.CreateAsync(user, password);
+            var result = _userManager.ChangePassword(userId, currentPassword, newPassword);
 
             return result;
         }

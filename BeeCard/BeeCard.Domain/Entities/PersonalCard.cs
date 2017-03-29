@@ -16,6 +16,7 @@ namespace BeeCard.Domain.Entities
 
         public PersonalCard()
         {
+            ID = Guid.NewGuid();
             UserGroups = new List<UserGroup>();
             Leads = new List<Lead>();
         }

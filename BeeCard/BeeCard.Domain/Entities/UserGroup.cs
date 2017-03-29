@@ -9,13 +9,13 @@ namespace BeeCard.Domain.Entities
         public Guid UserID { get; set; }
 
         public virtual User User { get; set; }
-        public virtual ICollection<PersonalCard> PersonalCards { get; set; }
-        public virtual ICollection<CorporateCard> CorporateCards { get; set; }
+        public virtual ICollection<UserGroupPersonalCard> UserGroupPersonalCards { get; set; }
+        public virtual ICollection<UserGroupCorporateCard> UserGroupCorporateCards { get; set; }
 
         public UserGroup()
         {
-            PersonalCards = new List<PersonalCard>();
-            CorporateCards = new List<CorporateCard>();
+            UserGroupPersonalCards = new List<UserGroupPersonalCard>();
+            UserGroupCorporateCards = new List<UserGroupCorporateCard>();
         }
     }
 }

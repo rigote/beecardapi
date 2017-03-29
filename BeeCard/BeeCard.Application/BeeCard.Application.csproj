@@ -57,10 +57,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Interfaces\IIdentityAppService.cs" />
+    <Compile Include="Interfaces\ICardAppService.cs" />
     <Compile Include="Interfaces\IUserAppService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Services\IdentityAppService.cs" />
+    <Compile Include="Services\CardAppService.cs" />
     <Compile Include="Services\UserAppService.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -21,6 +21,7 @@ namespace BeeCard.Infrastructure.EntityConfig
             Property(p => p.PlanID).IsRequired();
             Property(p => p.PostalCode).HasMaxLength(20).IsRequired();
             Property(p => p.SocialNetwork).HasMaxLength(1000);
+            Property(p => p.CardIdentityConfig);
             Property(p => p.State).HasMaxLength(100).IsRequired();
             Property(p => p.SubscriptionDate);
             Property(p => p.SubscriptionPrice);

@@ -66,6 +66,9 @@
     <Compile Include="Entities\Country.cs" />
     <Compile Include="Entities\Role.cs" />
     <Compile Include="Entities\UserClaim.cs" />
+    <Compile Include="Entities\BaseUserGroupCard.cs" />
+    <Compile Include="Entities\UserGroupCorporateCard.cs" />
+    <Compile Include="Entities\UserGroupPersonalCard.cs" />
     <Compile Include="Entities\UserLogin.cs" />
     <Compile Include="Entities\Enum\EntityStatus.cs" />
     <Compile Include="Entities\Enum\RequestStatus.cs" />

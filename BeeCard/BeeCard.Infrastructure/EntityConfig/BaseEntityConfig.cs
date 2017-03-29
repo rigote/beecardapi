@@ -12,7 +12,7 @@ namespace BeeCard.Infrastructure.EntityConfig
                 ToTable(tableName);
 
             HasKey(k => k.ID);
-            Property(p => p.ID).HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);
+            Property(p => p.ID).HasDatabaseGeneratedOption(DatabaseGeneratedOption.None);
             Property(p => p.Status).IsRequired();
             Property(p => p.CreateDate).IsRequired();
             Property(p => p.ModifyDate).IsOptional();

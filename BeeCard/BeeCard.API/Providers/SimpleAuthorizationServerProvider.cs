@@ -7,9 +7,9 @@ namespace BeeCard.API.Providers
 {
     public class SimpleAuthorizationServerProvider : OAuthAuthorizationServerProvider
     {
-        private readonly IIdentityAppService _authService;
+        private readonly IUserAppService _authService;
 
-        public SimpleAuthorizationServerProvider(IIdentityAppService authService)
+        public SimpleAuthorizationServerProvider(IUserAppService authService)
         {
             _authService = authService;
         }

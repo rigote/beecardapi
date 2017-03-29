@@ -1,6 +1,7 @@
 ﻿using BeeCard.Domain.Entities;
 using BeeCard.Domain.Entities.Enum;
 using System;
+using System.Data.Entity;
 
 namespace BeeCard.Infrastructure.Repositories
 {
@@ -27,6 +28,15 @@ namespace BeeCard.Infrastructure.Repositories
             entity.ModifyDate = DateTime.Now;
 
             base.Update(entity);
+        }
+
+        public override void Remove(T entity)
+        {
+            entity.ModifyDate = DateTime.Now;
+            entity.Status = EntityStatus.Deleted;
+
+            _context.Entry<T>(entity).State = EntityState.Modified;
+            _context.SaveChanges();
         }
     }
 }

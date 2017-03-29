@@ -1,9 +1,9 @@
-﻿using BeeCard.Application.Interfaces;
+﻿using BeeCard.API.Models;
+using BeeCard.Application.Interfaces;
 using BeeCard.Domain.Entities;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
@@ -13,13 +13,10 @@ namespace BeeCard.API.Controllers
     public class UserController : ApiController
     {
         private readonly IUserAppService _userService;
-        private readonly IIdentityAppService _identityService;
 
-        public UserController(IUserAppService userService, 
-                              IIdentityAppService identityService)
+        public UserController(IUserAppService userService)
         {
             _userService = userService;
-            _identityService = identityService;
         }
 
         [HttpGet]
@@ -37,7 +34,7 @@ namespace BeeCard.API.Controllers
             }
             catch(Exception ex)
             {
-                throw new HttpResponseException(Request.CreateResponse(HttpStatusCode.BadRequest, new StringContent(JsonConvert.SerializeObject(ex))));
+                throw new HttpResponseException(Request.CreateResponse(HttpStatusCode.BadRequest, ex));
             }
         }
 
@@ -51,17 +48,17 @@ namespace BeeCard.API.Controllers
             }
             catch (Exception ex)
             {
-                throw new HttpResponseException(Request.CreateResponse(HttpStatusCode.BadRequest, new StringContent(JsonConvert.SerializeObject(ex))));
+                throw new HttpResponseException(Request.CreateResponse(HttpStatusCode.BadRequest, ex));
             }
         }
 
         [HttpPost]
         [Route("api/users/")]
-        public IHttpActionResult AddUser(User user)
+        public IHttpActionResult AddUser(RequestUserModel user)
         {
             try
             {
-                _userService.AddUser(user);
+                _userService.RegisterUser(user.Email, user.Firstname, user.Lastname, user.Password, user.Birthdate, user.PhoneNumber, user.AvatarFileName, user.AvatarContent);
 
                 return ResponseMessage(new HttpResponseMessage { StatusCode = HttpStatusCode.OK });
             }

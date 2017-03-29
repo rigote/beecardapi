@@ -41,6 +41,8 @@ namespace BeeCard.Infrastructure
             modelBuilder.Configurations.Add(new SubscriptionHistoryConfig());
             modelBuilder.Configurations.Add(new UserConfig());
             modelBuilder.Configurations.Add(new UserGroupConfig());
+            modelBuilder.Configurations.Add(new UserGroupPersonalCardConfig());
+            modelBuilder.Configurations.Add(new UserGroupCorporateCardConfig());
             modelBuilder.Configurations.Add(new RoleConfig());
             modelBuilder.Configurations.Add(new UserRoleConfig());
             modelBuilder.Configurations.Add(new UserClaimConfig());

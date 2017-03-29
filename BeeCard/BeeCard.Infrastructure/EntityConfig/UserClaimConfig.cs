@@ -15,7 +15,7 @@ namespace BeeCard.Infrastructure.EntityConfig
             Property(p => p.Id).HasDatabaseGeneratedOption(DatabaseGeneratedOption.Computed).HasColumnName("ID");
             Property(p => p.ClaimType);
             Property(p => p.ClaimValue);
-            Property(p => p.UserId);
+            Property(p => p.UserId).HasColumnName("UserID");
         }
     }
 }

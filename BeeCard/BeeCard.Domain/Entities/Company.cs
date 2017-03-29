@@ -23,6 +23,7 @@ namespace BeeCard.Domain.Entities
         public string Logo { get; set; }
         public string Website { get; set; }
         public string SocialNetwork { get; set; }
+        public string CardIdentityConfig { get; set; }
         public Guid PlanID { get; set; }
         public Guid CountryID { get; set; }
         public Guid CompanyTypeID { get; set; }
