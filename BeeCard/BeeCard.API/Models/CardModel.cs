@@ -14,6 +14,11 @@ namespace BeeCard.API.Models
         public string Email { get; set; }
         public string Website { get; set; }
         public string Address { get; set; }
+        public string Address2 { get; set; }
+        public string Number { get; set; }
+        public string PostalCode { get; set; }
+        public string City { get; set; }
+        public string Neighborhood { get; set; }
         public List<CardSocialMedia> SocialMedias { get; set; }
     }
 
@@ -43,6 +48,11 @@ namespace BeeCard.API.Models
             SocialMedias = JsonConvert.DeserializeObject<List<CardSocialMedia>>(card.SocialNetwork);
             FullName = card.Name;
             Address = card.Address;
+            Address2 = card.Address2;
+            Number = card.Number;
+            PostalCode = card.PostalCode;
+            City = card.City;
+            Neighborhood = card.Neighborhood;
 
             if (card.User != null)
             {
@@ -71,7 +81,12 @@ namespace BeeCard.API.Models
                 CompanyLogo = card.Company.Logo;
                 CompanyName = card.Company.Name;
                 Website = card.Company.Website;
-                Address = string.Format("{0} - {1} {2} {3}-{4}", card.Company.Address, card.Company.Neighborhood, card.Company.PostalCode, card.Company.City, card.Company.State);
+                Address = card.Company.Address;
+                Address2 = card.Company.Address2;
+                Number = card.Company.Number;
+                PostalCode = card.Company.PostalCode;
+                City = card.Company.City;
+                Neighborhood = card.Company.Neighborhood;
                 SocialMedias = JsonConvert.DeserializeObject<List<CardSocialMedia>>(card.Company.SocialNetwork);
                 Config = JsonConvert.DeserializeObject<CardConfig>(card.Company.CardIdentityConfig);
             }

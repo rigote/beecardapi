@@ -8,6 +8,8 @@ namespace BeeCard.Infrastructure.EntityConfig
             : base("Company")
         {
             Property(p => p.Address).HasMaxLength(150).IsRequired();
+            Property(p => p.Address2).HasMaxLength(150).IsOptional();
+            Property(p => p.Number).HasMaxLength(10).IsRequired();
             Property(p => p.City).HasMaxLength(100).IsRequired();
             Property(p => p.CompanyTypeID).IsRequired();
             Property(p => p.ContactEmail).HasMaxLength(100).IsRequired();

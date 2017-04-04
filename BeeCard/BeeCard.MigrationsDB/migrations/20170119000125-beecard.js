@@ -121,7 +121,7 @@ exports.up = function (db, callback) {
         Email: { type: 'string', notNull: false, length: 100 },
         Phone: { type: 'string', notNull: false, length: 100 },
         Cellphone: { type: 'string', notNull: false, length: 100 },
-        Address: { type: 'string', notNull: false, length: 300 },
+        Address: { type: 'string', notNull: false, length: 150 },
         Website: { type: 'string', notNull: false, length: 200 },
         SocialNetwork: { type: 'string', notNull: false, length: 1000 },
         UserID: { type: 'uuid', notNull: true },

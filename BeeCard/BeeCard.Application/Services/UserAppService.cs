@@ -23,7 +23,7 @@ namespace BeeCard.Application.Services
 
         public void RegisterUser(string email, string firstname, string lastname, string password, DateTime birthdate, string phoneNumber, string avatarFileName, byte[] avatarContent)
         {
-            //TODO: Upload image
+            //TODO: Save and Upload image
 
             var user = new User();
 
@@ -36,8 +36,7 @@ namespace BeeCard.Application.Services
             user.PasswordHash = hasher.HashPassword(password);
 
             user.Birthdate = birthdate;
-            user.PhoneNumber = phoneNumber;
-            user.PhoneNumber = avatarFileName;
+            user.PhoneNumber = phoneNumber;           
             user.Status = EntityStatus.Active;
 
             _service.Add(user);
@@ -61,14 +60,39 @@ namespace BeeCard.Application.Services
             return _service.Find(u => u.Email == email).FirstOrDefault();
         }
 
-        public void RemoveUser(User user)
+        public void RemoveUser(Guid userId)
         {
-            _service.Remove(user);
+            var user = _service.Find(u => u.Id == userId).FirstOrDefault();
+
+            if (user != null)
+            {
+                _service.Remove(user);
+            }
+            else
+            {
+                throw new ArgumentException("Invalid user.");
+            }
         }
 
-        public void UpdateUser(User user)
+        public void UpdateUser(Guid userId, string email, string firstname, string lastname, DateTime birthdate, string phoneNumber, string avatarFileName, byte[] avatarContent)
         {
-            _service.Update(user);
+            //TODO: Save and Upload image
+
+            var user = _service.Find(u => u.Id == userId).FirstOrDefault();
+
+            if (user != null)
+            {
+                user.Firstname = firstname;
+                user.Lastname = lastname;
+                user.Birthdate = birthdate;
+                user.PhoneNumber = phoneNumber;
+
+                _service.Update(user);
+            }
+            else
+            {
+                throw new ArgumentException("Invalid user.");
+            }
         }
 
         public async Task<User> FindUser(string userName, string password)

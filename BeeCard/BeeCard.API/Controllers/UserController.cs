@@ -1,9 +1,8 @@
 ﻿using BeeCard.API.Models;
 using BeeCard.Application.Interfaces;
 using BeeCard.Domain.Entities;
-using Newtonsoft.Json;
 using System;
-using System.Collections.Generic;
+using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
@@ -21,87 +20,82 @@ namespace BeeCard.API.Controllers
 
         [HttpGet]
         [Route("api/users/{id}")]
-        public User Get(Guid id)
+        public HttpResponseMessage Get(Guid id)
         {
             try
             {
                 var user = _userService.GetUser(id);
 
                 if (user == null)
-                    throw new HttpResponseException(Request.CreateResponse(HttpStatusCode.NotFound));
+                    return Request.CreateResponse(HttpStatusCode.NotFound);
                 else
-                    return user;
+                    return Request.CreateResponse(HttpStatusCode.OK, new ResponseUserModel(user));
             }
             catch(Exception ex)
             {
-                throw new HttpResponseException(Request.CreateResponse(HttpStatusCode.BadRequest, ex));
+                return Request.CreateResponse(HttpStatusCode.BadRequest, ex);                
             }
         }
 
         [HttpGet]
         [Route("api/users/")]
-        public IEnumerable<User> GetAll()
+        public HttpResponseMessage GetAll()
         {
             try
             {
-                return _userService.GetAll();
+                return Request.CreateResponse(HttpStatusCode.OK, _userService.GetAll().Select(u => new ResponseUserModel(u)).ToList());
             }
             catch (Exception ex)
             {
-                throw new HttpResponseException(Request.CreateResponse(HttpStatusCode.BadRequest, ex));
+                return Request.CreateResponse(HttpStatusCode.BadRequest, ex);
             }
         }
 
         [HttpPost]
         [Route("api/users/")]
-        public IHttpActionResult AddUser(RequestUserModel user)
+        public HttpResponseMessage AddUser(RequestUserModel model)
         {
             try
             {
-                _userService.RegisterUser(user.Email, user.Firstname, user.Lastname, user.Password, user.Birthdate, user.PhoneNumber, user.AvatarFileName, user.AvatarContent);
+                _userService.RegisterUser(model.Email, model.Firstname, model.Lastname, model.Password, model.Birthdate, model.PhoneNumber, model.AvatarFileName, model.AvatarContent);
 
-                return ResponseMessage(new HttpResponseMessage { StatusCode = HttpStatusCode.OK });
+                return Request.CreateResponse(HttpStatusCode.Created);
             }
             catch (Exception ex)
             {
-                return ResponseMessage(new HttpResponseMessage { StatusCode = HttpStatusCode.BadRequest, Content = new StringContent(JsonConvert.SerializeObject(ex)) });
+                return Request.CreateResponse(HttpStatusCode.BadRequest, ex);
             }
         }
 
         [HttpPut]
-        [Route("api/users/")]
-        public IHttpActionResult UpdateUser(User user)
+        [Route("api/users/{userId}")]
+        public HttpResponseMessage UpdateUser(Guid userId, RequestUserModel model)
         {
             try
             {
-                _userService.UpdateUser(user);
+                _userService.UpdateUser(userId, model.Email, model.Firstname, model.Lastname, model.Birthdate, model.PhoneNumber, model.AvatarFileName, model.AvatarContent);
 
-                return ResponseMessage(new HttpResponseMessage { StatusCode = HttpStatusCode.OK });
+                return Request.CreateResponse(HttpStatusCode.NoContent);
             }
             catch (Exception ex)
             {
-                return ResponseMessage(new HttpResponseMessage { StatusCode = HttpStatusCode.BadRequest, Content = new StringContent(JsonConvert.SerializeObject(ex)) });
+                return Request.CreateResponse(HttpStatusCode.BadRequest, ex);
             }
         }
 
         [HttpDelete]
-        [Route("api/users/{id}")]
-        public IHttpActionResult RemoveUser(Guid id)
+        [Route("api/users/{userId}")]
+        public HttpResponseMessage RemoveUser(Guid userId)
         {
             try
             {
-                var user = _userService.GetUser(id);
+                _userService.RemoveUser(userId);
 
-                if (user != null)
-                    _userService.RemoveUser(user);
-                else
-                    return ResponseMessage(new HttpResponseMessage { StatusCode = HttpStatusCode.NotFound });
-
-                return ResponseMessage(new HttpResponseMessage { StatusCode = HttpStatusCode.OK });
+                return Request.CreateResponse(HttpStatusCode.NoContent);
             }
             catch (Exception ex)
             {
-                return ResponseMessage(new HttpResponseMessage { StatusCode = HttpStatusCode.BadRequest, Content = new StringContent(JsonConvert.SerializeObject(ex)) });
+                return Request.CreateResponse(HttpStatusCode.BadRequest, ex);
             }
         }
     }

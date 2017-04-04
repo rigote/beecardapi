@@ -8,7 +8,12 @@ namespace BeeCard.Infrastructure.EntityConfig
             : base("PersonalCard")
         {
             Property(p => p.UserID).IsRequired();
-            Property(p => p.Address).HasMaxLength(300);
+            Property(p => p.Address).HasMaxLength(150).IsOptional();
+            Property(p => p.Address2).HasMaxLength(150).IsOptional();
+            Property(p => p.Number).HasMaxLength(10).IsOptional();
+            Property(p => p.City).HasMaxLength(100).IsOptional();
+            Property(p => p.PostalCode).HasMaxLength(20).IsOptional();
+            Property(p => p.Neighborhood).HasMaxLength(100).IsOptional();
             Property(p => p.SocialNetwork).HasMaxLength(1000);
             Property(p => p.Website).HasMaxLength(200);
 

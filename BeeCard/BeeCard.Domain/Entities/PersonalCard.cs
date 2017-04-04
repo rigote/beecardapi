@@ -6,6 +6,11 @@ namespace BeeCard.Domain.Entities
     public class PersonalCard : BaseCardEntity
     {        
         public string Address { get; set; }
+        public string Address2 { get; set; }
+        public string Number { get; set; }
+        public string City { get; set; }
+        public string PostalCode { get; set; }
+        public string Neighborhood { get; set; }
         public string Website { get; set; }        
         public string SocialNetwork { get; set; }
         public Guid UserID { get; set; }
