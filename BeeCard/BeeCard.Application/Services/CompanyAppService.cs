@@ -3,49 +3,106 @@ using BeeCard.Domain.Entities;
 using BeeCard.Domain.Entities.Enum;
 using BeeCard.Domain.Interfaces.Services;
 using System;
+using System.Linq;
 using System.Collections.Generic;
-using System.Linq.Expressions;
 
 namespace BeeCard.Application.Services
 {
     public class CompanyAppService : ICompanyAppService
     {
-        private readonly ICompanyService _companyAppService;
+        private readonly ICompanyService _companyService;
 
-        public CompanyAppService(ICompanyAppService companyAppService)
+        public CompanyAppService(ICompanyService companyService)
         {
-            _companyAppService = companyAppService;
+            _companyService = companyService;
         }
 
-        public void Add(Company entity)
+        public void CreateCompany(string name, string address, string address2, string number, string postalCode, string neighborhood, string city, string state, string contactName, string contactEmail, string contactPhone, string password, SubscriptionType subscriptionType, decimal subscriptionPrice, DateTime subscriptionDate, SubscriptionStatus subscriptionStatus, string logo, string website, string socialNetwork, string cardIdentityConfig, Guid planId, Guid countryId, Guid companyTypeId)
         {
-            throw new NotImplementedException();
+            var company = new Company();
+
+            company.Address = address;
+            company.Address2 = address2;
+            company.CardIdentityConfig = cardIdentityConfig;
+            company.City = city;
+            company.CompanyTypeID = companyTypeId;
+            company.ContactEmail = contactEmail;
+            company.ContactName = contactName;
+            company.ContactPhone = contactPhone;
+            company.CountryID = countryId;
+            company.Logo = logo;
+            company.Name = name;
+            company.Neighborhood = neighborhood;
+            company.Number = number;
+            company.Password = password;
+            company.PlanID = planId;
+            company.PostalCode = postalCode;
+            company.SocialNetwork = socialNetwork;
+            company.State = state;
+            company.Status = EntityStatus.Active;
+            company.SubscriptionDate = subscriptionDate;
+            company.SubscriptionPrice = subscriptionPrice;
+            company.SubscriptionStatus = subscriptionStatus;
+            company.SubscriptionType = subscriptionType;
+            company.Website = website;
+
+            _companyService.Add(company);
         }
 
-        public IEnumerable<Company> Find(Expression<Func<Company, bool>> predicate = null, params Expression<Func<Company, object>>[] includeExpressions)
+        public List<Company> GetCompanies()
         {
-            throw new NotImplementedException();
+            return _companyService.Find(c => c.Status == EntityStatus.Active, f => f.Plan, f => f.Country, f => f.CompanyType).ToList();
         }
 
-        public IEnumerable<Company> GetAll(params Expression<Func<Company, object>>[] includeExpressions)
+        public Company GetCompanyById(Guid companyId)
         {
-            throw new NotImplementedException();
+            return _companyService.Find(c => c.ID == companyId && c.Status == EntityStatus.Active, f => f.Plan, f => f.CorporateCards, f => f.Country, f => f.CompanyType).FirstOrDefault();
         }
 
-        public Company GetCompanyById(Guid companyId, Guid cardId)
+        public void RemoveCompany(Guid companyId)
         {
-            return _companyAppService.Find(c => c.ID == companyId && c.Status == EntityStatus.Active).FirstOrDefault();
+            var company = _companyService.Find(c => c.ID == companyId && c.Status == EntityStatus.Active).FirstOrDefault();
+
+            if (company != null)
+                _companyService.Remove(company);
+            else
+                throw new ArgumentException(string.Empty, "NotFound");
         }
 
-
-        public void Remove(Company entity)
+        public void UpdateCompany(Guid companyId, string name, string address, string address2, string number, string postalCode, string neighborhood, string city, string state, string contactName, string contactEmail, string contactPhone, string password, SubscriptionType subscriptionType, decimal subscriptionPrice, DateTime subscriptionDate, SubscriptionStatus subscriptionStatus, string logo, string website, string socialNetwork, string cardIdentityConfig, Guid planId, Guid countryId, Guid companyTypeId)
         {
-            throw new NotImplementedException();
-        }
+            var company = _companyService.Find(c => c.ID == companyId && c.Status == EntityStatus.Active).FirstOrDefault();
 
-        public void Update(Company entity)
-        {
-            throw new NotImplementedException();
+            if (company != null)
+            {
+                company.Address = address;
+                company.Address2 = address2;
+                company.CardIdentityConfig = cardIdentityConfig;
+                company.City = city;
+                company.CompanyTypeID = companyTypeId;
+                company.ContactEmail = contactEmail;
+                company.ContactName = contactName;
+                company.ContactPhone = contactPhone;
+                company.CountryID = countryId;
+                company.Logo = logo;
+                company.Name = name;
+                company.Neighborhood = neighborhood;
+                company.Number = number;
+                company.Password = password;
+                company.PlanID = planId;
+                company.PostalCode = postalCode;
+                company.SocialNetwork = socialNetwork;
+                company.State = state;
+                company.SubscriptionDate = subscriptionDate;
+                company.SubscriptionPrice = subscriptionPrice;
+                company.SubscriptionStatus = subscriptionStatus;
+                company.SubscriptionType = subscriptionType;
+                company.Website = website;
+
+                _companyService.Update(company);
+            }
+            else
+                throw new ArgumentException(string.Empty, "NotFound");
         }
     }
 }

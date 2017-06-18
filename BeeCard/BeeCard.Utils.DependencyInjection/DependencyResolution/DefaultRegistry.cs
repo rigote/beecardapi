@@ -5,7 +5,6 @@ using BeeCard.Domain.Interfaces.Services;
 using BeeCard.Domain.Services;
 using BeeCard.Infrastructure;
 using BeeCard.Infrastructure.Repositories;
-using Microsoft.AspNet.Identity;
 using StructureMap.Configuration.DSL;
 
 namespace BeeCard.Utils.DependencyInjection.DependencyResolution
@@ -19,6 +18,7 @@ namespace BeeCard.Utils.DependencyInjection.DependencyResolution
             For(typeof(IBaseService<>)).Use(typeof(BaseService<>));
             For(typeof(IBaseRepository<>)).Use(typeof(BaseRepository<>));
 
+            For<ICompanyAppService>().Use<CompanyAppService>();
             For<ICompanyService>().Use<CompanyService>();
             For<ICompanyRepository>().Use<CompanyRepository>();
 

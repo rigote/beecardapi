@@ -21,40 +21,31 @@ namespace BeeCard.API.Controllers
         }
 
         [HttpGet]
-        [Route("api/users/{userId}/cards/{cardId}")]
-        public HttpResponseMessage GetCard(Guid userId, Guid cardId)
+        [Route("api/companies/{companyId}")]
+        public HttpResponseMessage GetCompany(Guid companyId)
         {
             try
             {
-                PersonalCard personalCard = null;
-                CorporateCard corporateCard = null;
+                Company company = _companyService.GetCompanyById(companyId);
 
-                personalCard = _cardService.GetPersonalCardById(userId, cardId);
+                if (company == null)
+                    throw new HttpResponseException(Request.CreateResponse(HttpStatusCode.NotFound));
 
-                if (personalCard != null)
-                    return Request.CreateResponse(HttpStatusCode.OK, new ResponseCardModel(personalCard));
-
-                corporateCard = _cardService.GetCorporateCardById(userId, cardId);
-
-                if (corporateCard != null)
-                    return Request.CreateResponse(HttpStatusCode.OK, new ResponseCardModel(corporateCard));
-
+                return Request.CreateResponse(HttpStatusCode.OK, new ResponseCompanyModel(company));
             }
             catch (Exception ex)
             {
                 throw new HttpResponseException(Request.CreateResponse(HttpStatusCode.BadRequest, ex));
-            }
-
-            throw new HttpResponseException(Request.CreateResponse(HttpStatusCode.NotFound));
+            }            
         }
 
         [HttpPost]
-        [Route("api/users/{userId}/cards")]
-        public HttpResponseMessage CreatePersonalCard(Guid userId, RequestCardModel model)
+        [Route("api/companies/")]
+        public HttpResponseMessage CreatePersonalCard(RequestCompanyModel model)
         {
             try
             {
-                _cardService.CreatePersonalCard(userId, model.AvatarImage, model.FullName, model.Address, model.Phone, model.Cellphone, model.Email, model.Website, JsonConvert.SerializeObject(model.SocialMedias));
+                _companyService.CreateCompany(model.Name, model.Address, model.Address2, model.Number, model.PostalCode, model.Neighborhood, model.City, model.State, model.ContactName, model.ContactEmail, model.ContactPhone, model.Password, model.SubscriptionType, model.SubscriptionPrice, model.SubscriptionDate, model.SubscriptionStatus, model.Logo, model.Website, JsonConvert.SerializeObject(model.SocialNetwork), JsonConvert.SerializeObject(model.CardIdentityConfig), model.PlanId, model.CountryId, model.CompanyTypeId);
 
                 return Request.CreateResponse(HttpStatusCode.Created);
             }
@@ -65,12 +56,12 @@ namespace BeeCard.API.Controllers
         }
 
         [HttpPut]
-        [Route("api/users/{userId}/cards/{cardId}")]
-        public HttpResponseMessage UpdatePersonalCard(Guid userId, Guid cardId, RequestCardModel model)
+        [Route("api/companies/{companyId}")]
+        public HttpResponseMessage UpdatePersonalCard(Guid companyId, RequestCompanyModel model)
         {
             try
             {
-                _cardService.UpdatePersonalCard(userId, cardId, model.AvatarImage, model.FullName, model.Address, model.Phone, model.Cellphone, model.Email, model.Website, JsonConvert.SerializeObject(model.SocialMedias));
+                _companyService.UpdateCompany(companyId, model.Name, model.Address, model.Address2, model.Number, model.PostalCode, model.Neighborhood, model.City, model.State, model.ContactName, model.ContactEmail, model.ContactPhone, model.Password, model.SubscriptionType, model.SubscriptionPrice, model.SubscriptionDate, model.SubscriptionStatus, model.Logo, model.Website, JsonConvert.SerializeObject(model.SocialNetwork), JsonConvert.SerializeObject(model.CardIdentityConfig), model.PlanId, model.CountryId, model.CompanyTypeId);
 
                 return Request.CreateResponse(HttpStatusCode.NoContent);
             }
@@ -83,12 +74,12 @@ namespace BeeCard.API.Controllers
         }
 
         [HttpDelete]
-        [Route("api/users/{userId}/cards/{cardId}")]
-        public HttpResponseMessage RemovePersonalCard(Guid userId, Guid cardId)
+        [Route("api/companies/{companyId}")]
+        public HttpResponseMessage RemovePersonalCard(Guid companyId)
         {
             try
             {
-                _cardService.RemovePersonalCard(userId, cardId);
+                _companyService.RemoveCompany(companyId);
             }
             catch (Exception ex)
             {
@@ -99,15 +90,12 @@ namespace BeeCard.API.Controllers
         }
 
         [HttpGet]
-        [Route("api/users/{userId}/cards")]
-        public HttpResponseMessage GetAllCards(Guid userId)
+        [Route("api/companies/")]
+        public HttpResponseMessage GetAllCards()
         {
             try
             {
-                List<ResponseCardModel> response = new List<ResponseCardModel>();
-
-                response.AddRange(_cardService.GetPersonalCards(userId).Select(c => new ResponseCardModel(c)).ToList());
-                response.AddRange(_cardService.GetCorporateCards(userId).Select(c => new ResponseCardModel(c)).ToList());
+                List<ResponseCompanyModel> response = _companyService.GetCompanies().Select(c => new ResponseCompanyModel(c)).ToList();
 
                 return Request.CreateResponse(HttpStatusCode.OK, response);
             }
