@@ -3,8 +3,8 @@ using BeeCard.Domain.Entities;
 using BeeCard.Domain.Entities.Enum;
 using BeeCard.Domain.Interfaces.Services;
 using System;
-using System.Linq;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace BeeCard.Application.Services
 {
@@ -51,17 +51,17 @@ namespace BeeCard.Application.Services
 
         public List<Company> GetCompanies()
         {
-            return _companyService.Find(c => c.Status == EntityStatus.Active, f => f.Plan, f => f.Country, f => f.CompanyType).ToList();
+            return _companyService.Find(c => c.Status != EntityStatus.Deleted, f => f.Plan, f => f.Country, f => f.CompanyType).ToList();
         }
 
         public Company GetCompanyById(Guid companyId)
         {
-            return _companyService.Find(c => c.ID == companyId && c.Status == EntityStatus.Active, f => f.Plan, f => f.CorporateCards, f => f.Country, f => f.CompanyType).FirstOrDefault();
+            return _companyService.Find(c => c.ID == companyId && c.Status != EntityStatus.Deleted, f => f.Plan, f => f.CorporateCards, f => f.Country, f => f.CompanyType).FirstOrDefault();
         }
 
         public void RemoveCompany(Guid companyId)
         {
-            var company = _companyService.Find(c => c.ID == companyId && c.Status == EntityStatus.Active).FirstOrDefault();
+            var company = _companyService.Find(c => c.ID == companyId && c.Status != EntityStatus.Deleted).FirstOrDefault();
 
             if (company != null)
                 _companyService.Remove(company);
@@ -71,7 +71,7 @@ namespace BeeCard.Application.Services
 
         public void UpdateCompany(Guid companyId, string name, string address, string address2, string number, string postalCode, string neighborhood, string city, string state, string contactName, string contactEmail, string contactPhone, string password, SubscriptionType subscriptionType, decimal subscriptionPrice, DateTime subscriptionDate, SubscriptionStatus subscriptionStatus, string logo, string website, string socialNetwork, string cardIdentityConfig, Guid planId, Guid countryId, Guid companyTypeId)
         {
-            var company = _companyService.Find(c => c.ID == companyId && c.Status == EntityStatus.Active).FirstOrDefault();
+            var company = _companyService.Find(c => c.ID == companyId && c.Status != EntityStatus.Deleted).FirstOrDefault();
 
             if (company != null)
             {
@@ -104,5 +104,20 @@ namespace BeeCard.Application.Services
             else
                 throw new ArgumentException(string.Empty, "NotFound");
         }
+
+        public void UpdateStatus(Guid companyId, EntityStatus entityStatus)
+        {
+            var company = _companyService.Find(c => c.ID == companyId && c.Status != EntityStatus.Deleted).FirstOrDefault();
+
+            if (company != null)
+            {
+                company.Status = entityStatus;
+
+                _companyService.Update(company);
+            }
+            else
+                throw new ArgumentException(string.Empty, "NotFound");
+        }
+
     }
 }
