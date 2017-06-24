@@ -183,6 +183,9 @@ $RECYCLE.BIN/
 # Visual Studio temp something
 .vs/
 
+#Node.js modules
+node_modules/
+
 #####
 # End of core ignore list, below put you custom 'per project' settings (patterns or path)
 #####
