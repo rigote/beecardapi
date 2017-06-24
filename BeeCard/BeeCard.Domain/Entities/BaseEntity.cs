@@ -1,5 +1,5 @@
-﻿using System;
-using BeeCard.Domain.Entities.Enum;
+﻿using BeeCard.Domain.Entities.Enum;
+using System;
 
 namespace BeeCard.Domain.Entities
 {
@@ -13,6 +13,9 @@ namespace BeeCard.Domain.Entities
         public BaseEntity()
         {
             ID = Guid.NewGuid();
+            CreateDate = DateTime.Now;
+            ModifyDate = DateTime.Now;
+            Status = EntityStatus.Pending;
         }
     }
 }
