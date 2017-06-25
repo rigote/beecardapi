@@ -61,12 +61,14 @@
     <Compile Include="Interfaces\ICompanyAppService.cs" />
     <Compile Include="Interfaces\ICompanyTypeAppService.cs" />
     <Compile Include="Interfaces\ICountryAppService.cs" />
+    <Compile Include="Interfaces\IPlanAppService.cs" />
     <Compile Include="Interfaces\IUserAppService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\CardAppService.cs" />
     <Compile Include="Services\CompanyAppService.cs" />
     <Compile Include="Services\CompanyTypeAppService.cs" />
     <Compile Include="Services\CountryAppService.cs" />
+    <Compile Include="Services\PlanAppService.cs" />
     <Compile Include="Services\UserAppService.cs" />
   </ItemGroup>
   <ItemGroup>

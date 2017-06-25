@@ -107,6 +107,7 @@
   <ItemGroup>
     <Compile Include="EntityTest.cs" />
     <Compile Include="IoC\DependencyResolver.cs" />
+    <Compile Include="PlanTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="BaseTest.cs" />
     <Compile Include="UserTest.cs" />
