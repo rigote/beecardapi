@@ -11,6 +11,6 @@ namespace BeeCard.Application.Interfaces
         void CreateCountry(string name);
         void UpdateCountry(Guid id, string name, EntityStatus status);
         Country GetCountryById(Guid id);
-        void DeleteCountry(Guid id);
+        void RemoveCountry(Guid id);
     }
 }

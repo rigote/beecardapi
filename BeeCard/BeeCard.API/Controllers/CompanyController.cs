@@ -1,6 +1,7 @@
 ﻿using BeeCard.API.Models;
 using BeeCard.Application.Interfaces;
 using BeeCard.Domain.Entities;
+using BeeCard.Domain.Entities.Enum;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -90,6 +91,22 @@ namespace BeeCard.API.Controllers
             }
 
             return Request.CreateResponse(HttpStatusCode.NoContent);
+        }
+
+        [HttpPut]
+        [Route("api/companies/{companyId}/{companyStatus}")]
+        public HttpResponseMessage UpdateStatusCompany(Guid companyId, EntityStatus companyStatus)
+        {
+            try
+            {
+                _companyService.UpdateStatus(companyId, companyStatus);
+
+                return Request.CreateResponse(HttpStatusCode.NoContent);
+            }
+            catch (Exception ex)
+            {
+                throw new HttpResponseException(Request.CreateResponse(HttpStatusCode.BadRequest, ex));
+            }
         }
 
         [HttpGet]

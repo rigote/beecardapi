@@ -26,8 +26,11 @@ namespace BeeCard.Application.Services
 
         public virtual Country GetCountryById(Guid id)
         {
-
-            return _countryService.Find(c => c.ID == id && c.Status != EntityStatus.Deleted).FirstOrDefault();
+            Guid _id;
+            if(Guid.TryParse(string.Format("{0}", id), out _id))
+                      return _countryService.Find(c => c.ID == _id && c.Status != EntityStatus.Deleted).FirstOrDefault();
+            else
+                throw new ArgumentException(string.Empty, "Invalid data");
         }
 
 
@@ -47,7 +50,7 @@ namespace BeeCard.Application.Services
 
         public virtual void UpdateCountry(Guid id, string name, EntityStatus status)
         {
-            var country = _countryService.Find(c => c.ID == id && c.Status != EntityStatus.Deleted).FirstOrDefault();
+            var country = GetCountryById(id);
 
             if (country != null)
             {
@@ -59,12 +62,12 @@ namespace BeeCard.Application.Services
                 throw new ArgumentException(string.Empty, "NotFound");
         }
 
-        public virtual void DeleteCountry(Guid id)
+        public virtual void RemoveCountry(Guid id)
         {
-            var _country = _countryService.Find(c => c.ID == id && c.Status != EntityStatus.Deleted).FirstOrDefault();
+            var country = GetCountryById(id);
 
-            if (_country != null)
-                _countryService.Remove(_country);
+            if (country != null)
+                _countryService.Remove(country);
             else
                 throw new ArgumentException(string.Empty, "NotFound");
         }
