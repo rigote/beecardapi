@@ -21,6 +21,7 @@ namespace BeeCard.API.Models
         public string City { get; set; }
         public string Neighborhood { get; set; }
         public List<CardSocialMedia> SocialMedias { get; set; }
+        public bool Status { get; set; }
     }
 
     public class ResponseCardModel : BaseCardModel
@@ -54,6 +55,7 @@ namespace BeeCard.API.Models
             PostalCode = card.PostalCode;
             City = card.City;
             Neighborhood = card.Neighborhood;
+            Status = card.Status == EntityStatus.Active ? true : false;
 
             if (card.User != null)
             {
@@ -71,6 +73,7 @@ namespace BeeCard.API.Models
             Email = card.Email;
             FullName = card.Name;
             Occupation = card.Occupation;
+            Status = card.Status == EntityStatus.Active ? true : false;
 
             if (card.User != null)
             {

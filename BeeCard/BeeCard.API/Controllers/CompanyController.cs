@@ -14,10 +14,13 @@ namespace BeeCard.API.Controllers
     public class CompanyController: ApiController
     {
         private readonly ICompanyAppService _companyService;
+        private readonly ICompanyTypeAppService _companyTypeService;
 
-        public CompanyController(ICompanyAppService companyService)
+        public CompanyController(ICompanyAppService companyService,
+                                 ICompanyTypeAppService companyTypeService)
         {
             _companyService = companyService;
+            _companyTypeService = companyTypeService;
         }
 
         [HttpGet]
@@ -41,7 +44,7 @@ namespace BeeCard.API.Controllers
 
         [HttpPost]
         [Route("api/companies/")]
-        public HttpResponseMessage CreatePersonalCard(RequestCompanyModel model)
+        public HttpResponseMessage CreateCompany(RequestCompanyModel model)
         {
             try
             {
@@ -57,11 +60,11 @@ namespace BeeCard.API.Controllers
 
         [HttpPut]
         [Route("api/companies/{companyId}")]
-        public HttpResponseMessage UpdatePersonalCard(Guid companyId, RequestCompanyModel model)
+        public HttpResponseMessage UpdateCompany(Guid companyId, RequestCompanyModel model)
         {
             try
             {
-                _companyService.UpdateCompany(companyId, model.Name, model.Address, model.Address2, model.Number, model.PostalCode, model.Neighborhood, model.City, model.State, model.ContactName, model.ContactEmail, model.ContactPhone, model.Password, model.SubscriptionType, model.SubscriptionPrice, model.SubscriptionDate, model.SubscriptionStatus, model.Logo, model.Website, JsonConvert.SerializeObject(model.SocialNetwork), JsonConvert.SerializeObject(model.CardIdentityConfig), model.PlanId, model.CountryId, model.CompanyTypeId);
+                _companyService.UpdateCompany(companyId, model.Name, model.Address, model.Address2, model.Number, model.PostalCode, model.Neighborhood, model.City, model.State, model.ContactName, model.ContactEmail, model.ContactPhone, model.Password, model.SubscriptionType, model.SubscriptionPrice, model.SubscriptionDate, model.SubscriptionStatus, model.Logo, model.Website, JsonConvert.SerializeObject(model.SocialNetwork), JsonConvert.SerializeObject(model.CardIdentityConfig), model.PlanId, model.CountryId, model.CompanyTypeId, model.Status);
 
                 return Request.CreateResponse(HttpStatusCode.NoContent);
             }
@@ -75,7 +78,7 @@ namespace BeeCard.API.Controllers
 
         [HttpDelete]
         [Route("api/companies/{companyId}")]
-        public HttpResponseMessage RemovePersonalCard(Guid companyId)
+        public HttpResponseMessage RemoveCompany(Guid companyId)
         {
             try
             {
@@ -91,11 +94,96 @@ namespace BeeCard.API.Controllers
 
         [HttpGet]
         [Route("api/companies/")]
-        public HttpResponseMessage GetAllCards()
+        public HttpResponseMessage GetAllCompanies()
         {
             try
             {
                 List<ResponseCompanyModel> response = _companyService.GetCompanies().Select(c => new ResponseCompanyModel(c)).ToList();
+
+                return Request.CreateResponse(HttpStatusCode.OK, response);
+            }
+            catch (Exception ex)
+            {
+                throw new HttpResponseException(Request.CreateResponse(HttpStatusCode.BadRequest, ex));
+            }
+        }
+
+        [HttpGet]
+        [Route("api/companies/types/{companyTypeId}")]
+        public HttpResponseMessage GetCompanyType(Guid companyTypeId)
+        {
+            try
+            {
+                CompanyType companyType = _companyTypeService.GetCompanyTypeById(companyTypeId);
+
+                if (companyType == null)
+                    throw new HttpResponseException(Request.CreateResponse(HttpStatusCode.NotFound));
+
+                return Request.CreateResponse(HttpStatusCode.OK, new ResponseCompanyTypeModel(companyType));
+            }
+            catch (Exception ex)
+            {
+                throw new HttpResponseException(Request.CreateResponse(HttpStatusCode.BadRequest, ex));
+            }
+        }
+
+        [HttpPost]
+        [Route("api/companies/types/")]
+        public HttpResponseMessage CreateCompanyType(RequestCompanyTypeModel model)
+        {
+            try
+            {
+                _companyTypeService.CreateCompanyType(model.Name);
+
+                return Request.CreateResponse(HttpStatusCode.Created);
+            }
+            catch (Exception ex)
+            {
+                throw new HttpResponseException(Request.CreateResponse(HttpStatusCode.BadRequest, ex));
+            }
+        }
+
+        [HttpPut]
+        [Route("api/companies/types/{companyTypeId}")]
+        public HttpResponseMessage UpdateCompanyType(Guid companyTypeId, RequestCompanyTypeModel model)
+        {
+            try
+            {
+                _companyTypeService.UpdateCompanyType(companyTypeId, model.Name, model.Status);
+
+                return Request.CreateResponse(HttpStatusCode.NoContent);
+            }
+            catch (Exception ex)
+            {
+                throw new HttpResponseException(Request.CreateResponse(HttpStatusCode.BadRequest, ex));
+            }
+
+
+        }
+
+        [HttpDelete]
+        [Route("api/companies/types/{companyTypeId}")]
+        public HttpResponseMessage RemoveCompanyType(Guid companyTypeId)
+        {
+            try
+            {
+                _companyTypeService.RemoveCompanyType(companyTypeId);
+            }
+            catch (Exception ex)
+            {
+                throw new HttpResponseException(Request.CreateResponse(HttpStatusCode.BadRequest, ex));
+            }
+
+            return Request.CreateResponse(HttpStatusCode.NoContent);
+        }
+
+        [HttpGet]
+        [Route("api/companies/types/")]
+        public HttpResponseMessage GetAllCompanyTypes()
+        {
+            try
+            {
+                List<ResponseCompanyTypeModel> response = _companyTypeService.GetCompanyTypes().Select(c => new ResponseCompanyTypeModel(c)).ToList();
 
                 return Request.CreateResponse(HttpStatusCode.OK, response);
             }

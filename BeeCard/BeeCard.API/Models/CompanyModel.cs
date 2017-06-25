@@ -35,6 +35,7 @@ namespace BeeCard.API.Models
         public string CountryName { get; set; }
         public Guid CompanyTypeId { get; set; }
         public string CompanyTypeName { get; set; }
+        public bool Status { get; set; }
     }
 
     public class ResponseCompanyModel : BaseCompanyModel
@@ -73,10 +74,32 @@ namespace BeeCard.API.Models
             CountryName = company.Country != null ? company.Country.Name : string.Empty;
             CompanyTypeId = company.CompanyTypeID;
             CompanyTypeName = company.CompanyType != null ? company.CompanyType.Name : string.Empty;
+            Status = company.Status == EntityStatus.Active ? true : false;
         }
     }
 
     public class RequestCompanyModel : BaseCompanyModel
+    {
+    }
+    
+    public class BaseCompanyTypeModel
+    {
+        public Guid Id { get; set; }
+        public string Name { get; set; }
+        public bool Status { get; set; }
+    }
+
+    public class ResponseCompanyTypeModel : BaseCompanyTypeModel
+    {
+        public ResponseCompanyTypeModel(CompanyType companyType)
+        {
+            Id = companyType.ID;
+            Name = companyType.Name;
+            Status = companyType.Status == EntityStatus.Active ? true : false;
+        }
+    }
+
+    public class RequestCompanyTypeModel : BaseCompanyTypeModel
     {
     }
 }

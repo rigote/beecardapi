@@ -22,22 +22,22 @@ namespace BeeCard.Application.Services
 
         public CorporateCard GetCorporateCardById(Guid userId, Guid cardId)
         {
-            return _corporateCardService.Find(c => c.UserID == userId && c.ID == cardId && c.Status == EntityStatus.Active).FirstOrDefault();
+            return _corporateCardService.Find(c => c.UserID == userId && c.ID == cardId && c.Status != EntityStatus.Deleted).FirstOrDefault();
         }
 
         public PersonalCard GetPersonalCardById(Guid userId, Guid cardId)
         {
-            return _personalCardService.Find(c => c.UserID == userId && c.ID == cardId && c.Status == EntityStatus.Active).FirstOrDefault();
+            return _personalCardService.Find(c => c.UserID == userId && c.ID == cardId && c.Status != EntityStatus.Deleted).FirstOrDefault();
         }
 
         public List<PersonalCard> GetPersonalCards(Guid userId)
         {
-            return _personalCardService.Find(c => c.UserID == userId && c.Status == EntityStatus.Active, i => i.User).ToList();
+            return _personalCardService.Find(c => c.UserID == userId && c.Status != EntityStatus.Deleted, i => i.User).ToList();
         }
 
         public List<CorporateCard> GetCorporateCards(Guid userId)
         {
-            return _corporateCardService.Find(c => c.UserID == userId && c.Status == EntityStatus.Active, i => i.Company, i => i.User).ToList();
+            return _corporateCardService.Find(c => c.UserID == userId && c.Status != EntityStatus.Deleted, i => i.Company, i => i.User).ToList();
         }
 
         public void CreatePersonalCard(Guid userId, string avatarImage, string fullName, string address, string phone, string cellphone, string email, string website, string socialMedias)
@@ -57,9 +57,9 @@ namespace BeeCard.Application.Services
             _personalCardService.Add(card);
         }
 
-        public void UpdatePersonalCard(Guid userId, Guid cardId, string avatarImage, string fullName, string address, string phone, string cellphone, string email, string website, string socialMedias)
+        public void UpdatePersonalCard(Guid userId, Guid cardId, string avatarImage, string fullName, string address, string phone, string cellphone, string email, string website, string socialMedias, bool status)
         {
-            var card = _personalCardService.Find(c => c.UserID == userId && c.ID == cardId && c.Status == EntityStatus.Active).FirstOrDefault();
+            var card = GetPersonalCardById(userId, cardId);
 
             if (card != null)
             {
@@ -71,6 +71,7 @@ namespace BeeCard.Application.Services
                 card.SocialNetwork = socialMedias;
                 card.UserID = userId;
                 card.Website = website;
+                card.Status = status ? EntityStatus.Active : EntityStatus.Inactive;
 
                 _personalCardService.Update(card);
             }                
@@ -80,7 +81,7 @@ namespace BeeCard.Application.Services
 
         public void RemovePersonalCard(Guid userId, Guid cardId)
         {
-            var card = _personalCardService.Find(c => c.UserID == userId && c.ID == cardId && c.Status == EntityStatus.Active).FirstOrDefault();
+            var card = GetPersonalCardById(userId, cardId);
 
             if (card != null)
                 _personalCardService.Remove(card);

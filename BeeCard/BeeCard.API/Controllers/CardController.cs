@@ -70,7 +70,7 @@ namespace BeeCard.API.Controllers
         {
             try
             {
-                _cardService.UpdatePersonalCard(userId, cardId, model.AvatarImage, model.FullName, model.Address, model.Phone, model.Cellphone, model.Email, model.Website, JsonConvert.SerializeObject(model.SocialMedias));
+                _cardService.UpdatePersonalCard(userId, cardId, model.AvatarImage, model.FullName, model.Address, model.Phone, model.Cellphone, model.Email, model.Website, JsonConvert.SerializeObject(model.SocialMedias), model.Status);
 
                 return Request.CreateResponse(HttpStatusCode.NoContent);
             }

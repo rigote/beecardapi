@@ -73,7 +73,7 @@ namespace BeeCard.API.Controllers
         {
             try
             {
-                _userService.UpdateUser(userId, model.Email, model.Firstname, model.Lastname, model.Birthdate, model.PhoneNumber, model.AvatarFileName, model.AvatarContent);
+                _userService.UpdateUser(userId, model.Email, model.Firstname, model.Lastname, model.Birthdate, model.PhoneNumber, model.AvatarFileName, model.AvatarContent, model.Status);
 
                 return Request.CreateResponse(HttpStatusCode.NoContent);
             }

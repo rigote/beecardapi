@@ -1,4 +1,5 @@
 ﻿using BeeCard.Domain.Entities;
+using BeeCard.Domain.Entities.Enum;
 using System;
 
 namespace BeeCard.API.Models
@@ -12,6 +13,7 @@ namespace BeeCard.API.Models
         public string PhoneNumber { get; set; }
         public string AvatarFileName { get; set; }
         public byte[] AvatarContent { get; set; }
+        public bool Status { get; set; }
     }
 
     public class RequestUserModel : BaseUserModel
@@ -39,6 +41,7 @@ namespace BeeCard.API.Models
             Lastname = user.Lastname;
             Birthdate = user.Birthdate;
             PhoneNumber = user.PhoneNumber;
+            Status = user.Status == EntityStatus.Active ? true : false;
         }
     }
 }

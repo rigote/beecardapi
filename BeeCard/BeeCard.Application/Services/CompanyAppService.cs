@@ -51,17 +51,17 @@ namespace BeeCard.Application.Services
 
         public List<Company> GetCompanies()
         {
-            return _companyService.Find(c => c.Status == EntityStatus.Active, f => f.Plan, f => f.Country, f => f.CompanyType).ToList();
+            return _companyService.Find(c => c.Status != EntityStatus.Deleted, f => f.Plan, f => f.Country, f => f.CompanyType).ToList();
         }
 
         public Company GetCompanyById(Guid companyId)
         {
-            return _companyService.Find(c => c.ID == companyId && c.Status == EntityStatus.Active, f => f.Plan, f => f.CorporateCards, f => f.Country, f => f.CompanyType).FirstOrDefault();
+            return _companyService.Find(c => c.ID == companyId && c.Status != EntityStatus.Deleted, f => f.Plan, f => f.CorporateCards, f => f.Country, f => f.CompanyType).FirstOrDefault();
         }
 
         public void RemoveCompany(Guid companyId)
         {
-            var company = _companyService.Find(c => c.ID == companyId && c.Status == EntityStatus.Active).FirstOrDefault();
+            var company = GetCompanyById(companyId);
 
             if (company != null)
                 _companyService.Remove(company);
@@ -69,9 +69,9 @@ namespace BeeCard.Application.Services
                 throw new ArgumentException(string.Empty, "NotFound");
         }
 
-        public void UpdateCompany(Guid companyId, string name, string address, string address2, string number, string postalCode, string neighborhood, string city, string state, string contactName, string contactEmail, string contactPhone, string password, SubscriptionType subscriptionType, decimal subscriptionPrice, DateTime subscriptionDate, SubscriptionStatus subscriptionStatus, string logo, string website, string socialNetwork, string cardIdentityConfig, Guid planId, Guid countryId, Guid companyTypeId)
+        public void UpdateCompany(Guid companyId, string name, string address, string address2, string number, string postalCode, string neighborhood, string city, string state, string contactName, string contactEmail, string contactPhone, string password, SubscriptionType subscriptionType, decimal subscriptionPrice, DateTime subscriptionDate, SubscriptionStatus subscriptionStatus, string logo, string website, string socialNetwork, string cardIdentityConfig, Guid planId, Guid countryId, Guid companyTypeId, bool status)
         {
-            var company = _companyService.Find(c => c.ID == companyId && c.Status == EntityStatus.Active).FirstOrDefault();
+            var company = GetCompanyById(companyId);
 
             if (company != null)
             {
@@ -98,6 +98,7 @@ namespace BeeCard.Application.Services
                 company.SubscriptionStatus = subscriptionStatus;
                 company.SubscriptionType = subscriptionType;
                 company.Website = website;
+                company.Status = status ? EntityStatus.Active : EntityStatus.Inactive;
 
                 _companyService.Update(company);
             }

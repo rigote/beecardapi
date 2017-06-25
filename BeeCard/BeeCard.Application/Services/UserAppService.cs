@@ -49,7 +49,7 @@ namespace BeeCard.Application.Services
 
         public User GetUser(Guid id)
         {
-            return _service.Find(u => u.Id == id).FirstOrDefault();
+            return _service.Find(u => u.Id == id && u.Status != EntityStatus.Deleted).FirstOrDefault();
         }
 
         public User GetUserByEmail(string email)
@@ -57,12 +57,12 @@ namespace BeeCard.Application.Services
             if (string.IsNullOrEmpty(email))
                 throw new ArgumentException("Invalid email");
 
-            return _service.Find(u => u.Email == email).FirstOrDefault();
+            return _service.Find(u => u.Email == email && u.Status != EntityStatus.Deleted).FirstOrDefault();
         }
 
         public void RemoveUser(Guid userId)
         {
-            var user = _service.Find(u => u.Id == userId).FirstOrDefault();
+            var user = GetUser(userId);
 
             if (user != null)
             {
@@ -74,11 +74,11 @@ namespace BeeCard.Application.Services
             }
         }
 
-        public void UpdateUser(Guid userId, string email, string firstname, string lastname, DateTime birthdate, string phoneNumber, string avatarFileName, byte[] avatarContent)
+        public void UpdateUser(Guid userId, string email, string firstname, string lastname, DateTime birthdate, string phoneNumber, string avatarFileName, byte[] avatarContent, bool status)
         {
             //TODO: Save and Upload image
 
-            var user = _service.Find(u => u.Id == userId).FirstOrDefault();
+            var user = GetUser(userId);
 
             if (user != null)
             {
@@ -86,6 +86,7 @@ namespace BeeCard.Application.Services
                 user.Lastname = lastname;
                 user.Birthdate = birthdate;
                 user.PhoneNumber = phoneNumber;
+                user.Status = status ? EntityStatus.Active : EntityStatus.Inactive;
 
                 _service.Update(user);
             }
