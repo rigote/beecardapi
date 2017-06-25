@@ -25,12 +25,14 @@ namespace BeeCard.Utils.DependencyInjection.DependencyResolution
             For<ICompanyGroupService>().Use<CompanyGroupService>();
             For<ICompanyGroupRepository>().Use<CompanyGroupRepository>();
 
+            For<ICompanyTypeAppService>().Use<CompanyTypeAppService>();
             For<ICompanyTypeService>().Use<CompanyTypeService>();
             For<ICompanyTypeRepository>().Use<CompanyTypeRepository>();
 
             For<ICorporateCardService>().Use<CorporateCardService>();
             For<ICorporateCardRepository>().Use<CorporateCardRepository>();
 
+            For<ICountryAppService>().Use<CountryAppService>();
             For<ICountryService>().Use<CountryService>();
             For<ICountryRepository>().Use<CountryRepository>();
 

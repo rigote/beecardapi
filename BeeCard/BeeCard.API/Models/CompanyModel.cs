@@ -97,6 +97,9 @@ namespace BeeCard.API.Models
             Name = companyType.Name;
             Status = companyType.Status == EntityStatus.Active ? true : false;
         }
+
+        [JsonIgnore]
+        public string Password { get; set; }
     }
 
     public class RequestCompanyTypeModel : BaseCompanyTypeModel
