@@ -18,7 +18,7 @@ namespace BeeCard.API.Controllers
         }
 
         [HttpGet]
-        [Route("api/user/{id}")]
+        [Route("api/users/{id}")]
         public HttpResponseMessage Get(Guid id)
         {
             try
@@ -37,7 +37,7 @@ namespace BeeCard.API.Controllers
         }
 
         [HttpGet]
-        [Route("api/user/")]
+        [Route("api/users/")]
         public HttpResponseMessage GetAll()
         {
             try
@@ -51,7 +51,7 @@ namespace BeeCard.API.Controllers
         }
 
         [HttpPost]
-        [Route("api/user/")]
+        [Route("api/users/")]
         public HttpResponseMessage AddUser(RequestUserModel model)
         {
             try
@@ -67,7 +67,7 @@ namespace BeeCard.API.Controllers
         }
 
         [HttpPut]
-        [Route("api/user/{userId}")]
+        [Route("api/users/{userId}")]
         public HttpResponseMessage UpdateUser(Guid userId, RequestUserModel model)
         {
             try
@@ -83,7 +83,7 @@ namespace BeeCard.API.Controllers
         }
 
         [HttpDelete]
-        [Route("api/user/{userId}")]
+        [Route("api/users/{userId}")]
         public HttpResponseMessage RemoveUser(Guid userId)
         {
             try

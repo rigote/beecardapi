@@ -22,7 +22,7 @@ namespace BeeCard.API.Controllers
         }
 
         [HttpGet]
-        [Route("api/plan/{planId}")]
+        [Route("api/plans/{planId}")]
         public HttpResponseMessage GetPlan(Guid planId)
         {
             try
@@ -42,7 +42,7 @@ namespace BeeCard.API.Controllers
 
 
         [HttpGet]
-        [Route("api/plan/")]
+        [Route("api/plans/")]
         public HttpResponseMessage GetAllPlans()
         {
             try
@@ -63,7 +63,7 @@ namespace BeeCard.API.Controllers
 
 
         [HttpPost]
-        [Route("api/plan/")]
+        [Route("api/plans/")]
         public HttpResponseMessage CreateCountry(RequestPlanModel planModel)
         {
             try
@@ -80,7 +80,7 @@ namespace BeeCard.API.Controllers
 
 
         [HttpPut]
-        [Route("api/plan/{planId}")]
+        [Route("api/plans/{planId}")]
         public HttpResponseMessage UpdatePlan(RequestPlanModel planModel)
         {
             try
@@ -97,7 +97,7 @@ namespace BeeCard.API.Controllers
 
 
         [HttpDelete]
-        [Route("api/plan/{planId}")]
+        [Route("api/plans/{planId}")]
         public HttpResponseMessage RemovePlan(Guid planId)
         {
             try

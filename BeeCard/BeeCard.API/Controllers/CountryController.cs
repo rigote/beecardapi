@@ -20,7 +20,7 @@ namespace BeeCard.API.Controllers
         }
 
         [HttpGet]
-        [Route("api/country/{countryId}")]
+        [Route("api/countries/{countryId}")]
         public HttpResponseMessage GetCountry(Guid countryId)
         {
             try
@@ -40,7 +40,7 @@ namespace BeeCard.API.Controllers
 
 
         [HttpGet]
-        [Route("api/country/")]
+        [Route("api/countries/")]
         public HttpResponseMessage GetAllCountries()
         {
             try
@@ -61,7 +61,7 @@ namespace BeeCard.API.Controllers
 
 
         [HttpPost]
-        [Route("api/country/")]
+        [Route("api/countries/")]
         public HttpResponseMessage CreateCountry(RequestCountryModel countryModel)
         {
             try
@@ -78,7 +78,7 @@ namespace BeeCard.API.Controllers
 
 
         [HttpPut]
-        [Route("api/country/{countryId}")]
+        [Route("api/countries/{countryId}")]
         public HttpResponseMessage UpdateCountry(RequestCountryModel countryModel)
         {
             try
@@ -95,7 +95,7 @@ namespace BeeCard.API.Controllers
 
 
         [HttpDelete]
-        [Route("api/country/{countryId}")]
+        [Route("api/countries/{countryId}")]
         public HttpResponseMessage RemoveCountry(Guid countryId)
         {
             try
