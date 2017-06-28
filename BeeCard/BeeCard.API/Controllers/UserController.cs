@@ -1,6 +1,5 @@
 ﻿using BeeCard.API.Models;
 using BeeCard.Application.Interfaces;
-using BeeCard.Domain.Entities;
 using System;
 using System.Linq;
 using System.Net;
@@ -19,7 +18,7 @@ namespace BeeCard.API.Controllers
         }
 
         [HttpGet]
-        [Route("api/users/{id}")]
+        [Route("api/user/{id}")]
         public HttpResponseMessage Get(Guid id)
         {
             try
@@ -38,7 +37,7 @@ namespace BeeCard.API.Controllers
         }
 
         [HttpGet]
-        [Route("api/users/")]
+        [Route("api/user/")]
         public HttpResponseMessage GetAll()
         {
             try
@@ -52,7 +51,7 @@ namespace BeeCard.API.Controllers
         }
 
         [HttpPost]
-        [Route("api/users/")]
+        [Route("api/user/")]
         public HttpResponseMessage AddUser(RequestUserModel model)
         {
             try
@@ -68,7 +67,7 @@ namespace BeeCard.API.Controllers
         }
 
         [HttpPut]
-        [Route("api/users/{userId}")]
+        [Route("api/user/{userId}")]
         public HttpResponseMessage UpdateUser(Guid userId, RequestUserModel model)
         {
             try
@@ -84,7 +83,7 @@ namespace BeeCard.API.Controllers
         }
 
         [HttpDelete]
-        [Route("api/users/{userId}")]
+        [Route("api/user/{userId}")]
         public HttpResponseMessage RemoveUser(Guid userId)
         {
             try

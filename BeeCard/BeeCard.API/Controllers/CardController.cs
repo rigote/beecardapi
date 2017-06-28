@@ -3,8 +3,8 @@ using BeeCard.Application.Interfaces;
 using BeeCard.Domain.Entities;
 using Newtonsoft.Json;
 using System;
-using System.Linq;
 using System.Collections.Generic;
+using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
@@ -21,7 +21,7 @@ namespace BeeCard.API.Controllers
         }
 
         [HttpGet]
-        [Route("api/users/{userId}/cards/{cardId}")]
+        [Route("api/user/{userId}/cards/{cardId}")]
         public HttpResponseMessage GetCard(Guid userId, Guid cardId)
         {
             try
@@ -49,7 +49,7 @@ namespace BeeCard.API.Controllers
         }        
 
         [HttpPost]
-        [Route("api/users/{userId}/cards")]
+        [Route("api/user/{userId}/cards")]
         public HttpResponseMessage CreatePersonalCard(Guid userId, RequestCardModel model)
         {
             try
@@ -65,7 +65,7 @@ namespace BeeCard.API.Controllers
         }
 
         [HttpPut]
-        [Route("api/users/{userId}/cards/{cardId}")]
+        [Route("api/user/{userId}/cards/{cardId}")]
         public HttpResponseMessage UpdatePersonalCard(Guid userId, Guid cardId, RequestCardModel model)
         {
             try
@@ -83,7 +83,7 @@ namespace BeeCard.API.Controllers
         }
 
         [HttpDelete]
-        [Route("api/users/{userId}/cards/{cardId}")]
+        [Route("api/user/{userId}/cards/{cardId}")]
         public HttpResponseMessage RemovePersonalCard(Guid userId, Guid cardId)
         {
             try
@@ -99,7 +99,7 @@ namespace BeeCard.API.Controllers
         }
 
         [HttpGet]
-        [Route("api/users/{userId}/cards")]
+        [Route("api/user/{userId}/cards")]
         public HttpResponseMessage GetAllCards(Guid userId)
         {
             try
