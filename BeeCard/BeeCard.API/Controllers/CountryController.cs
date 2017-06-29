@@ -79,11 +79,11 @@ namespace BeeCard.API.Controllers
 
         [HttpPut]
         [Route("api/countries/{countryId}")]
-        public HttpResponseMessage UpdateCountry(RequestCountryModel countryModel)
+        public HttpResponseMessage UpdateCountry(Guid countryId, RequestCountryModel countryModel)
         {
             try
             {
-                _countryService.UpdateCountry(countryModel.Id, countryModel.Name, countryModel.Status);
+                _countryService.UpdateCountry(countryId, countryModel.Name, countryModel.Status);
 
                 return Request.CreateResponse(HttpStatusCode.NoContent);
             }

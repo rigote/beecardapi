@@ -105,4 +105,26 @@ namespace BeeCard.API.Models
     public class RequestCompanyTypeModel : BaseCompanyTypeModel
     {
     }
+
+
+    public class BaseCompanyGroupModel
+    {
+        public Guid Id { set; get; }
+        public string Name { get; set; }
+        public bool Status { get; set; }
+    }
+
+    public class ResponseCompanyGroupModel : BaseCompanyGroupModel
+    {
+        public ResponseCompanyGroupModel(CompanyGroup companyGroup)
+        {
+            Id = companyGroup.ID;
+            Name = companyGroup.Name;
+            Status = companyGroup.Status == EntityStatus.Active ? true : false;
+        }
+    }
+
+    public class RequestCompanyGroupModel : BaseCompanyGroupModel
+    { }
+
 }

@@ -1,12 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using BeeCard.Application.Interfaces;
+﻿using BeeCard.Application.Interfaces;
 using BeeCard.Domain.Entities;
+using BeeCard.Domain.Entities.Enum;
 using BeeCard.Domain.Interfaces.Services;
+using Microsoft.AspNet.Identity;
+using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNet.Identity;
-using BeeCard.Domain.Entities.Enum;
 
 namespace BeeCard.Application.Services
 {
@@ -24,6 +24,7 @@ namespace BeeCard.Application.Services
         public void RegisterUser(string email, string firstname, string lastname, string password, DateTime birthdate, string phoneNumber, string avatarFileName, byte[] avatarContent)
         {
             //TODO: Save and Upload image
+            //TODO: Apply password complexity (min len 8 | special characters?). 
 
             var user = new User();
 

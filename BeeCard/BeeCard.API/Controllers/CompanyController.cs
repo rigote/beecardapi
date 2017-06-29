@@ -16,12 +16,15 @@ namespace BeeCard.API.Controllers
     {
         private readonly ICompanyAppService _companyService;
         private readonly ICompanyTypeAppService _companyTypeService;
+        private readonly ICompanyGroupAppService _companyGroupService; 
 
         public CompanyController(ICompanyAppService companyService,
-                                 ICompanyTypeAppService companyTypeService)
+                                 ICompanyTypeAppService companyTypeService,
+                                 ICompanyGroupAppService companyGroupService)
         {
             _companyService = companyService;
             _companyTypeService = companyTypeService;
+            _companyGroupService = companyGroupService;
         }
 
         [HttpGet]
@@ -209,6 +212,77 @@ namespace BeeCard.API.Controllers
                 throw new HttpResponseException(Request.CreateResponse(HttpStatusCode.BadRequest, ex));
             }
         }
+        
+        #region Companies Groups
+        [HttpPost]
+        [Route("api/companies/{companyId}/groups/")]
+        public HttpResponseMessage CreateCompanyGroup(Guid companyId, RequestCompanyGroupModel model)
+        {
+            try
+            {
+                _companyGroupService.CreateCompanyGroup(companyId, model.Name, model.Status);
 
+                return Request.CreateResponse(HttpStatusCode.Created);
+            }
+            catch (Exception ex)
+            {
+                throw new HttpResponseException(Request.CreateResponse(HttpStatusCode.BadRequest, ex));
+            }
+        }
+
+
+        [HttpGet]
+        [Route("api/companies/{companyId}/groups/")]
+        public HttpResponseMessage GetAllCompanyGroups(Guid companyId)
+        {
+            try
+            {
+                List<ResponseCompanyGroupModel> response = _companyGroupService.GetCompanyGroups(companyId).Select(c => new ResponseCompanyGroupModel(c)).ToList();
+
+                return Request.CreateResponse(HttpStatusCode.OK, response);
+            }
+            catch (Exception ex)
+            {
+                throw new HttpResponseException(Request.CreateResponse(HttpStatusCode.BadRequest, ex));
+            }
+        }
+
+        [HttpGet]
+        [Route("api/companies/{companyId}/groups/{companyGroupId}")]
+        public HttpResponseMessage GetCompanyGroup(Guid companyId, Guid companyGroupId)
+        {
+            try
+            {
+                CompanyGroup companyGroup = _companyGroupService.GetCompanyGroupById(companyGroupId, companyId);
+
+                if (companyGroup == null)
+                    throw new HttpResponseException(Request.CreateResponse(HttpStatusCode.NotFound));
+
+                return Request.CreateResponse(HttpStatusCode.OK, new ResponseCompanyGroupModel(companyGroup));                
+
+            }
+            catch (Exception ex)
+            {
+                throw new HttpResponseException(Request.CreateResponse(HttpStatusCode.BadRequest, ex));
+            }
+        }
+
+        [HttpDelete]
+        [Route("api/companies/{companyId}/groups/{companyGroupId}")]
+        public HttpResponseMessage RemoveCompanyGroup(Guid companyId, Guid companyGroupId)
+        {
+            try
+            {
+                _companyGroupService.RemoveCompanyGroup(companyGroupId, companyId);
+            }
+            catch (Exception ex)
+            {
+                throw new HttpResponseException(Request.CreateResponse(HttpStatusCode.BadRequest, ex));
+            }
+
+            return Request.CreateResponse(HttpStatusCode.NoContent);
+        }
+
+        #endregion
     }
 }

@@ -81,11 +81,11 @@ namespace BeeCard.API.Controllers
 
         [HttpPut]
         [Route("api/plans/{planId}")]
-        public HttpResponseMessage UpdatePlan(RequestPlanModel planModel)
+        public HttpResponseMessage UpdatePlan(Guid planId, RequestPlanModel planModel)
         {
             try
             {
-                _planService.UpdatePlan(planModel.Id, planModel.Name, planModel.Description, planModel.Status);
+                _planService.UpdatePlan(planId, planModel.Name, planModel.Description, planModel.Status);
 
                 return Request.CreateResponse(HttpStatusCode.NoContent);
             }
