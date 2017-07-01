@@ -22,7 +22,7 @@ namespace BeeCard.API.Controllers
 
         [HttpGet]
         [Route("api/users/{userId}/cards/{cardId}")]
-        public HttpResponseMessage GetCard(Guid userId, Guid cardId)
+        public HttpResponseMessage GetUserCard(Guid userId, Guid cardId)
         {
             try
             {
@@ -78,8 +78,6 @@ namespace BeeCard.API.Controllers
             {
                 throw new HttpResponseException(Request.CreateResponse(HttpStatusCode.BadRequest, ex));
             }
-
-            
         }
 
         [HttpDelete]
@@ -100,7 +98,7 @@ namespace BeeCard.API.Controllers
 
         [HttpGet]
         [Route("api/users/{userId}/cards")]
-        public HttpResponseMessage GetAllCards(Guid userId)
+        public HttpResponseMessage GetAllUserCards(Guid userId)
         {
             try
             {
@@ -115,6 +113,54 @@ namespace BeeCard.API.Controllers
             {
                 throw new HttpResponseException(Request.CreateResponse(HttpStatusCode.BadRequest, ex));
             }
+        }
+
+        [HttpPost]
+        [Route("api/users/{userId}/companies/{companyId}/cards")]
+        public HttpResponseMessage CreateCompanyCard(Guid userId, Guid companyId, RequestCardModel model)
+        {
+            try
+            {
+                _cardService.CreateCorporateCard(userId, companyId, model.FullName, model.Occupation, model.Department, model.Phone, model.Cellphone, model.Email, model.Status);
+
+                return Request.CreateResponse(HttpStatusCode.Created);
+            }
+            catch (Exception ex)
+            {
+                throw new HttpResponseException(Request.CreateResponse(HttpStatusCode.BadRequest, ex));
+            }
+        }
+
+        [HttpPut]
+        [Route("api/users/{userId}/companies/{companyId}/cards/{cardId}")]
+        public HttpResponseMessage UpdateCompanyCard(Guid userId, Guid companyId, Guid cardId, RequestCardModel model)
+        {
+            try
+            {
+                _cardService.UpdateCorporateCard(userId, companyId, cardId, model.FullName, model.Occupation, model.Department, model.Phone, model.Cellphone, model.Email, model.Status);
+
+                return Request.CreateResponse(HttpStatusCode.NoContent);
+            }
+            catch (Exception ex)
+            {
+                throw new HttpResponseException(Request.CreateResponse(HttpStatusCode.BadRequest, ex));
+            }
+        }
+
+        [HttpDelete]
+        [Route("api/users/{userId}/companies/{companyId}/cards/{cardId}")]
+        public HttpResponseMessage RemoveCompanyCard(Guid userId, Guid companyId, Guid cardId)
+        {
+            try
+            {
+                _cardService.RemoveCorporateCard(userId, cardId);
+            }
+            catch (Exception ex)
+            {
+                throw new HttpResponseException(Request.CreateResponse(HttpStatusCode.BadRequest, ex));
+            }
+
+            return Request.CreateResponse(HttpStatusCode.NoContent);
         }
 
     }

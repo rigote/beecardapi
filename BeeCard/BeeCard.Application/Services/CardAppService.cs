@@ -35,9 +35,9 @@ namespace BeeCard.Application.Services
             return _personalCardService.Find(c => c.UserID == userId && c.Status != EntityStatus.Deleted, i => i.User).ToList();
         }
 
-        public List<CorporateCard> GetCorporateCards(Guid userId)
+        public List<CorporateCard> GetCorporateCards(Guid companyId)
         {
-            return _corporateCardService.Find(c => c.UserID == userId && c.Status != EntityStatus.Deleted, i => i.Company, i => i.User).ToList();
+            return _corporateCardService.Find(c => c.CompanyID == companyId && c.Status != EntityStatus.Deleted, i => i.Company, i => i.User).ToList();
         }
 
         public void CreatePersonalCard(Guid userId, string avatarImage, string fullName, string address, string phone, string cellphone, string email, string website, string socialMedias)
@@ -87,7 +87,55 @@ namespace BeeCard.Application.Services
                 _personalCardService.Remove(card);
             else
                 throw new ArgumentException(string.Empty, "NotFound");
+        }
 
+        public void CreateCorporateCard(Guid userId, Guid companyId, string fullName, string occupation, string department, string phone, string cellphone, string email, bool status)
+        {
+            var card = new CorporateCard();
+
+            card.Cellphone = cellphone;
+            card.CompanyID = companyId;
+            card.Department = department;
+            card.Email = email;
+            card.Name = fullName;
+            card.Occupation = occupation;
+            card.Phone = phone;
+            card.UserID = userId;
+            card.Status = EntityStatus.Active;
+
+            _corporateCardService.Add(card);
+        }
+
+        public void UpdateCorporateCard(Guid userId, Guid companyId, Guid cardId, string fullName, string occupation, string department, string phone, string cellphone, string email, bool status)
+        {
+            var card = GetCorporateCardById(userId, cardId);
+
+            if (card != null)
+            {
+                card.Cellphone = cellphone;
+                card.CompanyID = companyId;
+                card.Department = department;
+                card.Email = email;
+                card.Name = fullName;
+                card.Occupation = occupation;
+                card.Phone = phone;
+                card.UserID = userId;
+                card.Status = status ? EntityStatus.Active : EntityStatus.Inactive;
+
+                _corporateCardService.Update(card);
+            }
+            else
+                throw new ArgumentException(string.Empty, "NotFound");
+        }
+
+        public void RemoveCorporateCard(Guid userId, Guid cardId)
+        {
+            var card = GetCorporateCardById(userId, cardId);
+
+            if (card != null)
+                _corporateCardService.Remove(card);
+            else
+                throw new ArgumentException(string.Empty, "NotFound");
         }
     }
 }

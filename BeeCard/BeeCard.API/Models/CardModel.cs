@@ -29,10 +29,13 @@ namespace BeeCard.API.Models
         public Guid Id { get; set; }
         public CardType Type { get; set; }
         public string Occupation { get; set; }
+        public string Department { get; set; }
         public string CompanyLogo { get; set; }
         public string CompanyName { get; set; }
         public bool IsFavorite { get; set; }
         public CardConfig Config { get; set; }
+        public Guid UserId { get; set; }
+        public Guid CompanyId { get; set; }
 
         public ResponseCardModel()
         {
@@ -56,6 +59,7 @@ namespace BeeCard.API.Models
             City = card.City;
             Neighborhood = card.Neighborhood;
             Status = card.Status == EntityStatus.Active ? true : false;
+            UserId = card.UserID;
 
             if (card.User != null)
             {
@@ -73,7 +77,10 @@ namespace BeeCard.API.Models
             Email = card.Email;
             FullName = card.Name;
             Occupation = card.Occupation;
+            Department = card.Department;
             Status = card.Status == EntityStatus.Active ? true : false;
+            UserId = card.UserID;
+            CompanyId = card.CompanyID;
 
             if (card.User != null)
             {
@@ -99,5 +106,14 @@ namespace BeeCard.API.Models
 
     public class RequestCardModel : BaseCardModel
     {
+        public CardType Type { get; set; }
+        public string Occupation { get; set; }
+        public string Department { get; set; }
+        public string CompanyLogo { get; set; }
+        public string CompanyName { get; set; }
+        public bool IsFavorite { get; set; }
+        public CardConfig Config { get; set; }
+        public Guid UserId { get; set; }
+        public Guid CompanyId { get; set; }
     }
 }

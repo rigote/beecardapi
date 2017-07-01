@@ -64,7 +64,7 @@ namespace BeeCard.API.Controllers
 
         [HttpPost]
         [Route("api/plans/")]
-        public HttpResponseMessage CreateCountry(RequestPlanModel planModel)
+        public HttpResponseMessage CreatePlan(RequestPlanModel planModel)
         {
             try
             {
