@@ -44,4 +44,28 @@ namespace BeeCard.API.Models
             Status = user.Status == EntityStatus.Active ? true : false;
         }
     }
+
+    public class BaseUserGroupModel
+    {
+        public string Name { get; set; }
+        public bool Status { get; set; }
+    }
+
+    public class RequestUserGroupModel : BaseUserGroupModel
+    {
+    }
+
+    public class ResponseUserGroupModel : BaseUserGroupModel
+    {
+        public Guid UserGroupId { get; set; }
+        public Guid UserId { get; set; }
+
+        public ResponseUserGroupModel(UserGroup userGroup)
+        {
+            UserGroupId = userGroup.ID;
+            UserId = userGroup.UserID;
+            Name = userGroup.Name;
+            Status = userGroup.Status == EntityStatus.Active;
+        }
+    }
 }

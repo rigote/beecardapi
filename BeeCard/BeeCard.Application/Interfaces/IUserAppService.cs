@@ -15,5 +15,10 @@ namespace BeeCard.Application.Interfaces
         void RemoveUser(Guid userId);
         Task<User> FindUser(string userName, string password);
         void ChangePassword(Guid userId, string currentPassword, string newPassword);
+        UserGroup GetUserGroup(Guid userId, Guid userGroupId);        
+        IEnumerable<UserGroup> GetAllUserGroups(Guid userId);
+        void CreateUserGroup(Guid userId, string name);
+        void UpdateUserGroup(Guid userId, Guid userGroupId, string name, bool status);
+        void RemoveUserGroup(Guid userId, Guid userGroupId);
     }
 }

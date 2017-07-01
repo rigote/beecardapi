@@ -14,11 +14,13 @@ namespace BeeCard.Application.Services
     {
         private readonly IUserService _service;
         private readonly IIdentityService _identityService;
+        private readonly IUserGroupService _userGroupService;
 
-        public UserAppService(IUserService service, IIdentityService identityService)
+        public UserAppService(IUserService service, IIdentityService identityService, IUserGroupService userGroupService)
         {
             _service = service;
             _identityService = identityService;
+            _userGroupService = userGroupService;
         }
 
         public void RegisterUser(string email, string firstname, string lastname, string password, DateTime birthdate, string phoneNumber, string avatarFileName, byte[] avatarContent)
@@ -44,7 +46,7 @@ namespace BeeCard.Application.Services
 
         public IEnumerable<User> GetAll()
         {
-            return _service.GetAll();
+            return _service.Find(u => u.Status != EntityStatus.Deleted);
         }
 
         public User GetUser(Guid id)
@@ -92,7 +94,7 @@ namespace BeeCard.Application.Services
             }
             else
             {
-                throw new ArgumentException("Invalid user.");
+                throw new ArgumentException(string.Empty, "NotFound");
             }
         }
 
@@ -104,6 +106,52 @@ namespace BeeCard.Application.Services
         public void ChangePassword(Guid userId, string currentPassword, string newPassword)
         {
             var result = _identityService.ChangePassword(userId, currentPassword, newPassword);
+        }
+
+        public UserGroup GetUserGroup(Guid userId, Guid userGroupId)
+        {
+            return _userGroupService.Find(u => u.UserID == userId && u.ID == userGroupId && u.Status != EntityStatus.Deleted).FirstOrDefault();
+        }
+
+        public IEnumerable<UserGroup> GetAllUserGroups(Guid userId)
+        {
+            return _userGroupService.Find(u => u.Status != EntityStatus.Deleted);
+        }
+
+        public void CreateUserGroup(Guid userId, string name)
+        {
+            var userGroup = new UserGroup();
+
+            userGroup.UserID = userId;
+            userGroup.Name = name;
+            userGroup.Status = EntityStatus.Active;
+
+            _userGroupService.Add(userGroup);
+        }
+
+        public void UpdateUserGroup(Guid userId, Guid userGroupId, string name, bool status)
+        {
+            var userGroup = GetUserGroup(userId, userGroupId);
+
+            if (userGroup != null)
+            {
+                userGroup.Name = name;
+                userGroup.Status = status ? EntityStatus.Active : EntityStatus.Inactive;
+
+                _userGroupService.Update(userGroup);
+            }
+            else
+                throw new ArgumentException(string.Empty, "NotFound");
+        }
+
+        public void RemoveUserGroup(Guid userId, Guid userGroupId)
+        {
+            var userGroup = GetUserGroup(userId, userGroupId);
+
+            if (userGroup != null)
+                _userGroupService.Remove(userGroup);
+            else
+                throw new ArgumentException(string.Empty, "NotFound");
         }
     }
 }

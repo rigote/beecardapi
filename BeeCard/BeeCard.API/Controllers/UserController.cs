@@ -18,12 +18,12 @@ namespace BeeCard.API.Controllers
         }
 
         [HttpGet]
-        [Route("api/users/{id}")]
-        public HttpResponseMessage Get(Guid id)
+        [Route("api/users/{userId}")]
+        public HttpResponseMessage Get(Guid userId)
         {
             try
             {
-                var user = _userService.GetUser(id);
+                var user = _userService.GetUser(userId);
 
                 if (user == null)
                     return Request.CreateResponse(HttpStatusCode.NotFound);
@@ -89,6 +89,87 @@ namespace BeeCard.API.Controllers
             try
             {
                 _userService.RemoveUser(userId);
+
+                return Request.CreateResponse(HttpStatusCode.NoContent);
+            }
+            catch (Exception ex)
+            {
+                return Request.CreateResponse(HttpStatusCode.BadRequest, ex);
+            }
+        }
+
+        [HttpGet]
+        [Route("api/users/{userid}/groups/{userGroupId}")]
+        public HttpResponseMessage GetUserGroup(Guid userId, Guid userGroupId)
+        {
+            try
+            {
+                var userGroup = _userService.GetUserGroup(userId, userGroupId);
+
+                if (userGroup == null)
+                    return Request.CreateResponse(HttpStatusCode.NotFound);
+                else
+                    return Request.CreateResponse(HttpStatusCode.OK, new ResponseUserGroupModel(userGroup));
+            }
+            catch (Exception ex)
+            {
+                return Request.CreateResponse(HttpStatusCode.BadRequest, ex);
+            }
+        }
+
+        [HttpGet]
+        [Route("api/users/{userId}/groups")]
+        public HttpResponseMessage GetAllUserGroups(Guid userId)
+        {
+            try
+            {
+                return Request.CreateResponse(HttpStatusCode.OK, _userService.GetAllUserGroups(userId).Select(u => new ResponseUserGroupModel(u)).ToList());
+            }
+            catch (Exception ex)
+            {
+                return Request.CreateResponse(HttpStatusCode.BadRequest, ex);
+            }
+        }
+
+        [HttpPost]
+        [Route("api/users/{userId}/groups")]
+        public HttpResponseMessage AddUserGroup(Guid userId, RequestUserGroupModel model)
+        {
+            try
+            {
+                _userService.CreateUserGroup(userId, model.Name);
+
+                return Request.CreateResponse(HttpStatusCode.Created);
+            }
+            catch (Exception ex)
+            {
+                return Request.CreateResponse(HttpStatusCode.BadRequest, ex);
+            }
+        }
+
+        [HttpPut]
+        [Route("api/users/{userId}/groups/{userGroupId}")]
+        public HttpResponseMessage UpdateUserGroup(Guid userId, Guid userGroupId, RequestUserGroupModel model)
+        {
+            try
+            {
+                _userService.UpdateUserGroup(userId, userGroupId, model.Name, model.Status);
+
+                return Request.CreateResponse(HttpStatusCode.NoContent);
+            }
+            catch (Exception ex)
+            {
+                return Request.CreateResponse(HttpStatusCode.BadRequest, ex);
+            }
+        }
+
+        [HttpDelete]
+        [Route("api/users/{userId}/groups/{userGroupId}")]
+        public HttpResponseMessage RemoveUserGroup(Guid userId, Guid userGroupId)
+        {
+            try
+            {
+                _userService.RemoveUserGroup(userId, userGroupId);
 
                 return Request.CreateResponse(HttpStatusCode.NoContent);
             }
