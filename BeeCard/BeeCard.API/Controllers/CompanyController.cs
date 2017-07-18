@@ -16,12 +16,15 @@ namespace BeeCard.API.Controllers
     {
         private readonly ICompanyAppService _companyService;
         private readonly ICompanyTypeAppService _companyTypeService;
+        private readonly ISubscriptionHistoryAppService _subscriptionHistoryService;
 
         public CompanyController(ICompanyAppService companyService,
-                                 ICompanyTypeAppService companyTypeService)
+                                 ICompanyTypeAppService companyTypeService,
+                                 ISubscriptionHistoryAppService subscriptionHistoryService)
         {
             _companyService = companyService;
             _companyTypeService = companyTypeService;
+            _subscriptionHistoryService = subscriptionHistoryService;
         }
 
         [HttpGet]
@@ -207,6 +210,55 @@ namespace BeeCard.API.Controllers
             catch (Exception ex)
             {
                 throw new HttpResponseException(Request.CreateResponse(HttpStatusCode.BadRequest, ex));
+            }
+        }
+
+        [HttpGet]
+        [Route("api/companies/{companyId}/subscriptions/history/{subscriptionHistoryId}")]
+        public HttpResponseMessage GetAllSubscriptionHistory(Guid companyId, Guid subscriptionHistoryId)
+        {
+            try
+            {
+                var subscriptionHistory = _subscriptionHistoryService.GetSubscriptionHistoryById(companyId, subscriptionHistoryId);
+
+                if (subscriptionHistory == null)
+                    return Request.CreateResponse(HttpStatusCode.NotFound);
+                else
+                    return Request.CreateResponse(HttpStatusCode.OK, new ResponseSubscriptionHistoryModel(subscriptionHistory));
+            }
+            catch (Exception ex)
+            {
+                return Request.CreateResponse(HttpStatusCode.BadRequest, ex);
+            }
+        }
+
+        [HttpGet]
+        [Route("api/companies/{companyId}/subscriptions/history/")]
+        public HttpResponseMessage GetAllSubscriptionHistory(Guid companyId)
+        {
+            try
+            {
+                return Request.CreateResponse(HttpStatusCode.OK, _subscriptionHistoryService.GetAllSubscriptionHistory(companyId).Select(u => new ResponseSubscriptionHistoryModel(u)).ToList());
+            }
+            catch (Exception ex)
+            {
+                return Request.CreateResponse(HttpStatusCode.BadRequest, ex);
+            }
+        }
+
+        [HttpPost]
+        [Route("api/companies/{companyId}/subscriptions/history/")]
+        public HttpResponseMessage AddSubscriptionHistory(RequestSubscriptionHistoryModel model)
+        {
+            try
+            {
+                _subscriptionHistoryService.CreateSubscriptionHistory(model.CompanyID, model.SubscriptionType, model.SubscriptionPrice, model.SubscriptionDate, model.SubscriptionStatus);
+
+                return Request.CreateResponse(HttpStatusCode.Created);
+            }
+            catch (Exception ex)
+            {
+                return Request.CreateResponse(HttpStatusCode.BadRequest, ex);
             }
         }
 

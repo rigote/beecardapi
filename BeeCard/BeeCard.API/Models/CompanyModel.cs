@@ -105,4 +105,32 @@ namespace BeeCard.API.Models
     public class RequestCompanyTypeModel : BaseCompanyTypeModel
     {
     }
+
+    public class BaseSubscriptionHistoryModel
+    {
+        public Guid SubscriptionID { get; set; }
+        public SubscriptionType SubscriptionType { get; set; }
+        public decimal SubscriptionPrice { get; set; }
+        public DateTime SubscriptionDate { get; set; }
+        public SubscriptionStatus SubscriptionStatus { get; set; }
+        public Guid CompanyID { get; set; }
+        public EntityStatus Status { get; set; }
+    }
+
+    public class RequestSubscriptionHistoryModel : BaseSubscriptionHistoryModel
+    {
+    }
+
+    public class ResponseSubscriptionHistoryModel : BaseSubscriptionHistoryModel
+    {
+        public ResponseSubscriptionHistoryModel(SubscriptionHistory subscriptionHistory)
+        {
+            SubscriptionType = subscriptionHistory.SubscriptionType;
+            SubscriptionPrice = subscriptionHistory.SubscriptionPrice;
+            SubscriptionDate = subscriptionHistory.SubscriptionDate;
+            SubscriptionStatus = subscriptionHistory.SubscriptionStatus;
+            CompanyID = subscriptionHistory.CompanyID;
+            Status = subscriptionHistory.Status;
+        }
+    }
 }

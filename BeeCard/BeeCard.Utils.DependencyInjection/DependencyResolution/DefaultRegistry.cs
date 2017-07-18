@@ -45,6 +45,7 @@ namespace BeeCard.Utils.DependencyInjection.DependencyResolution
             For<IPlanService>().Use<PlanService>();
             For<IPlanRepository>().Use<PlanRepository>();
 
+            For<ISubscriptionHistoryAppService>().Use<SubscriptionHistoryAppService>();
             For<ISubscriptionHistoryService>().Use<SubscriptionHistoryService>();
             For<ISubscriptionHistoryRepository>().Use<SubscriptionHistoryRepository>();
 
