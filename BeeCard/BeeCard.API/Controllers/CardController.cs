@@ -98,14 +98,39 @@ namespace BeeCard.API.Controllers
 
         [HttpGet]
         [Route("api/users/{userId}/cards")]
-        public HttpResponseMessage GetAllUserCards(Guid userId)
+        public HttpResponseMessage GetAllUserPersonalCards(Guid userId, [FromUri] string page, [FromUri] string size)
         {
             try
             {
-                List<ResponseCardModel> response = new List<ResponseCardModel>();
+                int _page = 0;
+                int _size = 0;
 
-                response.AddRange(_cardService.GetPersonalCards(userId).Select(c => new ResponseCardModel(c)).ToList());
-                response.AddRange(_cardService.GetCorporateCards(userId).Select(c => new ResponseCardModel(c)).ToList());
+                int.TryParse(page, out _page);
+                int.TryParse(size, out _size);
+
+                List<ResponseCardModel> response = _cardService.GetPersonalCards(userId, _page, _size).Select(c => new ResponseCardModel(c)).ToList();
+
+                return Request.CreateResponse(HttpStatusCode.OK, response);
+            }
+            catch (Exception ex)
+            {
+                throw new HttpResponseException(Request.CreateResponse(HttpStatusCode.BadRequest, ex));
+            }
+        }
+
+        [HttpGet]
+        [Route("api/users/{userId}/companies/{companyId}/cards")]
+        public HttpResponseMessage GetAllUserCompanyCards(Guid userId, Guid companyId, [FromUri] string page, [FromUri] string size)
+        {
+            try
+            {
+                int _page = 0;
+                int _size = 0;
+
+                int.TryParse(page, out _page);
+                int.TryParse(size, out _size);
+
+                List<ResponseCardModel> response = _cardService.GetCorporateCards(userId, null, null).Select(c => new ResponseCardModel(c)).ToList();
 
                 return Request.CreateResponse(HttpStatusCode.OK, response);
             }

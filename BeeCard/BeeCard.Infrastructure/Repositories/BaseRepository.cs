@@ -23,7 +23,7 @@ namespace BeeCard.Infrastructure.Repositories
             _context.SaveChanges();
         }        
 
-        public virtual List<T> Find(Expression<Func<T, bool>> predicate = null, params Expression<Func<T, object>>[] includeExpressions)
+        public virtual List<T> Find(int? page, int? size, Expression<Func<T, Guid>> keySelector = null, Expression<Func<T, bool>> predicate = null, params Expression<Func<T, object>>[] includeExpressions)
         {
             List<T> result = new List<T>();
             IQueryable<T> query = _context.Set<T>();
@@ -34,6 +34,9 @@ namespace BeeCard.Infrastructure.Repositories
             if (predicate != null)
                 query = query.Where(predicate);
 
+            if (page.HasValue && size.HasValue)
+                query = query.OrderBy(keySelector).Skip((page.Value - 1) * size.Value).Take(size.Value);
+
             using (_context.Database.BeginTransaction(IsolationLevel.ReadUncommitted))
             {
                 result = query.ToList();
@@ -42,13 +45,16 @@ namespace BeeCard.Infrastructure.Repositories
             return result;
         }
 
-        public virtual List<T> GetAll(params Expression<Func<T, object>>[] includeExpressions)
+        public virtual List<T> GetAll(int? page, int? size, Expression<Func<T, Guid>> keySelector, params Expression<Func<T, object>>[] includeExpressions)
         {
             List<T> result = new List<T>();
             IQueryable<T> query = _context.Set<T>();
 
             foreach (var includeExpression in includeExpressions)
                 query = query.Include(includeExpression);
+
+            if (page.HasValue && size.HasValue)
+                query = query.OrderBy(keySelector).Skip((page.Value - 1) * size.Value).Take(size.Value);
 
             using (_context.Database.BeginTransaction(IsolationLevel.ReadUncommitted))
             {

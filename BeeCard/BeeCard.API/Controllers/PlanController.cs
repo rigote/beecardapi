@@ -43,11 +43,17 @@ namespace BeeCard.API.Controllers
 
         [HttpGet]
         [Route("api/plans/")]
-        public HttpResponseMessage GetAllPlans()
+        public HttpResponseMessage GetAllPlans([FromUri] string page, [FromUri] string size)
         {
             try
             {
-                List<ResponsePlanModel> response = _planService.GetPlans().Select(c => new ResponsePlanModel(c)).ToList();
+                int _page = 0;
+                int _size = 0;
+
+                int.TryParse(page, out _page);
+                int.TryParse(size, out _size);
+
+                List<ResponsePlanModel> response = _planService.GetPlans(_page, _size).Select(c => new ResponsePlanModel(c)).ToList();
 
                 if (response == null)
                     throw new HttpResponseException(Request.CreateResponse(HttpStatusCode.NotFound));

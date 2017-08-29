@@ -10,7 +10,7 @@ namespace BeeCard.Tests
         public void TestConnection()
         {            
             var userService = container.GetInstance<IUserAppService>();
-            var result = userService.GetAll();
+            var result = userService.GetAll(null, null);
         }
     }
 }

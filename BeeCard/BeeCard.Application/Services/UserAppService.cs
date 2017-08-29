@@ -44,14 +44,14 @@ namespace BeeCard.Application.Services
             _service.Add(user);
         }
 
-        public IEnumerable<User> GetAll()
+        public IEnumerable<User> GetAll(int? page, int? size)
         {
-            return _service.Find(u => u.Status != EntityStatus.Deleted);
+            return _service.Find(page, size, o => o.Id, u => u.Status != EntityStatus.Deleted);
         }
 
         public User GetUser(Guid id)
         {
-            return _service.Find(u => u.Id == id && u.Status != EntityStatus.Deleted).FirstOrDefault();
+            return _service.Find(null, null, null, u => u.Id == id && u.Status != EntityStatus.Deleted).FirstOrDefault();
         }
 
         public User GetUserByEmail(string email)
@@ -59,7 +59,7 @@ namespace BeeCard.Application.Services
             if (string.IsNullOrEmpty(email))
                 throw new ArgumentException("Invalid email");
 
-            return _service.Find(u => u.Email == email && u.Status != EntityStatus.Deleted).FirstOrDefault();
+            return _service.Find(null, null, null, u => u.Email == email && u.Status != EntityStatus.Deleted).FirstOrDefault();
         }
 
         public void RemoveUser(Guid userId)
@@ -110,12 +110,12 @@ namespace BeeCard.Application.Services
 
         public UserGroup GetUserGroup(Guid userId, Guid userGroupId)
         {
-            return _userGroupService.Find(u => u.UserID == userId && u.ID == userGroupId && u.Status != EntityStatus.Deleted).FirstOrDefault();
+            return _userGroupService.Find(null, null, null, u => u.UserID == userId && u.ID == userGroupId && u.Status != EntityStatus.Deleted).FirstOrDefault();
         }
 
-        public IEnumerable<UserGroup> GetAllUserGroups(Guid userId)
+        public IEnumerable<UserGroup> GetAllUserGroups(Guid userId, int? page, int? size)
         {
-            return _userGroupService.Find(u => u.Status != EntityStatus.Deleted);
+            return _userGroupService.Find(page, size, o => o.ID, u => u.Status != EntityStatus.Deleted);
         }
 
         public void CreateUserGroup(Guid userId, string name)

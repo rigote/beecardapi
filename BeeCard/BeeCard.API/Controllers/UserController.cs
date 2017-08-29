@@ -38,11 +38,17 @@ namespace BeeCard.API.Controllers
 
         [HttpGet]
         [Route("api/users/")]
-        public HttpResponseMessage GetAll()
+        public HttpResponseMessage GetAll([FromUri] string page, [FromUri] string size)
         {
             try
             {
-                return Request.CreateResponse(HttpStatusCode.OK, _userService.GetAll().Select(u => new ResponseUserModel(u)).ToList());
+                int _page = 0;
+                int _size = 0;
+
+                int.TryParse(page, out _page);
+                int.TryParse(size, out _size);
+
+                return Request.CreateResponse(HttpStatusCode.OK, _userService.GetAll(_page, _size).Select(u => new ResponseUserModel(u)).ToList());
             }
             catch (Exception ex)
             {
@@ -119,11 +125,17 @@ namespace BeeCard.API.Controllers
 
         [HttpGet]
         [Route("api/users/{userId}/groups")]
-        public HttpResponseMessage GetAllUserGroups(Guid userId)
+        public HttpResponseMessage GetAllUserGroups(Guid userId, [FromUri] string page, [FromUri] string size)
         {
             try
             {
-                return Request.CreateResponse(HttpStatusCode.OK, _userService.GetAllUserGroups(userId).Select(u => new ResponseUserGroupModel(u)).ToList());
+                int _page = 0;
+                int _size = 0;
+
+                int.TryParse(page, out _page);
+                int.TryParse(size, out _size);
+
+                return Request.CreateResponse(HttpStatusCode.OK, _userService.GetAllUserGroups(userId, _page, _size).Select(u => new ResponseUserGroupModel(u)).ToList());
             }
             catch (Exception ex)
             {

@@ -114,11 +114,17 @@ namespace BeeCard.API.Controllers
 
         [HttpGet]
         [Route("api/companies/")]
-        public HttpResponseMessage GetAllCompanies()
+        public HttpResponseMessage GetAllCompanies([FromUri] string page, [FromUri] string size)
         {
             try
             {
-                List<ResponseCompanyModel> response = _companyService.GetCompanies().Select(c => new ResponseCompanyModel(c)).ToList();
+                int _page = 0;
+                int _size = 0;
+
+                int.TryParse(page, out _page);
+                int.TryParse(size, out _size);
+
+                List<ResponseCompanyModel> response = _companyService.GetCompanies(_page, _size).Select(c => new ResponseCompanyModel(c)).ToList();
 
                 return Request.CreateResponse(HttpStatusCode.OK, response);
             }
@@ -199,11 +205,17 @@ namespace BeeCard.API.Controllers
 
         [HttpGet]
         [Route("api/companies/types/")]
-        public HttpResponseMessage GetAllCompanyTypes()
+        public HttpResponseMessage GetAllCompanyTypes([FromUri] string page, [FromUri] string size)
         {
             try
             {
-                List<ResponseCompanyTypeModel> response = _companyTypeService.GetCompanyTypes().Select(c => new ResponseCompanyTypeModel(c)).ToList();
+                int _page = 0;
+                int _size = 0;
+
+                int.TryParse(page, out _page);
+                int.TryParse(size, out _size);
+
+                List<ResponseCompanyTypeModel> response = _companyTypeService.GetCompanyTypes(_page, _size).Select(c => new ResponseCompanyTypeModel(c)).ToList();
 
                 return Request.CreateResponse(HttpStatusCode.OK, response);
             }
@@ -234,11 +246,17 @@ namespace BeeCard.API.Controllers
 
         [HttpGet]
         [Route("api/companies/{companyId}/subscriptions/history/")]
-        public HttpResponseMessage GetAllSubscriptionHistory(Guid companyId)
+        public HttpResponseMessage GetAllSubscriptionHistory(Guid companyId, [FromUri] string page, [FromUri] string size)
         {
             try
             {
-                return Request.CreateResponse(HttpStatusCode.OK, _subscriptionHistoryService.GetAllSubscriptionHistory(companyId).Select(u => new ResponseSubscriptionHistoryModel(u)).ToList());
+                int _page = 0;
+                int _size = 0;
+
+                int.TryParse(page, out _page);
+                int.TryParse(size, out _size);
+
+                return Request.CreateResponse(HttpStatusCode.OK, _subscriptionHistoryService.GetAllSubscriptionHistory(companyId, _page, _size).Select(u => new ResponseSubscriptionHistoryModel(u)).ToList());
             }
             catch (Exception ex)
             {

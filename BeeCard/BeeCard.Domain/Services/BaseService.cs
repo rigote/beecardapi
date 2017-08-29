@@ -20,14 +20,14 @@ namespace BeeCard.Domain.Services
             _repository.Add(entity);
         }        
 
-        public virtual IEnumerable<T> Find(Expression<Func<T, bool>> predicate = null, params Expression<Func<T, object>>[] includeExpressions)
+        public virtual IEnumerable<T> Find(int? page, int? size, Expression<Func<T, Guid>> keySelector, Expression<Func<T, bool>> predicate = null, params Expression<Func<T, object>>[] includeExpressions)
         {
-            return _repository.Find(predicate, includeExpressions);
+            return _repository.Find(page, size, keySelector, predicate, includeExpressions);
         }
 
-        public virtual IEnumerable<T> GetAll(params Expression<Func<T, object>>[] includeExpressions)
+        public virtual IEnumerable<T> GetAll(int? page, int? size, Expression<Func<T, Guid>> keySelector, params Expression<Func<T, object>>[] includeExpressions)
         {
-            return _repository.GetAll(includeExpressions);
+            return _repository.GetAll(page, size, keySelector, includeExpressions);
         }
 
         public virtual void Remove(T entity)

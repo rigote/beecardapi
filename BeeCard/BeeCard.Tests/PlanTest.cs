@@ -13,7 +13,7 @@ namespace BeeCard.Tests
         {
             var planService = container.GetInstance<IPlanAppService>();
 
-            var plans = planService.GetPlans();
+            var plans = planService.GetPlans(null, null);
 
             if (!plans.TrueForAll(c => c.Name.Contains("Bronze")))
                 planService.CreatePlan("Plano Bronze", "Plano bronze destinado a xibilobas'");
@@ -27,7 +27,7 @@ namespace BeeCard.Tests
         {
             var planService = container.GetInstance<IPlanAppService>();
 
-            var plan = planService.GetPlans().FirstOrDefault();
+            var plan = planService.GetPlans(null, null).FirstOrDefault();
 
             if(plan != null)
                 planService.RemovePlan(plan.ID);
