@@ -38,7 +38,7 @@ namespace BeeCard.API.Controllers
 
         [HttpGet]
         [Route("api/users/")]
-        public HttpResponseMessage GetAll([FromUri] string page, [FromUri] string size)
+        public HttpResponseMessage GetAll([FromUri] string page = null, [FromUri] string size = null)
         {
             try
             {
@@ -125,7 +125,7 @@ namespace BeeCard.API.Controllers
 
         [HttpGet]
         [Route("api/users/{userId}/groups")]
-        public HttpResponseMessage GetAllUserGroups(Guid userId, [FromUri] string page, [FromUri] string size)
+        public HttpResponseMessage GetAllUserGroups(Guid userId, [FromUri] string page = null, [FromUri] string size = null)
         {
             try
             {

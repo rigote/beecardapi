@@ -114,7 +114,7 @@ namespace BeeCard.API.Controllers
 
         [HttpGet]
         [Route("api/companies/")]
-        public HttpResponseMessage GetAllCompanies([FromUri] string page, [FromUri] string size)
+        public HttpResponseMessage GetAllCompanies([FromUri] string page = null, [FromUri] string size = null)
         {
             try
             {
@@ -205,7 +205,7 @@ namespace BeeCard.API.Controllers
 
         [HttpGet]
         [Route("api/companies/types/")]
-        public HttpResponseMessage GetAllCompanyTypes([FromUri] string page, [FromUri] string size)
+        public HttpResponseMessage GetAllCompanyTypes([FromUri] string page = null, [FromUri] string size = null)
         {
             try
             {
@@ -246,7 +246,7 @@ namespace BeeCard.API.Controllers
 
         [HttpGet]
         [Route("api/companies/{companyId}/subscriptions/history/")]
-        public HttpResponseMessage GetAllSubscriptionHistory(Guid companyId, [FromUri] string page, [FromUri] string size)
+        public HttpResponseMessage GetAllSubscriptionHistory(Guid companyId, [FromUri] string page = null, [FromUri] string size = null)
         {
             try
             {

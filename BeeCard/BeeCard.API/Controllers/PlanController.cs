@@ -43,7 +43,7 @@ namespace BeeCard.API.Controllers
 
         [HttpGet]
         [Route("api/plans/")]
-        public HttpResponseMessage GetAllPlans([FromUri] string page, [FromUri] string size)
+        public HttpResponseMessage GetAllPlans([FromUri] string page = null, [FromUri] string size = null)
         {
             try
             {

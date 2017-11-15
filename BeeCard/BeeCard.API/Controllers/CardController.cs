@@ -98,7 +98,7 @@ namespace BeeCard.API.Controllers
 
         [HttpGet]
         [Route("api/users/{userId}/cards")]
-        public HttpResponseMessage GetAllUserPersonalCards(Guid userId, [FromUri] string page, [FromUri] string size)
+        public HttpResponseMessage GetAllUserPersonalCards(Guid userId, [FromUri] string page = null, [FromUri] string size = null)
         {
             try
             {
@@ -120,7 +120,7 @@ namespace BeeCard.API.Controllers
 
         [HttpGet]
         [Route("api/users/{userId}/companies/{companyId}/cards")]
-        public HttpResponseMessage GetAllUserCompanyCards(Guid userId, Guid companyId, [FromUri] string page, [FromUri] string size)
+        public HttpResponseMessage GetAllUserCompanyCards(Guid userId, Guid companyId, [FromUri] string page = null, [FromUri] string size = null)
         {
             try
             {

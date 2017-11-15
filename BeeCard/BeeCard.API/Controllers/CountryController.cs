@@ -41,7 +41,7 @@ namespace BeeCard.API.Controllers
 
         [HttpGet]
         [Route("api/countries/")]
-        public HttpResponseMessage GetAllCountries([FromUri] string page, [FromUri] string size)
+        public HttpResponseMessage GetAllCountries([FromUri] string page = null, [FromUri] string size = null)
         {
             try
             {
