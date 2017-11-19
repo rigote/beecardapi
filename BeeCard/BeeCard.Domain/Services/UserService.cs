@@ -1,6 +1,7 @@
 ﻿using BeeCard.Domain.Entities;
 using BeeCard.Domain.Interfaces.Repositories;
 using BeeCard.Domain.Interfaces.Services;
+using System.Collections.Generic;
 
 namespace BeeCard.Domain.Services
 {
@@ -12,6 +13,11 @@ namespace BeeCard.Domain.Services
             : base(repository)
         {
             _repository = repository;
+        }
+
+        public Dictionary<string, bool> CheckEmailPhone(string email, string phone)
+        {
+            return _repository.CheckEmailPhone(email, phone);
         }
     }
 }

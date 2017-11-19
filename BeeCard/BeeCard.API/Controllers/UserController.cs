@@ -8,7 +8,7 @@ using System.Web.Http;
 
 namespace BeeCard.API.Controllers
 {
-    public class UserController : ApiController
+    public class UserController : BaseController
     {
         private readonly IUserAppService _userService;
 
@@ -30,9 +30,16 @@ namespace BeeCard.API.Controllers
                 else
                     return Request.CreateResponse(HttpStatusCode.OK, new ResponseUserModel(user));
             }
-            catch(Exception ex)
+            catch (ArgumentException ex)
             {
-                return Request.CreateResponse(HttpStatusCode.BadRequest, ex);                
+                if (ex.ParamName == "NotFound")
+                    return SendResponse(HttpStatusCode.NotFound);
+                else
+                    return SendResponse(HttpStatusCode.BadRequest, ex.Message);
+            }
+            catch (Exception ex)
+            {
+                return SendResponse(HttpStatusCode.InternalServerError, ex.Message);
             }
         }
 
@@ -50,9 +57,16 @@ namespace BeeCard.API.Controllers
 
                 return Request.CreateResponse(HttpStatusCode.OK, _userService.GetAll(_page, _size).Select(u => new ResponseUserModel(u)).ToList());
             }
+            catch (ArgumentException ex)
+            {
+                if (ex.ParamName == "NotFound")
+                    return SendResponse(HttpStatusCode.NotFound);
+                else
+                    return SendResponse(HttpStatusCode.BadRequest, ex.Message);
+            }
             catch (Exception ex)
             {
-                return Request.CreateResponse(HttpStatusCode.BadRequest, ex);
+                return SendResponse(HttpStatusCode.InternalServerError, ex.Message);
             }
         }
 
@@ -66,9 +80,16 @@ namespace BeeCard.API.Controllers
 
                 return Request.CreateResponse(HttpStatusCode.Created);
             }
+            catch (ArgumentException ex)
+            {
+                if (ex.ParamName == "NotFound")
+                    return SendResponse(HttpStatusCode.NotFound);
+                else
+                    return SendResponse(HttpStatusCode.BadRequest, ex.Message);
+            }
             catch (Exception ex)
             {
-                return Request.CreateResponse(HttpStatusCode.BadRequest, ex);
+                return SendResponse(HttpStatusCode.InternalServerError, ex.Message);
             }
         }
 
@@ -82,9 +103,16 @@ namespace BeeCard.API.Controllers
 
                 return Request.CreateResponse(HttpStatusCode.NoContent);
             }
+            catch (ArgumentException ex)
+            {
+                if (ex.ParamName == "NotFound")
+                    return SendResponse(HttpStatusCode.NotFound);
+                else
+                    return SendResponse(HttpStatusCode.BadRequest, ex.Message);
+            }
             catch (Exception ex)
             {
-                return Request.CreateResponse(HttpStatusCode.BadRequest, ex);
+                return SendResponse(HttpStatusCode.InternalServerError, ex.Message);
             }
         }
 
@@ -98,9 +126,16 @@ namespace BeeCard.API.Controllers
 
                 return Request.CreateResponse(HttpStatusCode.NoContent);
             }
+            catch (ArgumentException ex)
+            {
+                if (ex.ParamName == "NotFound")
+                    return SendResponse(HttpStatusCode.NotFound);
+                else
+                    return SendResponse(HttpStatusCode.BadRequest, ex.Message);
+            }
             catch (Exception ex)
             {
-                return Request.CreateResponse(HttpStatusCode.BadRequest, ex);
+                return SendResponse(HttpStatusCode.InternalServerError, ex.Message);
             }
         }
 
@@ -117,9 +152,16 @@ namespace BeeCard.API.Controllers
                 else
                     return Request.CreateResponse(HttpStatusCode.OK, new ResponseUserGroupModel(userGroup));
             }
+            catch (ArgumentException ex)
+            {
+                if (ex.ParamName == "NotFound")
+                    return SendResponse(HttpStatusCode.NotFound);
+                else
+                    return SendResponse(HttpStatusCode.BadRequest, ex.Message);
+            }
             catch (Exception ex)
             {
-                return Request.CreateResponse(HttpStatusCode.BadRequest, ex);
+                return SendResponse(HttpStatusCode.InternalServerError, ex.Message);
             }
         }
 
@@ -137,9 +179,16 @@ namespace BeeCard.API.Controllers
 
                 return Request.CreateResponse(HttpStatusCode.OK, _userService.GetAllUserGroups(userId, _page, _size).Select(u => new ResponseUserGroupModel(u)).ToList());
             }
+            catch (ArgumentException ex)
+            {
+                if (ex.ParamName == "NotFound")
+                    return SendResponse(HttpStatusCode.NotFound);
+                else
+                    return SendResponse(HttpStatusCode.BadRequest, ex.Message);
+            }
             catch (Exception ex)
             {
-                return Request.CreateResponse(HttpStatusCode.BadRequest, ex);
+                return SendResponse(HttpStatusCode.InternalServerError, ex.Message);
             }
         }
 
@@ -153,9 +202,16 @@ namespace BeeCard.API.Controllers
 
                 return Request.CreateResponse(HttpStatusCode.Created);
             }
+            catch (ArgumentException ex)
+            {
+                if (ex.ParamName == "NotFound")
+                    return SendResponse(HttpStatusCode.NotFound);
+                else
+                    return SendResponse(HttpStatusCode.BadRequest, ex.Message);
+            }
             catch (Exception ex)
             {
-                return Request.CreateResponse(HttpStatusCode.BadRequest, ex);
+                return SendResponse(HttpStatusCode.InternalServerError, ex.Message);
             }
         }
 
@@ -169,9 +225,16 @@ namespace BeeCard.API.Controllers
 
                 return Request.CreateResponse(HttpStatusCode.NoContent);
             }
+            catch (ArgumentException ex)
+            {
+                if (ex.ParamName == "NotFound")
+                    return SendResponse(HttpStatusCode.NotFound);
+                else
+                    return SendResponse(HttpStatusCode.BadRequest, ex.Message);
+            }
             catch (Exception ex)
             {
-                return Request.CreateResponse(HttpStatusCode.BadRequest, ex);
+                return SendResponse(HttpStatusCode.InternalServerError, ex.Message);
             }
         }
 
@@ -185,9 +248,16 @@ namespace BeeCard.API.Controllers
 
                 return Request.CreateResponse(HttpStatusCode.NoContent);
             }
+            catch (ArgumentException ex)
+            {
+                if (ex.ParamName == "NotFound")
+                    return SendResponse(HttpStatusCode.NotFound);
+                else
+                    return SendResponse(HttpStatusCode.BadRequest, ex.Message);
+            }
             catch (Exception ex)
             {
-                return Request.CreateResponse(HttpStatusCode.BadRequest, ex);
+                return SendResponse(HttpStatusCode.InternalServerError, ex.Message);
             }
         }
     }

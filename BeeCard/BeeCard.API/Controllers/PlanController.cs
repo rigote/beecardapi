@@ -11,7 +11,7 @@ using System.Web.Http;
 
 namespace BeeCard.API.Controllers
 {
-    public class PlanController : ApiController
+    public class PlanController : BaseController
     {
 
         private readonly IPlanAppService _planService;
@@ -34,12 +34,18 @@ namespace BeeCard.API.Controllers
 
                 return Request.CreateResponse(HttpStatusCode.OK, new ResponsePlanModel(plan));
             }
+            catch (ArgumentException ex)
+            {
+                if (ex.ParamName == "NotFound")
+                    return SendResponse(HttpStatusCode.NotFound);
+                else
+                    return SendResponse(HttpStatusCode.BadRequest, ex.Message);
+            }
             catch (Exception ex)
             {
-                throw new HttpResponseException(Request.CreateResponse(HttpStatusCode.BadRequest, ex));
+                return SendResponse(HttpStatusCode.InternalServerError, ex.Message);
             }
         }
-
 
         [HttpGet]
         [Route("api/plans/")]
@@ -60,13 +66,18 @@ namespace BeeCard.API.Controllers
 
                 return Request.CreateResponse(HttpStatusCode.OK, response);
             }
+            catch (ArgumentException ex)
+            {
+                if (ex.ParamName == "NotFound")
+                    return SendResponse(HttpStatusCode.NotFound);
+                else
+                    return SendResponse(HttpStatusCode.BadRequest, ex.Message);
+            }
             catch (Exception ex)
             {
-                throw new HttpResponseException(Request.CreateResponse(HttpStatusCode.BadRequest, ex));
+                return SendResponse(HttpStatusCode.InternalServerError, ex.Message);
             }
         }
-
-
 
         [HttpPost]
         [Route("api/plans/")]
@@ -78,12 +89,18 @@ namespace BeeCard.API.Controllers
 
                 return Request.CreateResponse(HttpStatusCode.Created);
             }
+            catch (ArgumentException ex)
+            {
+                if (ex.ParamName == "NotFound")
+                    return SendResponse(HttpStatusCode.NotFound);
+                else
+                    return SendResponse(HttpStatusCode.BadRequest, ex.Message);
+            }
             catch (Exception ex)
             {
-                throw new HttpResponseException(Request.CreateResponse(HttpStatusCode.BadRequest, ex));
+                return SendResponse(HttpStatusCode.InternalServerError, ex.Message);
             }
         }
-
 
         [HttpPut]
         [Route("api/plans/{planId}")]
@@ -95,12 +112,18 @@ namespace BeeCard.API.Controllers
 
                 return Request.CreateResponse(HttpStatusCode.NoContent);
             }
+            catch (ArgumentException ex)
+            {
+                if (ex.ParamName == "NotFound")
+                    return SendResponse(HttpStatusCode.NotFound);
+                else
+                    return SendResponse(HttpStatusCode.BadRequest, ex.Message);
+            }
             catch (Exception ex)
             {
-                throw new HttpResponseException(Request.CreateResponse(HttpStatusCode.BadRequest, ex));
+                return SendResponse(HttpStatusCode.InternalServerError, ex.Message);
             }
         }
-
 
         [HttpDelete]
         [Route("api/plans/{planId}")]
@@ -112,12 +135,18 @@ namespace BeeCard.API.Controllers
 
                 return Request.CreateResponse(HttpStatusCode.NoContent);
             }
+            catch (ArgumentException ex)
+            {
+                if (ex.ParamName == "NotFound")
+                    return SendResponse(HttpStatusCode.NotFound);
+                else
+                    return SendResponse(HttpStatusCode.BadRequest, ex.Message);
+            }
             catch (Exception ex)
             {
-                throw new HttpResponseException(Request.CreateResponse(HttpStatusCode.BadRequest, ex));
+                return SendResponse(HttpStatusCode.InternalServerError, ex.Message);
             }
         }
-
 
     }
 }

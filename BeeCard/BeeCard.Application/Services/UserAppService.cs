@@ -27,6 +27,14 @@ namespace BeeCard.Application.Services
         {
             //TODO: Save and Upload image
 
+            var dataExists = _service.CheckEmailPhone(email, phoneNumber);
+
+            if (dataExists["email"])
+                throw new ArgumentException("email_already_exists");
+
+            if (dataExists["phone"])
+                throw new ArgumentException("phone_already_exists");
+
             var user = new User();
 
             user.Email = email;
@@ -57,7 +65,7 @@ namespace BeeCard.Application.Services
         public User GetUserByEmail(string email)
         {
             if (string.IsNullOrEmpty(email))
-                throw new ArgumentException("Invalid email");
+                throw new ArgumentException("invalid_email");
 
             return _service.Find(null, null, null, u => u.Email == email && u.Status != EntityStatus.Deleted).FirstOrDefault();
         }
@@ -72,7 +80,7 @@ namespace BeeCard.Application.Services
             }
             else
             {
-                throw new ArgumentException("Invalid user.");
+                throw new ArgumentException("invalid_user");
             }
         }
 
@@ -153,5 +161,6 @@ namespace BeeCard.Application.Services
             else
                 throw new ArgumentException(string.Empty, "NotFound");
         }
+
     }
 }

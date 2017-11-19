@@ -10,7 +10,7 @@ using System.Web.Http;
 
 namespace BeeCard.API.Controllers
 {
-    public class CountryController: ApiController
+    public class CountryController: BaseController
     {
         private readonly ICountryAppService _countryService;
         
@@ -32,12 +32,18 @@ namespace BeeCard.API.Controllers
 
                 return Request.CreateResponse(HttpStatusCode.OK, new ResponseCountryModel(country));
             }
+            catch (ArgumentException ex)
+            {
+                if (ex.ParamName == "NotFound")
+                    return SendResponse(HttpStatusCode.NotFound);
+                else
+                    return SendResponse(HttpStatusCode.BadRequest, ex.Message);
+            }
             catch (Exception ex)
             {
-                throw new HttpResponseException(Request.CreateResponse(HttpStatusCode.BadRequest, ex));
+                return SendResponse(HttpStatusCode.InternalServerError, ex.Message);
             }
         }
-
 
         [HttpGet]
         [Route("api/countries/")]
@@ -58,9 +64,16 @@ namespace BeeCard.API.Controllers
 
                 return Request.CreateResponse(HttpStatusCode.OK, response);
             }
+            catch (ArgumentException ex)
+            {
+                if (ex.ParamName == "NotFound")
+                    return SendResponse(HttpStatusCode.NotFound);
+                else
+                    return SendResponse(HttpStatusCode.BadRequest, ex.Message);
+            }
             catch (Exception ex)
             {
-                throw new HttpResponseException(Request.CreateResponse(HttpStatusCode.BadRequest, ex));
+                return SendResponse(HttpStatusCode.InternalServerError, ex.Message);
             }
         }
 
@@ -74,12 +87,18 @@ namespace BeeCard.API.Controllers
 
                 return Request.CreateResponse(HttpStatusCode.Created);
             }
+            catch (ArgumentException ex)
+            {
+                if (ex.ParamName == "NotFound")
+                    return SendResponse(HttpStatusCode.NotFound);
+                else
+                    return SendResponse(HttpStatusCode.BadRequest, ex.Message);
+            }
             catch (Exception ex)
             {
-                throw new HttpResponseException(Request.CreateResponse(HttpStatusCode.BadRequest, ex));
+                return SendResponse(HttpStatusCode.InternalServerError, ex.Message);
             }
         }
-
 
         [HttpPut]
         [Route("api/countries/{countryId}")]
@@ -91,12 +110,18 @@ namespace BeeCard.API.Controllers
 
                 return Request.CreateResponse(HttpStatusCode.NoContent);
             }
+            catch (ArgumentException ex)
+            {
+                if (ex.ParamName == "NotFound")
+                    return SendResponse(HttpStatusCode.NotFound);
+                else
+                    return SendResponse(HttpStatusCode.BadRequest, ex.Message);
+            }
             catch (Exception ex)
             {
-                throw new HttpResponseException(Request.CreateResponse(HttpStatusCode.BadRequest, ex));
+                return SendResponse(HttpStatusCode.InternalServerError, ex.Message);
             }
         }
-
 
         [HttpDelete]
         [Route("api/countries/{countryId}")]
@@ -108,9 +133,16 @@ namespace BeeCard.API.Controllers
 
                 return Request.CreateResponse(HttpStatusCode.NoContent);
             }
+            catch (ArgumentException ex)
+            {
+                if (ex.ParamName == "NotFound")
+                    return SendResponse(HttpStatusCode.NotFound);
+                else
+                    return SendResponse(HttpStatusCode.BadRequest, ex.Message);
+            }
             catch (Exception ex)
             {
-                throw new HttpResponseException(Request.CreateResponse(HttpStatusCode.BadRequest, ex));
+                return SendResponse(HttpStatusCode.InternalServerError, ex.Message);
             }
         }
     }
