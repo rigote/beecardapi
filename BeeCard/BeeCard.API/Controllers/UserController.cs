@@ -70,6 +70,7 @@ namespace BeeCard.API.Controllers
             }
         }
 
+        [AllowAnonymous]
         [HttpPost]
         [Route("api/users/")]
         public HttpResponseMessage AddUser(RequestUserModel model)
