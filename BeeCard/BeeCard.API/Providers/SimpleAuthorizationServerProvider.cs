@@ -27,7 +27,7 @@ namespace BeeCard.API.Providers
 
             if (user == null)
             {
-                context.SetError("invalid_grant", "The user name or password is incorrect.");
+                context.SetError("invalid_grant", "incorrect_user_password");
                 return;
             }
             

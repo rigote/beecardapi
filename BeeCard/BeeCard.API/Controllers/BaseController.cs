@@ -7,6 +7,13 @@ namespace BeeCard.API.Controllers
     public class BaseController : ApiController
     {
 
+        [HttpGet]
+        [Route("api/token/validate")]
+        public HttpResponseMessage ValidateToken()
+        {
+            return Request.CreateResponse(HttpStatusCode.OK);
+        }
+
         public HttpResponseMessage SendResponse(HttpStatusCode statusCode, string message = null)
         {
             if (statusCode == HttpStatusCode.NotFound)

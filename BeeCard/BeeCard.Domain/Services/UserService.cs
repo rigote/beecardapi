@@ -19,5 +19,10 @@ namespace BeeCard.Domain.Services
         {
             return _repository.CheckEmailPhone(email, phone);
         }
+
+        public User FindByEmail(string email)
+        {
+            return _repository.FindByEmail(email);
+        }
     }
 }

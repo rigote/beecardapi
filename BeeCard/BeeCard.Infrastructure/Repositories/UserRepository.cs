@@ -2,6 +2,7 @@
 using BeeCard.Domain.Entities;
 using BeeCard.Domain.Interfaces.Repositories;
 using System.Collections.Generic;
+using BeeCard.Domain.Entities.Enum;
 
 namespace BeeCard.Infrastructure.Repositories
 {
@@ -25,6 +26,11 @@ namespace BeeCard.Infrastructure.Repositories
             result.Add("phone", users.Any(a => a.PhoneNumber == phone));
 
             return result;
+        }
+
+        public User FindByEmail(string email)
+        {
+            return Find(null, null, null, u => u.Email == email && u.Status == EntityStatus.Active).FirstOrDefault();
         }
     }
 }

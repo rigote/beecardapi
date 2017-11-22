@@ -20,5 +20,6 @@ namespace BeeCard.Application.Interfaces
         void CreateUserGroup(Guid userId, string name);
         void UpdateUserGroup(Guid userId, Guid userGroupId, string name, bool status);
         void RemoveUserGroup(Guid userId, Guid userGroupId);
+        User FindByEmail(string email);
     }
 }

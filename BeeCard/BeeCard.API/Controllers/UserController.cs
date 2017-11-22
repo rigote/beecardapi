@@ -42,7 +42,7 @@ namespace BeeCard.API.Controllers
                 return SendResponse(HttpStatusCode.InternalServerError, ex.Message);
             }
         }
-
+        
         [HttpGet]
         [Route("api/users/")]
         public HttpResponseMessage GetAll([FromUri] string page = null, [FromUri] string size = null)

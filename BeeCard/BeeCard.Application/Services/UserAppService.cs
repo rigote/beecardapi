@@ -162,5 +162,10 @@ namespace BeeCard.Application.Services
                 throw new ArgumentException(string.Empty, "NotFound");
         }
 
+        public User FindByEmail(string email)
+        {
+            return _service.FindByEmail(email);
+        }
+
     }
 }
