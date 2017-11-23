@@ -11,6 +11,8 @@ namespace BeeCard.Domain.Entities
         public string City { get; set; }
         public string PostalCode { get; set; }
         public string Neighborhood { get; set; }
+        public string Occupation { get; set; }
+        public string Photo { get; set; }
         public string Website { get; set; }        
         public string SocialNetwork { get; set; }
         public Guid UserID { get; set; }

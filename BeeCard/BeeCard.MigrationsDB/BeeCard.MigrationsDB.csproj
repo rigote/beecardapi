@@ -104,6 +104,7 @@
     <Content Include="migrations\20170201174856-bee-card-identity.js" />
     <Content Include="migrations\20170322010108-beecard-favorite.js" />
     <Content Include="migrations\20170404022046-beecard-card-fields.js" />
+    <Content Include="migrations\20171123005303-beecard-personal-card.js" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\BeeCard.Domain\BeeCard.Domain.csproj">

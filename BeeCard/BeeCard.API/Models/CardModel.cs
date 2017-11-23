@@ -58,6 +58,7 @@ namespace BeeCard.API.Models
             PostalCode = card.PostalCode;
             City = card.City;
             Neighborhood = card.Neighborhood;
+            Occupation = card.Occupation;
             Status = card.Status == EntityStatus.Active ? true : false;
             UserId = card.UserID;
 
