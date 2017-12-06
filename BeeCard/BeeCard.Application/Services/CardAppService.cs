@@ -22,22 +22,22 @@ namespace BeeCard.Application.Services
 
         public CorporateCard GetCorporateCardById(Guid userId, Guid cardId)
         {
-            return _corporateCardService.Find(null, null, null, c => c.UserID == userId && c.ID == cardId && c.Status != EntityStatus.Deleted).FirstOrDefault();
+            return _corporateCardService.Find(null, null, null, c => c.UserID == userId && c.ID == cardId && c.Status != EntityStatus.Deleted).Item2.FirstOrDefault();
         }
 
         public PersonalCard GetPersonalCardById(Guid userId, Guid cardId)
         {
-            return _personalCardService.Find(null, null, null, c => c.UserID == userId && c.ID == cardId && c.Status != EntityStatus.Deleted).FirstOrDefault();
+            return _personalCardService.Find(null, null, null, c => c.UserID == userId && c.ID == cardId && c.Status != EntityStatus.Deleted).Item2.FirstOrDefault();
         }
 
-        public List<PersonalCard> GetPersonalCards(Guid userId, int? page, int? size)
+        public Tuple<long, List<PersonalCard>> GetPersonalCards(Guid userId, int? page, int? size)
         {
-            return _personalCardService.Find(page, size, o => o.ID, c => c.UserID == userId && c.Status != EntityStatus.Deleted, i => i.User).ToList();
+            return _personalCardService.Find(page, size, o => o.ID, c => c.UserID == userId && c.Status != EntityStatus.Deleted, i => i.User);
         }
 
-        public List<CorporateCard> GetCorporateCards(Guid companyId, int? page, int? size)
+        public Tuple<long, List<CorporateCard>> GetCorporateCards(Guid companyId, int? page, int? size)
         {
-            return _corporateCardService.Find(page, size, o =>o.ID, c => c.CompanyID == companyId && c.Status != EntityStatus.Deleted, i => i.Company, i => i.User).ToList();
+            return _corporateCardService.Find(page, size, o =>o.ID, c => c.CompanyID == companyId && c.Status != EntityStatus.Deleted, i => i.Company, i => i.User);
         }
 
         public void CreatePersonalCard(Guid userId, string avatarImage, string fullName, string address, string phone, string cellphone, string email, string website, string socialMedias)

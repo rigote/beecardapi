@@ -18,6 +18,11 @@ namespace BeeCard.API.Models
 
     public class ResponseCountryModel : BaseCountryModel
     {
+        public ResponseCountryModel()
+        {
+
+        }
+
         public ResponseCountryModel(Country country)
         {
             Id = country.ID;

@@ -7,7 +7,7 @@ namespace BeeCard.Application.Interfaces
 {
     public interface ICountryAppService
     {
-        List<Country> GetCountries(int? page, int? size);
+        Tuple<long, List<Country>> GetCountries(int? page, int? size);
         void CreateCountry(string name);
         void UpdateCountry(Guid id, string name, EntityStatus status);
         Country GetCountryById(Guid id);

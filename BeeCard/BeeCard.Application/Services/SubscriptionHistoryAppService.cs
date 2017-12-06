@@ -33,12 +33,12 @@ namespace BeeCard.Application.Services
 
         public SubscriptionHistory GetSubscriptionHistoryById(Guid companyId, Guid subscriptionId)
         {
-            return _subscriptionHistoryService.Find(null, null, null, c => c.ID == companyId && c.ID == subscriptionId && c.Status != EntityStatus.Deleted).FirstOrDefault();
+            return _subscriptionHistoryService.Find(null, null, null, c => c.ID == companyId && c.ID == subscriptionId && c.Status != EntityStatus.Deleted).Item2.FirstOrDefault();
         }
 
-        public List<SubscriptionHistory> GetAllSubscriptionHistory(Guid companyId, int? page, int? size)
+        public Tuple<long, List<SubscriptionHistory>> GetAllSubscriptionHistory(Guid companyId, int? page, int? size)
         {
-            return _subscriptionHistoryService.Find(page, size, o => o.ID, c => c.CompanyID == companyId && c.Status != EntityStatus.Deleted).ToList();
+            return _subscriptionHistoryService.Find(page, size, o => o.ID, c => c.CompanyID == companyId && c.Status != EntityStatus.Deleted);
         }
     }
 }

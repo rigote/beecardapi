@@ -7,7 +7,7 @@ namespace BeeCard.Application.Interfaces
 {
     public interface ISubscriptionHistoryAppService
     {
-        List<SubscriptionHistory> GetAllSubscriptionHistory(Guid companyId, int? page, int? size);
+        Tuple<long, List<SubscriptionHistory>> GetAllSubscriptionHistory(Guid companyId, int? page, int? size);
         SubscriptionHistory GetSubscriptionHistoryById(Guid companyId, Guid subscriptionId);
         void CreateSubscriptionHistory(Guid companyId, SubscriptionType subscriptionType, decimal subscriptionPrice, DateTime subscriptionDate, SubscriptionStatus subscriptionStatus);
     }

@@ -45,7 +45,7 @@ namespace BeeCard.API.Controllers
         
         [HttpGet]
         [Route("api/users/")]
-        public HttpResponseMessage GetAll([FromUri] string page = null, [FromUri] string size = null)
+        public HttpResponseMessage GetAll([FromUri] string page = "1", [FromUri] string size = "20")
         {
             try
             {
@@ -55,7 +55,20 @@ namespace BeeCard.API.Controllers
                 int.TryParse(page, out _page);
                 int.TryParse(size, out _size);
 
-                return Request.CreateResponse(HttpStatusCode.OK, _userService.GetAll(_page, _size).Select(u => new ResponseUserModel(u)).ToList());
+                _page = _page < 1 ? 1 : _page;
+                _size = _size > 50 ? 50 : _size;
+
+                var users = _userService.GetAll(_page, _size);
+
+                CollectionModel<ResponseUserModel> response = new CollectionModel<ResponseUserModel>
+                {
+                    Total = users.Item1,
+                    Items = users.Item2.Select(c => new ResponseUserModel(c)).ToList(),
+                    Page = _page,
+                    Size = _size
+                };
+
+                return Request.CreateResponse(HttpStatusCode.OK, response);
             }
             catch (ArgumentException ex)
             {
@@ -168,7 +181,7 @@ namespace BeeCard.API.Controllers
 
         [HttpGet]
         [Route("api/users/{userId}/groups")]
-        public HttpResponseMessage GetAllUserGroups(Guid userId, [FromUri] string page = null, [FromUri] string size = null)
+        public HttpResponseMessage GetAllUserGroups(Guid userId, [FromUri] string page = "1", [FromUri] string size = "20")
         {
             try
             {
@@ -178,7 +191,20 @@ namespace BeeCard.API.Controllers
                 int.TryParse(page, out _page);
                 int.TryParse(size, out _size);
 
-                return Request.CreateResponse(HttpStatusCode.OK, _userService.GetAllUserGroups(userId, _page, _size).Select(u => new ResponseUserGroupModel(u)).ToList());
+                _page = _page < 1 ? 1 : _page;
+                _size = _size > 50 ? 50 : _size;
+
+                var userGroups = _userService.GetAllUserGroups(userId, _page, _size);
+
+                CollectionModel<ResponseUserGroupModel> response = new CollectionModel<ResponseUserGroupModel>
+                {
+                    Total = userGroups.Item1,
+                    Items = userGroups.Item2.Select(c => new ResponseUserGroupModel(c)).ToList(),
+                    Page = _page,
+                    Size = _size
+                };
+
+                return Request.CreateResponse(HttpStatusCode.OK, response);
             }
             catch (ArgumentException ex)
             {

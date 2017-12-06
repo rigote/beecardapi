@@ -49,14 +49,14 @@ namespace BeeCard.Application.Services
             _companyService.Add(company);
         }
 
-        public List<Company> GetCompanies(int? page, int? size)
+        public Tuple<long, List<Company>> GetCompanies(int? page, int? size)
         {
-            return _companyService.Find(page, size, o => o.ID, c => c.Status != EntityStatus.Deleted, f => f.Plan, f => f.Country, f => f.CompanyType).ToList();
+            return _companyService.Find(page, size, o => o.ID, c => c.Status != EntityStatus.Deleted, f => f.Plan, f => f.Country, f => f.CompanyType);
         }
 
         public Company GetCompanyById(Guid companyId)
         {
-            return _companyService.Find(null, null, null, c => c.ID == companyId && c.Status != EntityStatus.Deleted, f => f.Plan, f => f.CorporateCards, f => f.Country, f => f.CompanyType).FirstOrDefault();
+            return _companyService.Find(null, null, null, c => c.ID == companyId && c.Status != EntityStatus.Deleted, f => f.Plan, f => f.CorporateCards, f => f.Country, f => f.CompanyType).Item2.FirstOrDefault();
         }
 
         public void RemoveCompany(Guid companyId)

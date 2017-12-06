@@ -253,6 +253,7 @@
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="DependencyResolution\StructureMapWebApiDependencyResolver.cs" />
     <Compile Include="DependencyResolution\StructureMapWebApiDependencyScope.cs" />
+    <Compile Include="Models\CollectionModel.cs" />
     <Compile Include="Models\CountryModel.cs" />
     <Compile Include="Models\Models.cs" />
     <Compile Include="Models\CardModel.cs" />

@@ -147,7 +147,7 @@ namespace BeeCard.API.Controllers
 
         [HttpGet]
         [Route("api/companies/")]
-        public HttpResponseMessage GetAllCompanies([FromUri] string page = null, [FromUri] string size = null)
+        public HttpResponseMessage GetAllCompanies([FromUri] string page = "1", [FromUri] string size = "20")
         {
             try
             {
@@ -157,7 +157,18 @@ namespace BeeCard.API.Controllers
                 int.TryParse(page, out _page);
                 int.TryParse(size, out _size);
 
-                List<ResponseCompanyModel> response = _companyService.GetCompanies(_page, _size).Select(c => new ResponseCompanyModel(c)).ToList();
+                _page = _page < 1 ? 1 : _page;
+                _size = _size > 50 ? 50 : _size;
+
+                var companies = _companyService.GetCompanies(_page, _size);
+
+                CollectionModel<ResponseCompanyModel> response = new CollectionModel<ResponseCompanyModel>
+                {
+                    Total = companies.Item1,
+                    Items = companies.Item2.Select(c => new ResponseCompanyModel(c)).ToList(),
+                    Page = _page,
+                    Size = _size
+                };
 
                 return Request.CreateResponse(HttpStatusCode.OK, response);
             }
@@ -271,7 +282,7 @@ namespace BeeCard.API.Controllers
 
         [HttpGet]
         [Route("api/companies/types/")]
-        public HttpResponseMessage GetAllCompanyTypes([FromUri] string page = null, [FromUri] string size = null)
+        public HttpResponseMessage GetAllCompanyTypes([FromUri] string page = "1", [FromUri] string size = "20")
         {
             try
             {
@@ -281,8 +292,19 @@ namespace BeeCard.API.Controllers
                 int.TryParse(page, out _page);
                 int.TryParse(size, out _size);
 
-                List<ResponseCompanyTypeModel> response = _companyTypeService.GetCompanyTypes(_page, _size).Select(c => new ResponseCompanyTypeModel(c)).ToList();
+                _page = _page < 1 ? 1 : _page;
+                _size = _size > 50 ? 50 : _size;
 
+                var companyTypes = _companyTypeService.GetCompanyTypes(_page, _size);
+
+                CollectionModel<ResponseCompanyTypeModel> response = new CollectionModel<ResponseCompanyTypeModel>
+                {
+                    Total = companyTypes.Item1,
+                    Items = companyTypes.Item2.Select(c => new ResponseCompanyTypeModel(c)).ToList(),
+                    Page = _page,
+                    Size = _size
+                };
+                
                 return Request.CreateResponse(HttpStatusCode.OK, response);
             }
             catch (ArgumentException ex)
@@ -326,7 +348,7 @@ namespace BeeCard.API.Controllers
 
         [HttpGet]
         [Route("api/companies/{companyId}/subscriptions/history/")]
-        public HttpResponseMessage GetAllSubscriptionHistory(Guid companyId, [FromUri] string page = null, [FromUri] string size = null)
+        public HttpResponseMessage GetAllSubscriptionHistory(Guid companyId, [FromUri] string page = "1", [FromUri] string size = "20")
         {
             try
             {
@@ -336,7 +358,21 @@ namespace BeeCard.API.Controllers
                 int.TryParse(page, out _page);
                 int.TryParse(size, out _size);
 
-                return Request.CreateResponse(HttpStatusCode.OK, _subscriptionHistoryService.GetAllSubscriptionHistory(companyId, _page, _size).Select(u => new ResponseSubscriptionHistoryModel(u)).ToList());
+                _page = _page < 1 ? 1 : _page;
+                _size = _size > 50 ? 50 : _size;
+
+                var subscriptionHistory = _subscriptionHistoryService.GetAllSubscriptionHistory(companyId, _page, _size);
+
+                CollectionModel<ResponseSubscriptionHistoryModel> response = new CollectionModel<ResponseSubscriptionHistoryModel>
+                {
+                    Total = subscriptionHistory.Item1,
+                    Items = subscriptionHistory.Item2.Select(c => new ResponseSubscriptionHistoryModel(c)).ToList(),
+                    Page = _page,
+                    Size = _size
+                };
+
+
+                return Request.CreateResponse(HttpStatusCode.OK, response);
             }
             catch (ArgumentException ex)
             {

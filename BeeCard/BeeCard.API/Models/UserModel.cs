@@ -60,6 +60,11 @@ namespace BeeCard.API.Models
         public Guid UserGroupId { get; set; }
         public Guid UserId { get; set; }
 
+        public ResponseUserGroupModel()
+        {
+
+        }
+
         public ResponseUserGroupModel(UserGroup userGroup)
         {
             UserGroupId = userGroup.ID;

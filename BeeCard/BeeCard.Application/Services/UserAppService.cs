@@ -52,14 +52,14 @@ namespace BeeCard.Application.Services
             _service.Add(user);
         }
 
-        public IEnumerable<User> GetAll(int? page, int? size)
+        public Tuple<long, List<User>> GetAll(int? page, int? size)
         {
             return _service.Find(page, size, o => o.Id, u => u.Status != EntityStatus.Deleted);
         }
 
         public User GetUser(Guid id)
         {
-            return _service.Find(null, null, null, u => u.Id == id && u.Status != EntityStatus.Deleted).FirstOrDefault();
+            return _service.Find(null, null, null, u => u.Id == id && u.Status != EntityStatus.Deleted).Item2.FirstOrDefault();
         }
 
         public User GetUserByEmail(string email)
@@ -67,7 +67,7 @@ namespace BeeCard.Application.Services
             if (string.IsNullOrEmpty(email))
                 throw new ArgumentException("invalid_email");
 
-            return _service.Find(null, null, null, u => u.Email == email && u.Status != EntityStatus.Deleted).FirstOrDefault();
+            return _service.Find(null, null, null, u => u.Email == email && u.Status != EntityStatus.Deleted).Item2.FirstOrDefault();
         }
 
         public void RemoveUser(Guid userId)
@@ -118,10 +118,10 @@ namespace BeeCard.Application.Services
 
         public UserGroup GetUserGroup(Guid userId, Guid userGroupId)
         {
-            return _userGroupService.Find(null, null, null, u => u.UserID == userId && u.ID == userGroupId && u.Status != EntityStatus.Deleted).FirstOrDefault();
+            return _userGroupService.Find(null, null, null, u => u.UserID == userId && u.ID == userGroupId && u.Status != EntityStatus.Deleted).Item2.FirstOrDefault();
         }
 
-        public IEnumerable<UserGroup> GetAllUserGroups(Guid userId, int? page, int? size)
+        public Tuple<long, List<UserGroup>> GetAllUserGroups(Guid userId, int? page, int? size)
         {
             return _userGroupService.Find(page, size, o => o.ID, u => u.Status != EntityStatus.Deleted);
         }

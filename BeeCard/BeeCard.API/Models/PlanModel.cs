@@ -16,6 +16,11 @@ namespace BeeCard.API.Models
 
     public class ResponsePlanModel : BasePlanModel
     {
+        public ResponsePlanModel()
+        {
+
+        }
+
         public ResponsePlanModel(Plan plan)
         {
             Id = plan.ID;

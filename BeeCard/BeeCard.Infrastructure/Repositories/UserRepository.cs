@@ -20,7 +20,7 @@ namespace BeeCard.Infrastructure.Repositories
         {
             Dictionary<string, bool> result = new Dictionary<string, bool>();
 
-            var users = Find(null, null, null, u => u.Email == email || u.PhoneNumber == phone).ToList();
+            var users = Find(null, null, null, u => u.Email == email || u.PhoneNumber == phone).Item2.ToList();
 
             result.Add("email", users.Any(a => a.Email == email));
             result.Add("phone", users.Any(a => a.PhoneNumber == phone));
@@ -30,7 +30,7 @@ namespace BeeCard.Infrastructure.Repositories
 
         public User FindByEmail(string email)
         {
-            return Find(null, null, null, u => u.Email == email && u.Status == EntityStatus.Active).FirstOrDefault();
+            return Find(null, null, null, u => u.Email == email && u.Status == EntityStatus.Active).Item2.FirstOrDefault();
         }
     }
 }

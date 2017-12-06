@@ -47,7 +47,7 @@ namespace BeeCard.API.Controllers
 
         [HttpGet]
         [Route("api/countries/")]
-        public HttpResponseMessage GetAllCountries([FromUri] string page = null, [FromUri] string size = null)
+        public HttpResponseMessage GetAllCountries([FromUri] string page = "1", [FromUri] string size = "20")
         {
             try
             {
@@ -57,7 +57,18 @@ namespace BeeCard.API.Controllers
                 int.TryParse(page, out _page);
                 int.TryParse(size, out _size);
 
-                List<ResponseCountryModel> response = _countryService.GetCountries(_page, _size).Select(c => new ResponseCountryModel(c)).ToList();
+                _page = _page < 1 ? 1 : _page;
+                _size = _size > 50 ? 50 : _size;
+
+                var countries = _countryService.GetCountries(_page, _size);
+
+                CollectionModel<ResponseCountryModel> response = new CollectionModel<ResponseCountryModel>
+                {
+                    Total = countries.Item1,
+                    Items = countries.Item2.Select(c => new ResponseCountryModel(c)).ToList(),
+                    Page = _page,
+                    Size = _size
+                };
 
                 if (response == null)
                     throw new HttpResponseException(Request.CreateResponse(HttpStatusCode.NotFound));

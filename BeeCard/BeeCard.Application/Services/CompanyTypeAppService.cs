@@ -29,12 +29,12 @@ namespace BeeCard.Application.Services
 
         public CompanyType GetCompanyTypeById(Guid companyTypeId)
         {
-            return _companyTypeService.Find(null, null, null, c => c.ID == companyTypeId && c.Status != EntityStatus.Deleted).FirstOrDefault();
+            return _companyTypeService.Find(null, null, null, c => c.ID == companyTypeId && c.Status != EntityStatus.Deleted).Item2.FirstOrDefault();
         }
 
-        public List<CompanyType> GetCompanyTypes(int? page, int? size)
+        public Tuple<long, List<CompanyType>> GetCompanyTypes(int? page, int? size)
         {
-            return _companyTypeService.Find(page, size, o => o.ID, c => c.Status != EntityStatus.Deleted).ToList();
+            return _companyTypeService.Find(page, size, o => o.ID, c => c.Status != EntityStatus.Deleted);
         }
 
         public void RemoveCompanyType(Guid companyTypeId)

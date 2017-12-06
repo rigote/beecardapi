@@ -17,24 +17,23 @@ namespace BeeCard.Application.Services
             _planService = planService;
         }
 
-
-        public virtual List<Plan> GetPlans(int? page, int? size)
+        public virtual Tuple<long, List<Plan>> GetPlans(int? page, int? size)
         {
-            return _planService.Find(page, size, o => o.ID, c => c.Status != EntityStatus.Deleted).ToList();            
+            return _planService.Find(page, size, o => o.ID, c => c.Status != EntityStatus.Deleted);
         }
         
         public virtual Plan GetPlanById(Guid planId)
         {
             Guid _id;
             if (Guid.TryParse(string.Format("{0}", planId), out _id))
-                return _planService.Find(null, null, null, c => c.ID == _id && c.Status != EntityStatus.Deleted).FirstOrDefault();
+                return _planService.Find(null, null, null, c => c.ID == _id && c.Status != EntityStatus.Deleted).Item2.FirstOrDefault();
             else
                 throw new ArgumentException(string.Empty, "Invalid data");
         }
         
         public virtual void CreatePlan(string name, string description)
         {
-            var plan = _planService.Find(null, null, null, c => c.Name.Contains(name)).FirstOrDefault();
+            var plan = _planService.Find(null, null, null, c => c.Name.Contains(name)).Item2.FirstOrDefault();
 
             if (plan == null)
             {

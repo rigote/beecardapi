@@ -23,11 +23,14 @@ namespace BeeCard.Infrastructure.Repositories
             _context.SaveChanges();
         }        
 
-        public virtual List<T> Find(int? page, int? size, Expression<Func<T, Guid>> keySelector = null, Expression<Func<T, bool>> predicate = null, params Expression<Func<T, object>>[] includeExpressions)
+        public virtual Tuple<long, List<T>> Find(int? page, int? size, Expression<Func<T, Guid>> keySelector = null, Expression<Func<T, bool>> predicate = null, params Expression<Func<T, object>>[] includeExpressions)
         {
             List<T> result = new List<T>();
-            IQueryable<T> query = _context.Set<T>();
 
+            long total = _context.Set<T>().Where(predicate).Count();
+
+            IQueryable<T> query = _context.Set<T>();
+            
             foreach (var includeExpression in includeExpressions)
                 query = query.Include(includeExpression);
 
@@ -42,12 +45,15 @@ namespace BeeCard.Infrastructure.Repositories
                 result = query.ToList();
             }
 
-            return result;
+            return new Tuple<long, List<T>>(total, result);
         }
 
-        public virtual List<T> GetAll(int? page, int? size, Expression<Func<T, Guid>> keySelector, params Expression<Func<T, object>>[] includeExpressions)
+        public virtual Tuple<long, List<T>> GetAll(int? page, int? size, Expression<Func<T, Guid>> keySelector, params Expression<Func<T, object>>[] includeExpressions)
         {
             List<T> result = new List<T>();
+
+            long total = _context.Set<T>().Count();
+
             IQueryable<T> query = _context.Set<T>();
 
             foreach (var includeExpression in includeExpressions)
@@ -61,7 +67,7 @@ namespace BeeCard.Infrastructure.Repositories
                 result = query.ToList();
             }
 
-            return result;
+            return new Tuple<long, List<T>>(total, result);
         }
 
         public virtual void Remove(T entity)

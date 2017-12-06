@@ -17,26 +17,23 @@ namespace BeeCard.Application.Services
             _countryService = countryService;
         }
 
-
-        public virtual List<Country> GetCountries(int? page, int? size)
+        public virtual Tuple<long, List<Country>> GetCountries(int? page, int? size)
         {
-            return _countryService.Find(page, size, o => o.ID, c => c.Status != EntityStatus.Deleted).ToList();
+            return _countryService.Find(page, size, o => o.ID, c => c.Status != EntityStatus.Deleted);
         }
-
 
         public virtual Country GetCountryById(Guid id)
         {
             Guid _id;
             if(Guid.TryParse(string.Format("{0}", id), out _id))
-                      return _countryService.Find(null, null, null, c => c.ID == _id && c.Status != EntityStatus.Deleted).FirstOrDefault();
+                      return _countryService.Find(null, null, null, c => c.ID == _id && c.Status != EntityStatus.Deleted).Item2.FirstOrDefault();
             else
                 throw new ArgumentException(string.Empty, "Invalid data");
         }
 
-
         public virtual void CreateCountry(string name)
         {
-            var country = _countryService.Find(null, null, null, c => c.Name.Contains(name)).FirstOrDefault();
+            var country = _countryService.Find(null, null, null, c => c.Name.Contains(name)).Item2.FirstOrDefault();
 
             if (country == null)
             {
@@ -47,7 +44,6 @@ namespace BeeCard.Application.Services
                 throw new ArgumentException(string.Empty, "Country already exists");
         }
         
-
         public virtual void UpdateCountry(Guid id, string name, EntityStatus status)
         {
             var country = GetCountryById(id);

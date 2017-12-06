@@ -126,7 +126,7 @@ namespace BeeCard.API.Controllers
 
         [HttpGet]
         [Route("api/users/{userId}/cards")]
-        public HttpResponseMessage GetAllUserPersonalCards(Guid userId, [FromUri] string page = null, [FromUri] string size = null)
+        public HttpResponseMessage GetAllUserPersonalCards(Guid userId, [FromUri] string page = "1", [FromUri] string size = "20")
         {
             try
             {
@@ -136,7 +136,19 @@ namespace BeeCard.API.Controllers
                 int.TryParse(page, out _page);
                 int.TryParse(size, out _size);
 
-                List<ResponseCardModel> response = _cardService.GetPersonalCards(userId, _page, _size).Select(c => new ResponseCardModel(c)).ToList();
+                _page = _page < 1 ? 1 : _page;
+                _size = _size > 50 ? 50 : _size;
+
+                var cards = _cardService.GetPersonalCards(userId, _page, _size);
+
+                CollectionModel<ResponseCardModel> response = new CollectionModel<ResponseCardModel>
+                {
+                    Total = cards.Item1,
+                    Items = cards.Item2.Select(c => new ResponseCardModel(c)).ToList(),
+                    Page = _page,
+                    Size = _size
+                };
+;
 
                 return Request.CreateResponse(HttpStatusCode.OK, response);
             }
@@ -155,7 +167,7 @@ namespace BeeCard.API.Controllers
 
         [HttpGet]
         [Route("api/users/{userId}/companies/{companyId}/cards")]
-        public HttpResponseMessage GetAllUserCompanyCards(Guid userId, Guid companyId, [FromUri] string page = null, [FromUri] string size = null)
+        public HttpResponseMessage GetAllUserCompanyCards(Guid userId, Guid companyId, [FromUri] string page = "1", [FromUri] string size = "20")
         {
             try
             {
@@ -165,7 +177,18 @@ namespace BeeCard.API.Controllers
                 int.TryParse(page, out _page);
                 int.TryParse(size, out _size);
 
-                List<ResponseCardModel> response = _cardService.GetCorporateCards(userId, null, null).Select(c => new ResponseCardModel(c)).ToList();
+                _page = _page < 1 ? 1 : _page;
+                _size = _size > 50 ? 50 : _size;
+
+                var cards = _cardService.GetCorporateCards(userId, _page, _size);
+
+                CollectionModel<ResponseCardModel> response = new CollectionModel<ResponseCardModel>
+                {
+                    Total = cards.Item1,
+                    Items = cards.Item2.Select(c => new ResponseCardModel(c)).ToList(),
+                    Page = _page,
+                    Size = _size
+                };
 
                 return Request.CreateResponse(HttpStatusCode.OK, response);
             }

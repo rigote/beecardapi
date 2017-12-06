@@ -91,6 +91,10 @@ namespace BeeCard.API.Models
 
     public class ResponseCompanyTypeModel : BaseCompanyTypeModel
     {
+        public ResponseCompanyTypeModel()
+        {
+        }
+
         public ResponseCompanyTypeModel(CompanyType companyType)
         {
             Id = companyType.ID;
@@ -123,6 +127,11 @@ namespace BeeCard.API.Models
 
     public class ResponseSubscriptionHistoryModel : BaseSubscriptionHistoryModel
     {
+        public ResponseSubscriptionHistoryModel()
+        {
+
+        }
+
         public ResponseSubscriptionHistoryModel(SubscriptionHistory subscriptionHistory)
         {
             SubscriptionType = subscriptionHistory.SubscriptionType;

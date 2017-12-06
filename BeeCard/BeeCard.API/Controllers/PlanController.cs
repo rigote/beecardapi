@@ -49,7 +49,7 @@ namespace BeeCard.API.Controllers
 
         [HttpGet]
         [Route("api/plans/")]
-        public HttpResponseMessage GetAllPlans([FromUri] string page = null, [FromUri] string size = null)
+        public HttpResponseMessage GetAllPlans([FromUri] string page = "1", [FromUri] string size = "20")
         {
             try
             {
@@ -59,7 +59,18 @@ namespace BeeCard.API.Controllers
                 int.TryParse(page, out _page);
                 int.TryParse(size, out _size);
 
-                List<ResponsePlanModel> response = _planService.GetPlans(_page, _size).Select(c => new ResponsePlanModel(c)).ToList();
+                _page = _page < 1 ? 1 : _page;
+                _size = _size > 50 ? 50 : _size;
+
+                var plans = _planService.GetPlans(_page, _size);
+
+                CollectionModel<ResponsePlanModel> response = new CollectionModel<ResponsePlanModel>
+                {
+                    Total = plans.Item1,
+                    Items = plans.Item2.Select(c => new ResponsePlanModel(c)).ToList(),
+                    Page = _page,
+                    Size = _size
+                };
 
                 if (response == null)
                     throw new HttpResponseException(Request.CreateResponse(HttpStatusCode.NotFound));
