@@ -1,5 +1,5 @@
 ﻿{
-  "dev": "postgres://postgres:123456@localhost/beecard",
+  "dev": "postgres://beecard:beecard2018@beecarddb.clj4fxzz0twu.us-east-1.rds.amazonaws.com/STGBeecard",
 
   "test": {
     "driver": "sqlite3",
