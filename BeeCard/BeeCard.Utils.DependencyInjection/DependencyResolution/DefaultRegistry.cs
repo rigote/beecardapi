@@ -36,6 +36,10 @@ namespace BeeCard.Utils.DependencyInjection.DependencyResolution
             For<ICountryService>().Use<CountryService>();
             For<ICountryRepository>().Use<CountryRepository>();
 
+            For<ISkillAppService>().Use<SkillAppService>();
+            For<ISkillService>().Use<SkillService>();
+            For<ISkillRepository>().Use<SkillRepository>();
+
             For<ILeadService>().Use<LeadService>();
             For<ILeadRepository>().Use<LeadRepository>();
 

@@ -2,6 +2,7 @@
 using BeeCard.Domain.Entities.Enum;
 using Newtonsoft.Json;
 using System;
+using System.Linq;
 using System.Collections.Generic;
 
 namespace BeeCard.API.Models
@@ -20,7 +21,10 @@ namespace BeeCard.API.Models
         public string PostalCode { get; set; }
         public string City { get; set; }
         public string Neighborhood { get; set; }
+        public string State { get; set; }
+        public string Bio { get; set; }
         public List<CardSocialMedia> SocialMedias { get; set; }
+        public List<string> Skills { get; set; }
         public bool Status { get; set; }
     }
 
@@ -40,6 +44,7 @@ namespace BeeCard.API.Models
         public ResponseCardModel()
         {
             SocialMedias = new List<CardSocialMedia>();
+            Skills = new List<string>();
         }
 
         public ResponseCardModel(PersonalCard card)
@@ -58,6 +63,9 @@ namespace BeeCard.API.Models
             PostalCode = card.PostalCode;
             City = card.City;
             Neighborhood = card.Neighborhood;
+            State = card.State;
+            Skills = card.Skills.Select(c => c.Skill.Name).ToList();
+            Bio = card.Bio;
             Occupation = card.Occupation;
             Status = card.Status == EntityStatus.Active ? true : false;
             UserId = card.UserID;
@@ -98,6 +106,7 @@ namespace BeeCard.API.Models
                 Number = card.Company.Number;
                 PostalCode = card.Company.PostalCode;
                 City = card.Company.City;
+                State = card.Company.State;
                 Neighborhood = card.Company.Neighborhood;
                 SocialMedias = JsonConvert.DeserializeObject<List<CardSocialMedia>>(card.Company.SocialNetwork);
                 Config = JsonConvert.DeserializeObject<CardConfig>(card.Company.CardIdentityConfig);
@@ -116,5 +125,11 @@ namespace BeeCard.API.Models
         public CardConfig Config { get; set; }
         public Guid UserId { get; set; }
         public Guid CompanyId { get; set; }
+
+        public RequestCardModel()
+        {
+            SocialMedias = new List<CardSocialMedia>();
+            Skills = new List<string>();
+        }
     }
 }

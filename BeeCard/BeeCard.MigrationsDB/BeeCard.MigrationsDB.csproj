@@ -105,6 +105,8 @@
     <Content Include="migrations\20170322010108-beecard-favorite.js" />
     <Content Include="migrations\20170404022046-beecard-card-fields.js" />
     <Content Include="migrations\20171123005303-beecard-personal-card.js" />
+    <Content Include="migrations\20180128011758-card-new-columns.js" />
+    <Content Include="migrations\20180128013603-personalCardSkill-fk.js" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\BeeCard.Domain\BeeCard.Domain.csproj">

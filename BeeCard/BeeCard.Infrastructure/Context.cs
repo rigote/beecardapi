@@ -25,6 +25,8 @@ namespace BeeCard.Infrastructure
         public DbSet<Plan> Plans { get; set; }
         public DbSet<SubscriptionHistory> SubscritpionHistory { get; set; }
         public DbSet<UserGroup> UserGroups { get; set; }
+        public DbSet<Skill> Skills { get; set; }
+        public DbSet<PersonalCardSkill> PersonalCardSkills { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
@@ -47,6 +49,8 @@ namespace BeeCard.Infrastructure
             modelBuilder.Configurations.Add(new UserRoleConfig());
             modelBuilder.Configurations.Add(new UserClaimConfig());
             modelBuilder.Configurations.Add(new UserLoginConfig());
+            modelBuilder.Configurations.Add(new SkillConfig());
+            modelBuilder.Configurations.Add(new PersonalCardSkillConfig());
         }
     }
 }

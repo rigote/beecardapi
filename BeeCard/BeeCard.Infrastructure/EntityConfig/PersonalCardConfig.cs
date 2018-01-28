@@ -18,6 +18,8 @@ namespace BeeCard.Infrastructure.EntityConfig
             Property(p => p.Photo).HasMaxLength(50);
             Property(p => p.SocialNetwork).HasMaxLength(1000);
             Property(p => p.Website).HasMaxLength(200);
+            Property(p => p.State).HasMaxLength(30).IsOptional();
+            Property(p => p.Bio).HasMaxLength(500).IsOptional();
 
             HasRequired(p => p.User)
                 .WithMany(p => p.PersonalCards)

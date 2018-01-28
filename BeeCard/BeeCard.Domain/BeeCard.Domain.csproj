@@ -59,12 +59,14 @@
   <ItemGroup>
     <Compile Include="Entities\BaseCardEntity.cs" />
     <Compile Include="Entities\BaseEntity.cs" />
+    <Compile Include="Entities\PersonalCardSkill.cs" />
     <Compile Include="Entities\Company.cs" />
     <Compile Include="Entities\CompanyGroup.cs" />
     <Compile Include="Entities\CompanyType.cs" />
     <Compile Include="Entities\CorporateCard.cs" />
     <Compile Include="Entities\Country.cs" />
     <Compile Include="Entities\Role.cs" />
+    <Compile Include="Entities\Skill.cs" />
     <Compile Include="Entities\UserClaim.cs" />
     <Compile Include="Entities\BaseUserGroupCard.cs" />
     <Compile Include="Entities\UserGroupCorporateCard.cs" />
@@ -91,6 +93,7 @@
     <Compile Include="Interfaces\Repositories\ILeadRepository.cs" />
     <Compile Include="Interfaces\Repositories\IPersonalCardRepository.cs" />
     <Compile Include="Interfaces\Repositories\IPlanRepository.cs" />
+    <Compile Include="Interfaces\Repositories\ISkillRepository.cs" />
     <Compile Include="Interfaces\Repositories\ISubscriptionHistoryRepository.cs" />
     <Compile Include="Interfaces\Repositories\IUserGroupRepository.cs" />
     <Compile Include="Interfaces\Repositories\IUserRepository.cs" />
@@ -104,6 +107,7 @@
     <Compile Include="Interfaces\Services\ILeadService.cs" />
     <Compile Include="Interfaces\Services\IPersonalCardService.cs" />
     <Compile Include="Interfaces\Services\IPlanService.cs" />
+    <Compile Include="Interfaces\Services\ISkillService.cs" />
     <Compile Include="Interfaces\Services\ISubscriptionHistoryService.cs" />
     <Compile Include="Interfaces\Services\IUserGroupService.cs" />
     <Compile Include="Interfaces\Services\IUserService.cs" />
@@ -118,6 +122,7 @@
     <Compile Include="Services\LeadService.cs" />
     <Compile Include="Services\PersonalCardService.cs" />
     <Compile Include="Services\PlanService.cs" />
+    <Compile Include="Services\SkillService.cs" />
     <Compile Include="Services\SubscriptionHistoryService.cs" />
     <Compile Include="Services\UserGroupService.cs" />
     <Compile Include="Services\UserService.cs" />

@@ -6,7 +6,7 @@ using System.Linq.Expressions;
 
 namespace BeeCard.Domain.Services
 {
-    public class BaseService<T> : IBaseService<T>, IDisposable where T : class
+    public class BaseService<T> : IBaseService<T>, IDisposable where T : class, new()
     {
         private readonly IBaseRepository<T> _repository;
 

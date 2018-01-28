@@ -79,8 +79,10 @@
     <Compile Include="EntityConfig\CountryConfig.cs" />
     <Compile Include="EntityConfig\LeadConfig.cs" />
     <Compile Include="EntityConfig\PersonalCardConfig.cs" />
+    <Compile Include="EntityConfig\PersonalCardSkillConfig.cs" />
     <Compile Include="EntityConfig\PlanConfig.cs" />
     <Compile Include="EntityConfig\RoleConfig.cs" />
+    <Compile Include="EntityConfig\SkillConfig.cs" />
     <Compile Include="EntityConfig\SubscriptionHistoryConfig.cs" />
     <Compile Include="EntityConfig\UserClaimConfig.cs" />
     <Compile Include="EntityConfig\UserConfig.cs" />
@@ -101,6 +103,7 @@
     <Compile Include="Repositories\LeadRepository.cs" />
     <Compile Include="Repositories\PersonalCardRepository.cs" />
     <Compile Include="Repositories\PlanRepository.cs" />
+    <Compile Include="Repositories\SkillRepository.cs" />
     <Compile Include="Repositories\SubscriptionHistoryRepository.cs" />
     <Compile Include="Repositories\UserGroupRepository.cs" />
     <Compile Include="Repositories\UserRepository.cs" />

@@ -8,7 +8,7 @@ using System.Data;
 
 namespace BeeCard.Infrastructure.Repositories
 {
-    public class BaseRepository<T> : IBaseRepository<T>, IDisposable where T : class
+    public class BaseRepository<T> : IBaseRepository<T>, IDisposable where T : class, new()
     {
         private readonly Context _context;
 
@@ -21,7 +21,27 @@ namespace BeeCard.Infrastructure.Repositories
         {
             _context.Set<T>().Add(entity);
             _context.SaveChanges();
-        }        
+        } 
+        
+        public virtual T Get(Expression<Func<T, bool>> predicate = null, params Expression<Func<T, object>>[] includeExpressions)
+        {
+            T result = new T();
+            
+            IQueryable<T> query = _context.Set<T>();
+
+            foreach (var includeExpression in includeExpressions)
+                query = query.Include(includeExpression);
+
+            if (predicate != null)
+                query = query.Where(predicate);
+            
+            using (_context.Database.BeginTransaction(IsolationLevel.ReadUncommitted))
+            {
+                result = query.FirstOrDefault();
+            }
+
+            return result;
+        }
 
         public virtual Tuple<long, List<T>> Find(int? page, int? size, Expression<Func<T, Guid>> keySelector = null, Expression<Func<T, bool>> predicate = null, params Expression<Func<T, object>>[] includeExpressions)
         {

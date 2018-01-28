@@ -10,12 +10,15 @@ namespace BeeCard.Application.Services
 {
     public class CardAppService : ICardAppService
     {
+        private readonly ISkillAppService _skillService;
         private readonly IPersonalCardService _personalCardService;
         private readonly ICorporateCardService _corporateCardService;
 
-        public CardAppService(IPersonalCardService personalCardService,
+        public CardAppService(ISkillAppService skillService,
+                              IPersonalCardService personalCardService,
                               ICorporateCardService corporateCardService)
         {
+            _skillService = skillService;
             _personalCardService = personalCardService;
             _corporateCardService = corporateCardService;
         }
@@ -27,7 +30,7 @@ namespace BeeCard.Application.Services
 
         public PersonalCard GetPersonalCardById(Guid userId, Guid cardId)
         {
-            return _personalCardService.Find(null, null, null, c => c.UserID == userId && c.ID == cardId && c.Status != EntityStatus.Deleted).Item2.FirstOrDefault();
+            return _personalCardService.Find(null, null, null, c => c.UserID == userId && c.ID == cardId && c.Status != EntityStatus.Deleted, c => c.Skills.Select(s => s.Skill)).Item2.FirstOrDefault();
         }
 
         public Tuple<long, List<PersonalCard>> GetPersonalCards(Guid userId, int? page, int? size)
@@ -40,11 +43,23 @@ namespace BeeCard.Application.Services
             return _corporateCardService.Find(page, size, o =>o.ID, c => c.CompanyID == companyId && c.Status != EntityStatus.Deleted, i => i.Company, i => i.User);
         }
 
-        public void CreatePersonalCard(Guid userId, string avatarImage, string fullName, string address, string phone, string cellphone, string email, string website, string socialMedias)
+        public void CreatePersonalCard(Guid userId, string avatarImage, string fullName, string address, string address2, string number, string city, string postalCode, string neighborhood, string state, string phone, string cellphone, string email, string website, string socialMedias, string bio, List<string> skills)
         {
+            List<Skill> _skills = new List<Skill>();
+
+            foreach (var skill in skills)
+                _skills.Add(_skillService.Save(skill));            
+
             var card = new PersonalCard();
 
             card.Address = address;
+            card.Address2 = address2;
+            card.Bio = bio;
+            card.City = city;
+            card.Neighborhood = neighborhood;
+            card.Number = number;
+            card.PostalCode = postalCode;            
+            card.State = state;            
             card.Cellphone = cellphone;
             card.Email = email;
             card.Name = fullName;
@@ -53,17 +68,31 @@ namespace BeeCard.Application.Services
             card.UserID = userId;
             card.Website = website;
             card.Status = EntityStatus.Active;
+            card.Skills = _skills.Select(s => new PersonalCardSkill { PersonalCardID = card.ID, SkillID = s.ID }).ToList();
 
             _personalCardService.Add(card);
         }
 
-        public void UpdatePersonalCard(Guid userId, Guid cardId, string avatarImage, string fullName, string address, string phone, string cellphone, string email, string website, string socialMedias, bool status)
+        public void UpdatePersonalCard(Guid userId, Guid cardId, string avatarImage, string fullName, string address, string address2, string number, string city, string postalCode, string neighborhood, string state, string phone, string cellphone, string email, string website, string socialMedias, string bio, List<string> skills, bool status)
         {
+            List<Skill> _skills = new List<Skill>();
+
+            foreach (var skill in skills)
+                _skills.Add(_skillService.Save(skill));
+
             var card = GetPersonalCardById(userId, cardId);
 
             if (card != null)
             {
                 card.Address = address;
+                card.Address2 = address2;
+                card.Bio = bio;
+                card.City = city;
+                card.Neighborhood = neighborhood;
+                card.Number = number;
+                card.PostalCode = postalCode;
+                card.State = state;
+                card.Skills = _skills.Select(s => new PersonalCardSkill { PersonalCardID = card.ID, SkillID = s.ID }).ToList();
                 card.Cellphone = cellphone;
                 card.Email = email;
                 card.Name = fullName;

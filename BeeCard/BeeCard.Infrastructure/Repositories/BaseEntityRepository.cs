@@ -5,7 +5,7 @@ using System.Data.Entity;
 
 namespace BeeCard.Infrastructure.Repositories
 {
-    public class BaseEntityRepository<T> : BaseRepository<T> where T : BaseEntity
+    public class BaseEntityRepository<T> : BaseRepository<T> where T : BaseEntity, new()
     {
         private readonly Context _context;
 

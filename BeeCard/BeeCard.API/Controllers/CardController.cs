@@ -13,7 +13,7 @@ namespace BeeCard.API.Controllers
 {
     public class CardController : BaseController
     {
-        private readonly ICardAppService _cardService;
+        private readonly ICardAppService _cardService;        
 
         public CardController(ICardAppService cardService)
         {
@@ -61,7 +61,8 @@ namespace BeeCard.API.Controllers
         {
             try
             {
-                _cardService.CreatePersonalCard(userId, model.AvatarImage, model.FullName, model.Address, model.Phone, model.Cellphone, model.Email, model.Website, JsonConvert.SerializeObject(model.SocialMedias));
+                _cardService.CreatePersonalCard(userId, model.AvatarImage, model.FullName, model.Address, model.Address2, model.Number, model.City, model.PostalCode, model.Neighborhood, 
+                                                        model.State, model.Phone, model.Cellphone, model.Email, model.Website, JsonConvert.SerializeObject(model.SocialMedias), model.Bio, model.Skills);
 
                 return Request.CreateResponse(HttpStatusCode.Created);
             }
@@ -84,7 +85,8 @@ namespace BeeCard.API.Controllers
         {
             try
             {
-                _cardService.UpdatePersonalCard(userId, cardId, model.AvatarImage, model.FullName, model.Address, model.Phone, model.Cellphone, model.Email, model.Website, JsonConvert.SerializeObject(model.SocialMedias), model.Status);
+                _cardService.UpdatePersonalCard(userId, cardId, model.AvatarImage, model.FullName, model.Address, model.Address2, model.Number, model.City, model.PostalCode, model.Neighborhood, 
+                                                        model.State, model.Phone, model.Cellphone, model.Email, model.Website, JsonConvert.SerializeObject(model.SocialMedias), model.Bio, model.Skills, model.Status);
 
                 return Request.CreateResponse(HttpStatusCode.NoContent);
             }
