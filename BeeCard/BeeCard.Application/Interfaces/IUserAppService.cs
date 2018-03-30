@@ -10,8 +10,8 @@ namespace BeeCard.Application.Interfaces
         User GetUser(Guid id);
         User GetUserByEmail(string email);
         Tuple<long, List<User>> GetAll(int? page, int? size);
-        void RegisterUser(string email, string firstname, string lastname, string password, DateTime birthdate, string phoneNumber, string avatarFileName, byte[] avatarContent);
-        void UpdateUser(Guid userId, string email, string firstname, string lastname, DateTime birthdate, string phoneNumber, string avatarFileName, byte[] avatarContent, bool status);
+        void RegisterUser(string email, string firstname, string lastname, string password, DateTime birthdate, string phoneNumber, string avatarBase64);
+        void UpdateUser(Guid userId, string email, string firstname, string lastname, DateTime birthdate, string phoneNumber, string avatarBase64, bool status);
         void RemoveUser(Guid userId);
         Task<User> FindUser(string userName, string password);
         void ChangePassword(Guid userId, string currentPassword, string newPassword);

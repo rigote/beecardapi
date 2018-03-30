@@ -61,8 +61,8 @@ namespace BeeCard.API.Controllers
         {
             try
             {
-                _cardService.CreatePersonalCard(userId, model.AvatarImage, model.FullName, model.Address, model.Address2, model.Number, model.City, model.PostalCode, model.Neighborhood, 
-                                                        model.State, model.Phone, model.Cellphone, model.Email, model.Website, JsonConvert.SerializeObject(model.SocialMedias), model.Bio, model.Skills);
+                _cardService.CreatePersonalCard(userId, model.FullName, model.Address, model.Address2, model.Number, model.City, model.PostalCode, model.Neighborhood, 
+                                                        model.State, model.Phone, model.Cellphone, model.Email, model.Website, JsonConvert.SerializeObject(model.SocialMedias), model.Bio, model.Skills, model.AvatarBase64);
 
                 return Request.CreateResponse(HttpStatusCode.Created);
             }
@@ -85,8 +85,8 @@ namespace BeeCard.API.Controllers
         {
             try
             {
-                _cardService.UpdatePersonalCard(userId, cardId, model.AvatarImage, model.FullName, model.Address, model.Address2, model.Number, model.City, model.PostalCode, model.Neighborhood, 
-                                                        model.State, model.Phone, model.Cellphone, model.Email, model.Website, JsonConvert.SerializeObject(model.SocialMedias), model.Bio, model.Skills, model.Status);
+                _cardService.UpdatePersonalCard(userId, cardId, model.FullName, model.Address, model.Address2, model.Number, model.City, model.PostalCode, model.Neighborhood, 
+                                                        model.State, model.Phone, model.Cellphone, model.Email, model.Website, JsonConvert.SerializeObject(model.SocialMedias), model.Bio, model.Skills, model.AvatarBase64, model.Status);
 
                 return Request.CreateResponse(HttpStatusCode.NoContent);
             }

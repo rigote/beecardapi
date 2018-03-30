@@ -17,7 +17,7 @@ namespace BeeCard.Infrastructure.EntityConfig
             Property(p => p.Email).HasMaxLength(100).IsRequired();
             Property(p => p.Firstname).HasMaxLength(100).IsRequired();
             Property(p => p.Lastname).HasMaxLength(150).IsRequired();
-            Property(p => p.Photo).HasMaxLength(50);
+            Property(p => p.Photo);
             Property(p => p.AccessFailedCount);
             Property(p => p.Email);
             Property(p => p.EmailConfirmed);

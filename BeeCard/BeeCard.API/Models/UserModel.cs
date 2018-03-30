@@ -10,9 +10,8 @@ namespace BeeCard.API.Models
         public string Firstname { get; set; }
         public string Lastname { get; set; }
         public DateTime Birthdate { get; set; }
-        public string PhoneNumber { get; set; }
-        public string AvatarFileName { get; set; }
-        public byte[] AvatarContent { get; set; }
+        public string PhoneNumber { get; set; }        
+        public string AvatarBase64 { get; set; }
         public bool Status { get; set; }
     }
 
@@ -42,6 +41,7 @@ namespace BeeCard.API.Models
             Birthdate = user.Birthdate;
             PhoneNumber = user.PhoneNumber;
             Status = user.Status == EntityStatus.Active ? true : false;
+            AvatarBase64 = user.Photo;
         }
     }
 

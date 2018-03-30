@@ -15,7 +15,7 @@ namespace BeeCard.Infrastructure.EntityConfig
             Property(p => p.PostalCode).HasMaxLength(20).IsOptional();
             Property(p => p.Neighborhood).HasMaxLength(100).IsOptional();
             Property(p => p.Occupation).HasMaxLength(150).IsOptional();
-            Property(p => p.Photo).HasMaxLength(50);
+            Property(p => p.Photo);
             Property(p => p.SocialNetwork).HasMaxLength(1000);
             Property(p => p.Website).HasMaxLength(200);
             Property(p => p.State).HasMaxLength(30).IsOptional();

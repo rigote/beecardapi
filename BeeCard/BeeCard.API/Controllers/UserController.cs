@@ -90,7 +90,7 @@ namespace BeeCard.API.Controllers
         {
             try
             {
-                _userService.RegisterUser(model.Email, model.Firstname, model.Lastname, model.Password, model.Birthdate, model.PhoneNumber, model.AvatarFileName, model.AvatarContent);
+                _userService.RegisterUser(model.Email, model.Firstname, model.Lastname, model.Password, model.Birthdate, model.PhoneNumber, model.AvatarBase64);
 
                 return Request.CreateResponse(HttpStatusCode.Created);
             }
@@ -113,7 +113,7 @@ namespace BeeCard.API.Controllers
         {
             try
             {
-                _userService.UpdateUser(userId, model.Email, model.Firstname, model.Lastname, model.Birthdate, model.PhoneNumber, model.AvatarFileName, model.AvatarContent, model.Status);
+                _userService.UpdateUser(userId, model.Email, model.Firstname, model.Lastname, model.Birthdate, model.PhoneNumber, model.AvatarBase64, model.Status);
 
                 return Request.CreateResponse(HttpStatusCode.NoContent);
             }

@@ -43,7 +43,7 @@ namespace BeeCard.Application.Services
             return _corporateCardService.Find(page, size, o =>o.ID, c => c.CompanyID == companyId && c.Status != EntityStatus.Deleted, i => i.Company, i => i.User);
         }
 
-        public void CreatePersonalCard(Guid userId, string avatarImage, string fullName, string address, string address2, string number, string city, string postalCode, string neighborhood, string state, string phone, string cellphone, string email, string website, string socialMedias, string bio, List<string> skills)
+        public void CreatePersonalCard(Guid userId, string fullName, string address, string address2, string number, string city, string postalCode, string neighborhood, string state, string phone, string cellphone, string email, string website, string socialMedias, string bio, List<string> skills, string avatarBase64)
         {
             List<Skill> _skills = new List<Skill>();
 
@@ -68,12 +68,13 @@ namespace BeeCard.Application.Services
             card.UserID = userId;
             card.Website = website;
             card.Status = EntityStatus.Active;
+            card.Photo = avatarBase64;
             card.Skills = _skills.Select(s => new PersonalCardSkill { PersonalCardID = card.ID, SkillID = s.ID }).ToList();
 
             _personalCardService.Add(card);
         }
 
-        public void UpdatePersonalCard(Guid userId, Guid cardId, string avatarImage, string fullName, string address, string address2, string number, string city, string postalCode, string neighborhood, string state, string phone, string cellphone, string email, string website, string socialMedias, string bio, List<string> skills, bool status)
+        public void UpdatePersonalCard(Guid userId, Guid cardId, string fullName, string address, string address2, string number, string city, string postalCode, string neighborhood, string state, string phone, string cellphone, string email, string website, string socialMedias, string bio, List<string> skills, string avatarBase64, bool status)
         {
             List<Skill> _skills = new List<Skill>();
 
@@ -101,6 +102,7 @@ namespace BeeCard.Application.Services
                 card.UserID = userId;
                 card.Website = website;
                 card.Status = status ? EntityStatus.Active : EntityStatus.Inactive;
+                card.Photo = avatarBase64;
 
                 _personalCardService.Update(card);
             }                

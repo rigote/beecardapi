@@ -9,7 +9,7 @@ namespace BeeCard.API.Models
 {
     public class BaseCardModel
     {
-        public string AvatarImage { get; set; }
+        public string AvatarBase64 { get; set; }
         public string FullName { get; set; }                
         public string Phone { get; set; }
         public string Cellphone { get; set; }
@@ -25,7 +25,7 @@ namespace BeeCard.API.Models
         public string Bio { get; set; }
         public List<CardSocialMedia> SocialMedias { get; set; }
         public List<string> Skills { get; set; }
-        public bool Status { get; set; }
+        public bool Status { get; set; }        
     }
 
     public class ResponseCardModel : BaseCardModel
@@ -69,12 +69,7 @@ namespace BeeCard.API.Models
             Occupation = card.Occupation;
             Status = card.Status == EntityStatus.Active ? true : false;
             UserId = card.UserID;
-
-            if (card.User != null)
-            {
-                AvatarImage = card.User.Photo;     
-            }
-
+            AvatarBase64 = card.Photo;
         }
 
         public ResponseCardModel(CorporateCard card)
@@ -93,7 +88,7 @@ namespace BeeCard.API.Models
 
             if (card.User != null)
             {
-                AvatarImage = card.User.Photo;
+                AvatarBase64 = card.User.Photo;
             }
 
             if (card.Company != null)

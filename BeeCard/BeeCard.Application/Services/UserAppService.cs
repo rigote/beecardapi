@@ -23,10 +23,8 @@ namespace BeeCard.Application.Services
             _userGroupService = userGroupService;
         }
 
-        public void RegisterUser(string email, string firstname, string lastname, string password, DateTime birthdate, string phoneNumber, string avatarFileName, byte[] avatarContent)
+        public void RegisterUser(string email, string firstname, string lastname, string password, DateTime birthdate, string phoneNumber, string avatarBase64)
         {
-            //TODO: Save and Upload image
-
             var dataExists = _service.CheckEmailPhone(email, phoneNumber);
 
             if (dataExists["email"])
@@ -48,6 +46,7 @@ namespace BeeCard.Application.Services
             user.Birthdate = birthdate;
             user.PhoneNumber = phoneNumber;           
             user.Status = EntityStatus.Active;
+            user.Photo = avatarBase64;
 
             _service.Add(user);
         }
@@ -84,10 +83,8 @@ namespace BeeCard.Application.Services
             }
         }
 
-        public void UpdateUser(Guid userId, string email, string firstname, string lastname, DateTime birthdate, string phoneNumber, string avatarFileName, byte[] avatarContent, bool status)
+        public void UpdateUser(Guid userId, string email, string firstname, string lastname, DateTime birthdate, string phoneNumber, string avatarBase64, bool status)
         {
-            //TODO: Save and Upload image
-
             var user = GetUser(userId);
 
             if (user != null)
@@ -97,6 +94,7 @@ namespace BeeCard.Application.Services
                 user.Birthdate = birthdate;
                 user.PhoneNumber = phoneNumber;
                 user.Status = status ? EntityStatus.Active : EntityStatus.Inactive;
+                user.Photo = avatarBase64;
 
                 _service.Update(user);
             }
