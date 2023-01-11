@@ -9,7 +9,7 @@
   "author": "Ricardo Ghion Fermino",
   "license": "ISC",
   "dependencies": {
-    "db-migrate": "^0.10.0-beta.20",
+    "db-migrate": "^0.10.7",
     "db-migrate-pg": "^0.1.11",
     "pg": "^6.1.2"
   }
